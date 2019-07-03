@@ -4,7 +4,7 @@
   "description": "reservation module for mock up Open Table page",
   "main": "./server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node_modules/jest/bin/jest.js --watch",
     "start": "nodemon -w ./server/index.js",
     "build": "webpack -d --watch"
   },
@@ -23,6 +23,7 @@
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
+    "jest": "^24.8.0",
     "path": "^0.12.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -31,3 +32,5 @@
   },
   "dependencies": {}
 }
+
+
