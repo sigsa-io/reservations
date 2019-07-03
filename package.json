@@ -1,0 +1,25 @@
+{
+  "name": "reservations",
+  "version": "1.0.0",
+  "description": "reservation module for mock up Open Table page",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sigsa-io/reservations.git"
+  },
+  "author": "Jennie Zeng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sigsa-io/reservations/issues"
+  },
+  "homepage": "https://github.com/sigsa-io/reservations#readme",
+  "devDependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
+  }
+}
