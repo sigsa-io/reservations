@@ -1,0 +1,39 @@
+{
+  "name": "reservations",
+  "version": "1.0.0",
+  "description": "reservation module for mock up Open Table page",
+  "main": "./server/index.js",
+  "scripts": {
+    "test": "node_modules/jest/bin/jest.js --watch",
+    "start": "nodemon -w ./server/index.js",
+    "build": "webpack -d --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sigsa-io/reservations.git"
+  },
+  "author": "Jennie Zeng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sigsa-io/reservations/issues"
+  },
+  "homepage": "https://github.com/sigsa-io/reservations#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "jest": "^24.8.0",
+    "morgan": "^1.9.1",
+    "path": "^0.12.7",
+    "puppeteer": "^1.18.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "express": "^4.17.1"
+  }
+}
