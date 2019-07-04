@@ -24,13 +24,16 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
     "jest": "^24.8.0",
+    "morgan": "^1.9.1",
     "path": "^0.12.7",
+    "puppeteer": "^1.18.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "axios": "^0.19.0",
+    "express": "^4.17.1"
+  }
 }
-
-
