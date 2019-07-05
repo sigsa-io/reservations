@@ -5,20 +5,24 @@ const PartySize = () => {
         let sizeEntry = [];
 
         for (let i = 0; i < 20; i ++) {
-            sizeEntry.push(<option key={`size-${i}`} name={`size-${i}`} >{i}</option>);
+            sizeEntry.push(
+                <option 
+                    key={`size-${i}`} 
+                    name={`size-${i}`} 
+                >
+                    {i}
+                </option>
+            );
         }
-
         return sizeEntry;
-    }
+    };
 
 
     return (
         <select className="party-size-seleciton">
-            {
-                generatePartySize()
-            }
+            { generatePartySize() }
         </select>
-    )
-}
+    );
+};
 
 export default PartySize;
