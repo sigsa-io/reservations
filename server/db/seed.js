@@ -2,7 +2,7 @@ const Reservations = require('./index.js');
 const _restaurant_name_id = require('./restaurantData.js');
 const moment = require('moment');
 
-// only available for the next 30 days reservation
+// only available for the next 90 days reservation
 const createSeed = (days, data = []) => {
     let dateCount = days;
     let today = moment();
