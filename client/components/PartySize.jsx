@@ -5,7 +5,7 @@ const PartySize = () => {
         let sizeEntry = [];
 
         for (let i = 0; i < 20; i ++) {
-            sizeEntry.push(<option>{i}</option>);
+            sizeEntry.push(<option key={`size-${i}`} name={`size-${i}`} >{i}</option>);
         }
 
         return sizeEntry;
@@ -13,13 +13,11 @@ const PartySize = () => {
 
 
     return (
-        <div>
-            <select>
-                {
-                    generatePartySize()
-                }
-            </select>
-        </div>
+        <select className="party-size-seleciton">
+            {
+                generatePartySize()
+            }
+        </select>
     )
 }
 
