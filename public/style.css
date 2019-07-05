@@ -1,4 +1,4 @@
-div, form, h3, h4, select {
+div, form, h3, h4, select, button {
   margin: 0;
   padding: 0;
 }
@@ -58,7 +58,7 @@ div, form, h3, h4, select {
   padding-bottom: .25rem;
 }
 
-.party-size-seleciton-wrapper {
+.reservation-seleciton-wrapper {
   cursor: pointer;
   border-right: none;
   position: relative;
@@ -70,7 +70,7 @@ div, form, h3, h4, select {
   outline: none;
 }
 
-.party-size-selection-text {
+.reservation-selection-text {
   pointer-events: none;
   position: absolute;
   background-color: #fff;
@@ -97,7 +97,7 @@ div, form, h3, h4, select {
   pointer-events: none;
 }
 
-.party-size-seleciton {
+.reservation-seleciton {
   cursor: pointer;
   font-family: inherit;
   background-color: #fff;
@@ -117,11 +117,77 @@ div, form, h3, h4, select {
 .reservation-detail-date-time-wrapper {
   margin-top: .5rem;
   margin-left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: .5rem;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 100%;
+  flex: 1 100%;
 }
 
-.reservation-detail-date-wrapper {
+.reservation-detail-date-wrapper, .reservation-detail-time-wrapper {
   -webkit-box-flex: 1;
   -ms-flex: 1 50%;
   flex: 1 50%;
   margin-left: .5rem;
+}
+
+.find-a-table-wrapper {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 1rem auto 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.find-a-table-button {
+  cursor: pointer;
+  padding: .75rem 1rem;
+  text-decoration: none;
+  background-color: #da3743;
+  color: #fff;
+  border: none;
+  font-size: 1rem;
+  line-height: 1.5;
+  width: 18rem;
+  font-weight: 500;
+  border-radius: 2px;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.find-a-table-button:hover,
+.find-a-table-button:focus {
+  background-color: #e15b64;
+}
+
+.book-times-wrapper {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-overflow: ellipsis;
+  text-decoration: inherit;
+}
+
+.book-times-icon,
+.act-fast-icon {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 24px;
+  width: 24px;
+  background-color: #fff;
+}
+
+.restaurant-booking-stat-text {
+  align-self: center;
+  margin: 0 0 0 .25rem;
 }
