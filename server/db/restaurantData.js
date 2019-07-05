@@ -401,4 +401,4 @@ const _restaurant_name_id = [
     }
 ];
 
-module.exports._restaurant_name_id = _restaurant_name_id;
+module.exports = _restaurant_name_id;
