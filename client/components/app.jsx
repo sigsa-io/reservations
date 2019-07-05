@@ -10,15 +10,24 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <h3 className="reservation-title">Make a reservation</h3>
-                <div>
-                    <h4 className="reservation-party-size-title">Party Size</h4>
-                    <PartySize />
+            <div className="reservation-frame">
+                <div className="reservation-title-wrapper">
+                    <h3 className="reservation-title">
+                        <span>Make a reservation</span>
+                    </h3>
                 </div>
-                <div>
-                    <h4 className="reservation-time-title">Time</h4>
-                    <Time />
+                <div className="reservation-detail-wrapper">
+                    {/* will need to insert the scrolling shrink tag here */}
+                    <div className="reservation-detail-selection">
+                        <div>
+                            <h4 className="reservation-detail-title">Party Size</h4>
+                            <PartySize />
+                        </div>
+                        <div>
+                            <h4 className="reservation-detail-title">Time</h4>
+                            <Time />
+                        </div>
+                    </div>
                 </div>
             </div>
         )
