@@ -1,4 +1,4 @@
-const Reservations_table = require('./index.js');
+const Reservations = require('./index.js');
 const _restaurant_name_id = require('./restaurantData.js');
 const moment = require('moment');
 
@@ -51,9 +51,9 @@ const createSeed = (days, data = []) => {
 const insertToReservationTable = () => {
     const seed = createSeed(90);
 
-    Reservations_table.bulkCreate(seed)
+    Reservations.Reservations_table.bulkCreate(seed)
     .then(() => console.log('data created'))
     .catch(err => console.log(err));
 };
 
-module.exports.insertToReservationTable = insertToReservationTable;
+insertToReservationTable();

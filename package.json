@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node_modules/jest/bin/jest.js --watch",
     "start": "nodemon -w ./server/index.js",
-    "build": "webpack -d --watch"
+    "build": "webpack -d --watch",
+    "seed": "node ./server/db/seed.js"
   },
   "repository": {
     "type": "git",
