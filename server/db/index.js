@@ -15,8 +15,24 @@ const Reservations_table = sequelize.define('reservations_table', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    reservation_timestamp: {
-        type: 'TIMESTAMP',
+    reservation_year: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    reservation_date: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    reservation_month: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    reservation_hour: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    reservation_min: {
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     available_seats: {
@@ -25,7 +41,8 @@ const Reservations_table = sequelize.define('reservations_table', {
     },
     restaurant_total_booking_num: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 0
     }
   });
 
@@ -39,8 +56,24 @@ const Reservations_table = sequelize.define('reservations_table', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    reservation_timestamp: {
-        type: 'TIMESTAMP',
+    reservation_year: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    reservation_month: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    reservation_date: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    reservation_hour: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    reservation_min: {
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     party_size: {
