@@ -5,22 +5,24 @@ const Time = () => {
 
     const timeGenerator = () => {
         let timeEntry = [];
-        let hourCount = 47;
-        let time = moment.startOf('day');
+        let hourCount = 48;
+        let time = moment().startOf('day');
 
         while (hourCount > 0) {
             timeEntry.push(
                 <option 
-                    key={`${time.hour()-time.minute()}`} 
-                    name={`${time.hour()-time.minute()}`}
+                    key={`${time.format('HH')}-${time.format('mm')}`} 
+                    name={`${time.format('HH')}-${time.format('mm')}`}
                 >
                     {time.format('hh:mm A')}
                 </option>
             );
             
-            time.add(30, 'mintues');
+            time.add(30, 'minute');
             hourCount --;
         }
+
+        return timeEntry;
     };
 
     return (
