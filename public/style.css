@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+
 div, form, h3, h4, select, button {
   margin: 0;
   padding: 0;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .reservation-frame {
@@ -47,8 +50,6 @@ div, form, h3, h4, select, button {
 }
 
 .reservation-detail-selection {
-  /* need to change to correct font */
-  font-family: 'Courier New', Courier, monospace;
   margin-left: 0;
 }
 
@@ -130,7 +131,6 @@ div, form, h3, h4, select, button {
   -webkit-box-flex: 1;
   -ms-flex: 1 50%;
   flex: 1 50%;
-  margin-left: .5rem;
 }
 
 .find-a-table-wrapper {
@@ -167,7 +167,12 @@ div, form, h3, h4, select, button {
   background-color: #e15b64;
 }
 
-.book-times-wrapper {
+.book-stat {
+  text-align: center;
+  margin: 1rem 0 0;
+}
+
+.book-stat-wrapper {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
