@@ -1,5 +1,5 @@
 import React from 'react';
-import SVG from '../img/SelectionIcon.jsx';
+import SVG from '../img/SelectionIcon';
 
 class PartySize extends React.Component {
   constructor() {
@@ -14,23 +14,23 @@ class PartySize extends React.Component {
   }
 
   generatePartySize() {
-    let sizeEntry = [];
+    const sizeEntry = [];
 
     for (let i = 2; i < 21; i ++) {
       sizeEntry.push(
-        <option 
-          key={`size-${i}`} 
+        <option
+          key={`size-${i}`}
           value={i}
         >
           {i}
-        </option>
+        </option>,
       );
     }
     return sizeEntry;
   }
 
   selectionChange(e) {
-    this.setState({partySize: e.target.value});
+    this.setState({ partySize: e.target.value });
   }
 
   render() {
@@ -39,9 +39,11 @@ class PartySize extends React.Component {
 
     return (
       <div className="reservation-seleciton-wrapper">
-        <div className="reservation-selection-text">For {partySize}</div>
+        <div className="reservation-selection-text">
+          For {partySize}
+        </div>
         <SVG />
-        <select 
+        <select
           className="reservation-seleciton"
           onChange={selectionChange}
         >
@@ -50,6 +52,6 @@ class PartySize extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default PartySize;

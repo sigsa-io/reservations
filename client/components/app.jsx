@@ -1,15 +1,19 @@
 import React from 'react';
-import PartySize from './PartySize.jsx';
-import Time from './Time.jsx';
-import Date from './Date.jsx';
+import SizeDateTime from './SizeDateTime';
+import BookingStat from './BookingStat';
 
 class App extends React.Component {
   constructor() {
     super();
-      
+    this.state = {
+      bookedTimes: 0,
+      remainingTimeSlot: 4,
+    };
   }
 
   render() {
+    const { bookedTimes, remainingTimeSlot } = this.state;
+
     return (
       <div className="reservation-frame">
         <div className="reservation-title-wrapper">
@@ -17,29 +21,17 @@ class App extends React.Component {
             <span>Make a reservation</span>
           </h3>
         </div>
-        <div className="reservation-detail-wrapper">
-          {/* will need to insert the scrolling shrink tag here */}
-          <div className="reservation-detail-selection">
-            <div>
-              <h4 className="reservation-detail-title">Party Size</h4>
-              <PartySize />
-            </div>
-            <div className="reservation-detail-date-time-wrapper">
-              <div className="reservation-detail-date-wrapper">
-                <h4 className="reservation-detail-title">Date</h4>
-                <Date />
-              </div>
-              <div className="reservation-detail-time-wrapper">
-                <h4 className="reservation-detail-title">Time</h4>
-                <Time />
-              </div>
-            </div>
-          </div>
+        <SizeDateTime />
+        <div className="find-a-table-wrapper">
+          <button className="find-a-table-button" type="submit">Find a Table</button>
         </div>
+        <BookingStat
+          bookedTimes={bookedTimes}
+          remainingTimeSlot={remainingTimeSlot}
+        />
       </div>
-    )
+    );
   }
-  
-};
+}
 
 export default App;

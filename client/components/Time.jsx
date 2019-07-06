@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import SVG from '../img/SelectionIcon.jsx';
+import SVG from '../img/SelectionIcon';
 
 class Time extends React.Component {
   constructor() {
@@ -8,16 +8,16 @@ class Time extends React.Component {
 
     this.state = {
       selectedTime: '6:30 PM',
-    }
+    };
 
     this.selectionChange = this.selectionChange.bind(this);
     this.timeGenerator = this.timeGenerator.bind(this);
   }
 
   timeGenerator () {
-    let timeEntry = [];
+    const timeEntry = [];
     let hourCount = 48;
-    let time = moment().startOf('day');
+    const time = moment().startOf('day');
 
     while (hourCount > 0) {
       timeEntry.push(
@@ -27,18 +27,18 @@ class Time extends React.Component {
           value={time.format('h:mm A')}
         >
           {time.format('hh:mm A')}
-        </option>
+        </option>,
       );
-      
+
       time.add(30, 'minute');
       hourCount --;
     }
     return timeEntry;
-  };
+  }
 
   selectionChange(e) {
     this.setState({
-      selectedTime: e.target.value
+      selectedTime: e.target.value,
     });
   }
 
@@ -54,9 +54,8 @@ class Time extends React.Component {
           { timeGenerator() }
         </select>
       </div>
-    )
+    );
   }
-
-};
+}
 
 export default Time;
