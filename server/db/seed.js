@@ -4,13 +4,13 @@ const restaurantNameId = require('./restaurantData.js');
 
 // only available for the next 90 days reservation
 const createSeed = (days, data = []) => {
-  let dateCount = days;
-  const today = moment();
 
   for (let i = 0; i < restaurantNameId.length; i++) {
     const { restaurant_name, restaurant_id } = restaurantNameId[i];
 
     // generate date for the next 90 days
+    let dateCount = days;
+    const today = moment();
     while (dateCount >= 0) {
       let timeSlotCount = 6;
 
