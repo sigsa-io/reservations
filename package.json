@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node_modules/jest/bin/jest.js --watch",
     "start": "nodemon -w ./server/index.js",
-    "build": "webpack -d --watch"
+    "build": "webpack -d --watch",
+    "seed": "node ./server/db/seed.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,9 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "moment": "^2.24.0",
+    "mysql2": "^1.6.5",
+    "sequelize": "^5.9.2"
   }
 }
