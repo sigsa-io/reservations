@@ -8,7 +8,7 @@ const sequelize = new Sequelize('reservations', 'root', 'password', {
 const ReservationsTable = sequelize.define('reservations_table', {
   // attributes
   restaurant_id: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
   },
   restaurant_name: {
