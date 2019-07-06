@@ -7,7 +7,8 @@
     "test": "node_modules/jest/bin/jest.js --watch",
     "start": "nodemon -w ./server/index.js",
     "build": "webpack -d --watch",
-    "seed": "node ./server/db/seed.js"
+    "seed": "node ./server/db/seed.js",
+    "lint": "eslint --ext .js --ext .jsx ."
   },
   "repository": {
     "type": "git",
@@ -24,20 +25,26 @@
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.2",
     "jest": "^24.8.0",
-    "morgan": "^1.9.1",
     "path": "^0.12.7",
     "puppeteer": "^1.18.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5"
   },
   "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "morgan": "^1.9.1",
     "axios": "^0.19.0",
     "express": "^4.17.1",
     "moment": "^2.24.0",
     "mysql2": "^1.6.5",
+    "react-svg": "^10.0.10",
     "sequelize": "^5.9.2"
   }
 }
