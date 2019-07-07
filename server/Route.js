@@ -39,7 +39,7 @@ router.post('/:restaurant_id/:reservation_year/:reservation_month/:reservation_d
     }}
   )
     .tap(reservation => {
-      reservation.increment('available_seats', {by: party_size});
+      reservation.decrement('available_seats', {by: party_size});
     })
     .tap(reservation => {
       reservation.increment('restaurant_total_booking_num', {by: 1});
