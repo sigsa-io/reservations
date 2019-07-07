@@ -59,12 +59,28 @@ class ComponentDates extends React.Component {
         render.push(row);
       }
 
+      if (i === datesArr.length - 1 && row.length < 7) {
+        let missingCounter = i;
+        let missingDates = 6 - i % 7;
+        console.log(row.length);
+
+        while (missingDates > 0) {
+          row.push(
+          <div
+            key={`${month}-${missingCounter + 1}`}
+            className="date-cell"
+          />);
+          missingCounter ++;
+          missingDates --;
+        }
+      }
+
       i ++;
     }
 
     // render rows to <tr>
     return render.map((row, i) => (
-      <div 
+      <div
         key={`${month}-${i}`}
         className="calendar-row"
       >
