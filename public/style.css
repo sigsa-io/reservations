@@ -320,7 +320,14 @@ div, form, h3, h4, select, button {
   background-color: #fff;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  position: relative;
   font-weight: 500;
   background-clip: padding-box;
+}
+
+.date-cell:hover {
+  left: 0;
+  margin: -1px;
+  border: 2px solid #da3743;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
