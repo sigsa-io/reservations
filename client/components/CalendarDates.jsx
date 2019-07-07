@@ -12,50 +12,55 @@ class ComponentDates extends React.Component {
   renderDatesArr() {
     const { momentDate } = this.props;
     let daysInMonth = momentDate.daysInMonth();
-    let firstDate = momentDate.startOf('month').format('d'); // return the first week day of the month: 0 = sunday
+    let firstDay = momentDate.startOf('month').format('d'); // return the first week day of the month: 0 = sunday
     const datesArr = [];
 
     // create black dates in calendar
-    while (firstDate > 0) {
+    while (firstDay > 0) {
       datesArr.push('');
-      firstDate --;
+      firstDay -= 1;
     }
-
+    
     // create dates in calendar
     let i = 1;
     while (i <= daysInMonth) {
       datesArr.push(i);
-      i ++;
+      i += 1;
     }
-
+    
     return datesArr;
   }
-
+  
   renderDates() {
+    const { momentDate } = this.props;
     const datesArr = this.renderDatesArr();
-    const month = this.props.momentDate.month();
+    let firstDay = momentDate.startOf('month').format('d'); // return the first week day of the month: 0 = sunday
+    const month = momentDate.month();
     const render = [];
-
+    
     // create row element with <td>
-    let i = 0;
     let emptyCount = 0;
     let isEmptyCell = false;
     let keyIndex;
+    let i = 0;
     let row;
     while (i < datesArr.length) {
       if (i % 7 === 0) {
         row = [];
       }
-
+      
       if (datesArr[i] === '') {
         emptyCount += 1;
         keyIndex = 'empty' + emptyCount;
         isEmptyCell = true;
+        let priorMonthDate = momentDate.clone();
+        datesArr[i] = priorMonthDate.date(1 - firstDay).format('DD');
+        firstDay -= 1;
       } else {
         keyIndex = datesArr[i];
         isEmptyCell = false;
       }
-
+      console.log('to be render:', datesArr[i])
       row.push(
         <div
           key={`${month}-${keyIndex}`}
