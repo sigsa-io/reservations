@@ -12,6 +12,7 @@ class Calendar extends React.Component {
     }
 
     this.toNextMonth = this.toNextMonth.bind(this);
+    this.toPriorMonth = this.toPriorMonth.bind(this);
   }
 
   toNextMonth() {
@@ -23,17 +24,30 @@ class Calendar extends React.Component {
     });
   }
 
+  toPriorMonth() {
+    const { momentDate } = this.state;
+    const nextMomentDate = momentDate.subtract(1, 'month');
+
+    this.setState({
+      momentDate: nextMomentDate,
+    });
+  }
+
   render() {
     const { momentDate } = this.state;
+    const { toPriorMonth, toNextMonth } = this;
 
     return ( 
       <div className="calendar-container">
         <div className="calendar-inner-wrapper">
           <div className="calendar-button-wrapper">
-            <CalendarButton className='calendar-button calendar-left-button'/>
+            <CalendarButton 
+              className='calendar-button calendar-left-button'
+              toPriorMonth={toPriorMonth}
+            />
             <CalendarButton 
               className='calendar-button calendar-right-button'
-              toNextMonth={this.toNextMonth}
+              toNextMonth={toNextMonth}
             />
           </div>
           <div className="calendar-detail-wrapper">

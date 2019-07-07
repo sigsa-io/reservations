@@ -4,7 +4,7 @@ import React from 'react';
 const SVG = (props) => {
   const viewBox = '0 0 5.24 8.07';
   const fill = '#23333';
-  const { className, toNextMonth, toLastMonth } = props;
+  const { className, toNextMonth, toPriorMonth } = props;
 
   return (
     <svg
@@ -12,7 +12,7 @@ const SVG = (props) => {
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      onClick={toNextMonth ? toNextMonth : toLastMonth}
+      onClick={toNextMonth ? toNextMonth : toPriorMonth}
     >
       <path
         fill={fill}
