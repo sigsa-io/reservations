@@ -39,6 +39,7 @@ class ComponentDates extends React.Component {
     // create row element with <td>
     let i = 0;
     let emptyCount = 0;
+    let isEmptyCell = false;
     let keyIndex;
     let row;
     while (i < datesArr.length) {
@@ -49,14 +50,16 @@ class ComponentDates extends React.Component {
       if (datesArr[i] === '') {
         emptyCount += 1;
         keyIndex = 'empty' + emptyCount;
+        isEmptyCell = true;
       } else {
         keyIndex = datesArr[i];
+        isEmptyCell = false;
       }
 
       row.push(
         <div
           key={`${month}-${keyIndex}`}
-          className="date-cell"
+          className={isEmptyCell ? "date-cell empty-cell": "date-cell"}
         >
           {datesArr[i]}
         </div>)
@@ -75,7 +78,7 @@ class ComponentDates extends React.Component {
           row.push(
             <div
               key={`${month}-${keyIndex}`}
-              className="date-cell"
+              className="date-cell empty-cell"
             />
           );
           missingDates -= 1;
