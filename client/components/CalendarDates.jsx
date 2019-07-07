@@ -8,7 +8,7 @@ class ComponentDates extends React.Component {
       month: this.props.month,
       daysOfMonth: moment().daysInMonth(),
       firstDate: moment().startOf('month').format('d'), // return the first week day of the month: 0 = sunday
-    }
+    };
 
     this.renderDatesArr = this.renderDatesArr.bind(this);
     this.renderDates = this.renderDates.bind(this);
@@ -66,10 +66,11 @@ class ComponentDates extends React.Component {
 
         while (missingDates > 0) {
           row.push(
-          <div
-            key={`${month}-${missingCounter + 1}`}
-            className="date-cell"
-          />);
+            <div
+              key={`${month}-${missingCounter + 1}`}
+              className="date-cell"
+            />
+          );
           missingCounter ++;
           missingDates --;
         }
@@ -94,7 +95,7 @@ class ComponentDates extends React.Component {
       <div className="calendar-grid">
         {this.renderDates()}
       </div>
-    )
+    );
   }
 }
 

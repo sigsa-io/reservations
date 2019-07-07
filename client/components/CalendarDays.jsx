@@ -15,6 +15,6 @@ const CalendarDays = () => {
       {render}
     </div>
   );
-}
+};
 
 export default CalendarDays;
