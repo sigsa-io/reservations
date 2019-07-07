@@ -33,6 +33,7 @@ class ComponentDates extends React.Component {
   
   renderDates() {
     const { momentDate } = this.props;
+    const curDate = moment();
     const datesArr = this.renderDatesArr();
     let firstDay = momentDate.startOf('month').format('d'); // return the first week day of the month: 0 = sunday
     const month = momentDate.month();
@@ -58,9 +59,11 @@ class ComponentDates extends React.Component {
         firstDay -= 1;
       } else {
         keyIndex = datesArr[i];
-        isEmptyCell = false;
+
+        const renderDate = momentDate.clone().date(keyIndex);
+        isEmptyCell = renderDate.isBefore(curDate) ? true : false;
       }
-      console.log('to be render:', datesArr[i])
+
       row.push(
         <div
           key={`${month}-${keyIndex}`}
