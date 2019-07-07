@@ -1,15 +1,20 @@
 import React from 'react';
+import moment from 'moment';
 
-const CalendarDays = () => (
-  <tr>
-    <th>Sun</th>
-    <th>Mon</th>
-    <th>Tue</th>
-    <th>Wed</th>
-    <th>Thu</th>
-    <th>Fri</th>
-    <th>Sat</th>
-  </tr>
-)
+const CalendarDays = () => {
+  const weekdaysshort = moment.weekdaysShort();
+
+  const render = weekdaysshort.map(day => (
+    <th key={day} className="week-day">
+      {day}
+    </th>
+  ));
+
+  return (
+    <thead>
+      <tr>{render}</tr>
+    </thead>
+  );
+}
 
 export default CalendarDays;
