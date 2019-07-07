@@ -14,3 +14,4 @@ app.use('/', router);
 
 app.listen(app.get('port'));
 console.log('Now listening on port', app.get('port'));
+module.exports = app;
