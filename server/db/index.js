@@ -84,5 +84,6 @@ const ReservationsUser = sequelize.define('reservations_user', {
 
 ReservationsTable.sync();
 ReservationsUser.sync();
+module.exports = sequelize;
 module.exports.ReservationsTable = ReservationsTable;
 module.exports.ReservationsUser = ReservationsUser;
