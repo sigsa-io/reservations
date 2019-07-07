@@ -5,15 +5,15 @@ const CalendarDays = () => {
   const weekdaysshort = moment.weekdaysShort();
 
   const render = weekdaysshort.map(day => (
-    <th key={day} className="week-day">
+    <div key={day} className="week-day">
       {day}
-    </th>
+    </div>
   ));
 
   return (
-    <thead>
-      <tr>{render}</tr>
-    </thead>
+    <div className="calendar-days">
+      {render}
+    </div>
   );
 }
 
