@@ -47,7 +47,13 @@ class ComponentDates extends React.Component {
         row = [];
       }
 
-      row.push(<td key={`${month}-${datesArr[i]}`}>{datesArr[i]}</td>)
+      row.push(
+        <div
+          key={`${month}-${datesArr[i]}`}
+          className="date-cell"
+        >
+          {datesArr[i]}
+        </div>)
 
       if (i % 7 === 1) {
         render.push(row);
@@ -58,15 +64,20 @@ class ComponentDates extends React.Component {
 
     // render rows to <tr>
     return render.map((row, i) => (
-      <tr key={`${month}-${i}`}>{row}</tr>
+      <div 
+        key={`${month}-${i}`}
+        className="calendar-row"
+      >
+        {row}
+      </div>
     ));
   }
 
   render () {
     return (
-      <tbody>
+      <div className="calendar-grid">
         {this.renderDates()}
-      </tbody>
+      </div>
     )
   }
 }
