@@ -5,7 +5,7 @@
   "main": "./server/index.js",
   "scripts": {
     "test": "node_modules/jest/bin/jest.js --watch",
-    "start": "nodemon -w ./server/index.js",
+    "start": "nodemon ./server/index.js",
     "build": "webpack -d --watch",
     "seed": "node ./server/db/seed.js",
     "lint": "eslint --ext .js --ext .jsx ."
@@ -28,11 +28,13 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jest": "^22.7.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.2",
     "jest": "^24.8.0",
     "path": "^0.12.7",
     "puppeteer": "^1.18.1",
+    "supertest": "^4.0.2",
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5"
   },
