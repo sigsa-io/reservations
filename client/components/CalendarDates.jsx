@@ -20,91 +20,111 @@ class ComponentDates extends React.Component {
       datesArr.push('');
       firstDay -= 1;
     }
-    
+
     // create dates in calendar
     let i = 1;
     while (i <= daysInMonth) {
       datesArr.push(i);
       i += 1;
     }
-    
+
     return datesArr;
   }
-  
+
   renderDates() {
     const { momentDate } = this.props;
     const curDate = moment();
-    const datesArr = this.renderDatesArr();
+    let nextMonthDateCount = 1 + momentDate.daysInMonth();
     let firstDay = momentDate.startOf('month').format('d'); // return the first week day of the month: 0 = sunday
-    const month = momentDate.month();
+
+    const datesArr = this.renderDatesArr();
     const render = [];
-    
+
     // create row element with <td>
-    let emptyCount = 0;
-    let isEmptyCell = false;
+    let isOutOfCalendar = false;
     let isPastDate = false;
     let keyIndex;
+    let classname = 'date-cell';
     let i = 0;
-    let row;
+    let row = [];
     while (i < datesArr.length) {
-      if (i % 7 === 0) {
-        row = [];
-      }
-      
+
       if (datesArr[i] === '') {
-        emptyCount += 1;
-        keyIndex = 'empty' + emptyCount;
-        isEmptyCell = true;
-        let priorMonthDate = momentDate.clone();
-        datesArr[i] = priorMonthDate.date(1 - firstDay).format('DD');
+        isOutOfCalendar = true;
+        keyIndex = momentDate.clone().date(1 - firstDay);
         firstDay -= 1;
       } else {
-        keyIndex = datesArr[i];
+        keyIndex = momentDate.date(datesArr[i]);
+        isOutOfCalendar = false;
+      }
 
-        const renderDate = momentDate.clone().date(keyIndex);
-        isPastDate = renderDate.diff(curDate, 'days') >= 0 ? false : true;
-        isEmptyCell = false;
+      isPastDate = keyIndex.diff(curDate, 'days') >= 0 ? false : true;
+
+      if (isOutOfCalendar) {
+        classname += ' out-of-calendar';
+      }
+      if (isPastDate) {
+        classname += ' past-month-date';
       }
 
       row.push(
         <div
-          key={`${month}-${keyIndex}`}
-          className={isEmptyCell ? "date-cell empty-cell": isPastDate ? "date-cell past-cell" : "date-cell"}
+          key={`${keyIndex.format('M')}-${keyIndex.format('D')}`}
+          className={classname}
         >
-          {datesArr[i]}
+          {keyIndex.format('D')}
         </div>
       );
 
-      if (i % 7 === 1) {
-        render.push(row);
-      }
+      classname = 'date-cell';
 
-      // generate next month's date 
+      // generate next month's date
       if (i === datesArr.length - 1 && row.length < 7) {
-        let priorMonthDate = momentDate.clone();
-        let missingDates = 6 - i % 7;
-        
-        while (missingDates > 0) {
-          emptyCount += 1;
-          keyIndex = 'empty' + emptyCount;
+
+        while (row.length < 7) {
+          keyIndex = momentDate.clone().date(nextMonthDateCount);
 
           row.push(
             <div
-              key={`${month}-${keyIndex}`}
-              className="date-cell empty-cell"
-            />
+              key={`${keyIndex.format('M')}-${keyIndex.format('D')}`}
+              className="date-cell out-of-calendar"
+            >
+              {keyIndex.format('D')}
+            </div>
           );
-          missingDates -= 1;
+          nextMonthDateCount += 1;
         }
+        render.push(row);
+        row = [];
+      }
+
+      if (i % 7 === 6) {
+        render.push(row);
+        row = [];
       }
 
       i += 1;
     }
 
+    // generate extra row to show next month's calendar dates
+    while (row.length < 7) {
+      keyIndex = momentDate.clone().date(nextMonthDateCount);
+      row.push(
+        <div
+          key={`${keyIndex.format('M')}-${keyIndex.format('D')}`}
+          className="date-cell out-of-calendar"
+        >
+          {keyIndex.format('D')}
+        </div>
+      );
+      nextMonthDateCount += 1;
+    }
+    render.push(row);
+
     // render rows to <tr>
     return render.map((row, i) => (
       <div
-        key={`${month}-${i}`}
+        key={`${momentDate.format('M')}-${i}`}
         className="calendar-row"
       >
         {row}

@@ -324,13 +324,12 @@ div, form, h3, h4, select, button {
   background-clip: padding-box;
 }
 
-.empty-cell {
-  pointer-events: none !important;
+.out-of-calendar {
+  cursor: default;
   background-color: #f1f2f4;
-  color: #d8d9db;
 }
 
-.past-cell {
+.past-month-date {
   pointer-events: none !important;
   color: #d8d9db;
 }
