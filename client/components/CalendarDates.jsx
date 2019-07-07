@@ -42,6 +42,7 @@ class ComponentDates extends React.Component {
     // create row element with <td>
     let emptyCount = 0;
     let isEmptyCell = false;
+    let isPastDate = false;
     let keyIndex;
     let i = 0;
     let row;
@@ -61,22 +62,26 @@ class ComponentDates extends React.Component {
         keyIndex = datesArr[i];
 
         const renderDate = momentDate.clone().date(keyIndex);
-        isEmptyCell = renderDate.isBefore(curDate) ? true : false;
+        isPastDate = renderDate.diff(curDate, 'days') >= 0 ? false : true;
+        isEmptyCell = false;
       }
 
       row.push(
         <div
           key={`${month}-${keyIndex}`}
-          className={isEmptyCell ? "date-cell empty-cell": "date-cell"}
+          className={isEmptyCell ? "date-cell empty-cell": isPastDate ? "date-cell past-cell" : "date-cell"}
         >
           {datesArr[i]}
-        </div>)
+        </div>
+      );
 
       if (i % 7 === 1) {
         render.push(row);
       }
 
+      // generate next month's date 
       if (i === datesArr.length - 1 && row.length < 7) {
+        let priorMonthDate = momentDate.clone();
         let missingDates = 6 - i % 7;
         
         while (missingDates > 0) {
