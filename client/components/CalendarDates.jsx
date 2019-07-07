@@ -4,18 +4,15 @@ import moment from 'moment';
 class ComponentDates extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {
-      month: this.props.month,
-      daysOfMonth: moment().daysInMonth(),
-      firstDate: moment().startOf('month').format('d'), // return the first week day of the month: 0 = sunday
-    };
 
     this.renderDatesArr = this.renderDatesArr.bind(this);
     this.renderDates = this.renderDates.bind(this);
   }
 
   renderDatesArr() {
-    let { daysOfMonth, firstDate } = this.state;
+    const { momentDate } = this.props;
+    let daysInMonth = momentDate.daysInMonth();
+    let firstDate = momentDate.startOf('month').format('d'); // return the first week day of the month: 0 = sunday
     const datesArr = [];
 
     // create black dates in calendar
@@ -26,7 +23,7 @@ class ComponentDates extends React.Component {
 
     // create dates in calendar
     let i = 1;
-    while (i <= daysOfMonth) {
+    while (i <= daysInMonth) {
       datesArr.push(i);
       i ++;
     }
@@ -36,20 +33,29 @@ class ComponentDates extends React.Component {
 
   renderDates() {
     const datesArr = this.renderDatesArr();
-    const { month } = this.state;
+    const month = this.props.momentDate.month();
     const render = [];
 
     // create row element with <td>
     let i = 0;
+    let emptyCount = 0;
+    let keyIndex;
     let row;
     while (i < datesArr.length) {
       if (i % 7 === 0) {
         row = [];
       }
 
+      if (datesArr[i] === '') {
+        emptyCount += 1;
+        keyIndex = 'empty' + emptyCount;
+      } else {
+        keyIndex = datesArr[i];
+      }
+
       row.push(
         <div
-          key={`${month}-${datesArr[i]}`}
+          key={`${month}-${keyIndex}`}
           className="date-cell"
         >
           {datesArr[i]}
@@ -60,23 +66,23 @@ class ComponentDates extends React.Component {
       }
 
       if (i === datesArr.length - 1 && row.length < 7) {
-        let missingCounter = i;
         let missingDates = 6 - i % 7;
-        console.log(row.length);
-
+        
         while (missingDates > 0) {
+          emptyCount += 1;
+          keyIndex = 'empty' + emptyCount;
+
           row.push(
             <div
-              key={`${month}-${missingCounter + 1}`}
+              key={`${month}-${keyIndex}`}
               className="date-cell"
             />
           );
-          missingCounter ++;
-          missingDates --;
+          missingDates -= 1;
         }
       }
 
-      i ++;
+      i += 1;
     }
 
     // render rows to <tr>
