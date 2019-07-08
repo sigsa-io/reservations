@@ -42,11 +42,13 @@ const Date = ({ renderDate, changeRenderDate }) => {
       </div>
       <SVG />
       {showCalendar && (
-        <Calendar
-          changeShowCalendarStatus={changeShowCalendarStatus}
-          changeRenderDate={changeRenderDate}
-          renderDate={renderDate}
-        />
+        <div className="outer-calendar-container">
+          <Calendar
+            changeShowCalendarStatus={changeShowCalendarStatus}
+            changeRenderDate={changeRenderDate}
+            renderDate={renderDate}
+          />
+        </div>
       )}
     </div>
   );

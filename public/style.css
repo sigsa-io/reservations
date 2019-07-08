@@ -227,10 +227,14 @@ div, form, h3, h4, select, button {
   width: 100%;
 }
 
-.calendar-container {
+.outer-calendar-container {
   position: absolute;
+  top: 35px;
   background-color: #fff;
   z-index: 2;
+}
+
+.calendar-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
