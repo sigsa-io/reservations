@@ -6,10 +6,10 @@ import CalendarDates from './CalendarDates';
 
 class Calendar extends React.Component {
   constructor() {
-    super ();
+    super();
     this.state = {
       momentDate: moment(),
-    }
+    };
 
     this.toNextMonth = this.toNextMonth.bind(this);
     this.toPriorMonth = this.toPriorMonth.bind(this);
@@ -37,17 +37,19 @@ class Calendar extends React.Component {
     const { momentDate } = this.state;
     const { toPriorMonth, toNextMonth } = this;
 
-    return ( 
+    return (
       <div className="calendar-container">
         <div className="calendar-inner-wrapper">
           <div className="calendar-button-wrapper">
-            <CalendarButton 
-              className='calendar-button calendar-left-button'
+            <CalendarButton
+              className="calendar-button calendar-left-button"
+              momentDate={momentDate}
               toPriorMonth={toPriorMonth}
             />
-            <CalendarButton 
-              className='calendar-button calendar-right-button'
+            <CalendarButton
+              className="calendar-button calendar-right-button"
               toNextMonth={toNextMonth}
+              momentDate={momentDate}
             />
           </div>
           <div className="calendar-detail-wrapper">
@@ -55,13 +57,13 @@ class Calendar extends React.Component {
               <span>{momentDate.format('MMMM   YYYY')}</span>
             </div>
             <CalendarDays />
-            <CalendarDates 
+            <CalendarDates
               momentDate={momentDate}
             />
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

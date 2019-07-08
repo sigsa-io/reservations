@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-class ComponentDates extends React.Component {
+class CalendarDates extends React.Component {
   constructor (props) {
     super(props);
 
@@ -11,7 +11,7 @@ class ComponentDates extends React.Component {
 
   renderDatesArr() {
     const { momentDate } = this.props;
-    let daysInMonth = momentDate.daysInMonth();
+    const daysInMonth = momentDate.daysInMonth();
     let firstDay = momentDate.startOf('month').format('d'); // return the first week day of the month: 0 = sunday
     const datesArr = [];
 
@@ -47,8 +47,8 @@ class ComponentDates extends React.Component {
     let classname = 'date-cell';
     let i = 0;
     let row = [];
-    while (i < datesArr.length) {
 
+    while (i < datesArr.length) {
       if (datesArr[i] === '') {
         isOutOfCalendar = true;
         keyIndex = momentDate.clone().date(1 - firstDay);
@@ -58,7 +58,11 @@ class ComponentDates extends React.Component {
         isOutOfCalendar = false;
       }
 
-      isPastDate = keyIndex.diff(curDate, 'days') >= 0 ? false : true;
+      if (keyIndex.diff(curDate, 'days') >= 0) {
+        isPastDate = false;
+      } else {
+        true;
+      }
 
       if (isOutOfCalendar) {
         classname += ' out-of-calendar';
@@ -73,14 +77,13 @@ class ComponentDates extends React.Component {
           className={classname}
         >
           {keyIndex.format('D')}
-        </div>
+        </div>,
       );
 
       classname = 'date-cell';
 
       // generate next month's date
       if (i === datesArr.length - 1 && row.length < 7) {
-
         while (row.length < 7) {
           keyIndex = momentDate.clone().date(nextMonthDateCount);
 
@@ -90,7 +93,7 @@ class ComponentDates extends React.Component {
               className="date-cell out-of-calendar"
             >
               {keyIndex.format('D')}
-            </div>
+            </div>,
           );
           nextMonthDateCount += 1;
         }
@@ -115,16 +118,16 @@ class ComponentDates extends React.Component {
           className="date-cell out-of-calendar"
         >
           {keyIndex.format('D')}
-        </div>
+        </div>,
       );
       nextMonthDateCount += 1;
     }
     render.push(row);
 
     // render rows to <tr>
-    return render.map((row, i) => (
+    return render.map((row, j) => (
       <div
-        key={`${momentDate.format('M')}-${i}`}
+        key={`${momentDate.format('M')}-${j}`}
         className="calendar-row"
       >
         {row}
@@ -132,7 +135,7 @@ class ComponentDates extends React.Component {
     ));
   }
 
-  render () {
+  render() {
     return (
       <div className="calendar-grid">
         {this.renderDates()}
@@ -141,4 +144,4 @@ class ComponentDates extends React.Component {
   }
 }
 
-export default ComponentDates;
+export default CalendarDates;

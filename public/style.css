@@ -251,6 +251,11 @@ div, form, h3, h4, select, button {
   box-sizing: border-box;
 }
 
+.diable-switch-calendar {
+  pointer-events: none !important;
+  cursor: default;
+}
+
 .calendar-left-button {
   left: 1rem;
   -webkit-transform: scaleX(-1);
