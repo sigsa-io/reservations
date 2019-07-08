@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import propTypes from 'prop-types';
 import CalendarButton from '../img/CalendarButton';
 import CalendarDays from './CalendarDays';
 import CalendarDates from './CalendarDates';
@@ -16,7 +17,8 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ momentDate: this.props.renderDate.clone() });
+    const { renderDate } = this.props;
+    this.setState({ momentDate: renderDate.clone() });
   }
 
   toNextMonth(e) {
@@ -60,7 +62,7 @@ class Calendar extends React.Component {
           </div>
           <div className="calendar-detail-wrapper">
             <div className="calendar-month">
-              <span>{momentDate.format('MMMM   YYYY')}</span>
+              <span>{momentDate.format('MMMM YYYY')}</span>
             </div>
             <CalendarDays />
             <CalendarDates
@@ -74,5 +76,11 @@ class Calendar extends React.Component {
     );
   }
 }
+
+Calendar.propTypes = {
+  renderDate: propTypes.instanceOf(moment).isRequired,
+  changeRenderDate: propTypes.func.isRequired,
+  changeShowCalendarStatus: propTypes.func.isRequired,
+};
 
 export default Calendar;

@@ -14,7 +14,7 @@ class Time extends React.Component {
     this.timeGenerator = this.timeGenerator.bind(this);
   }
 
-  timeGenerator () {
+  timeGenerator() {
     const timeEntry = [];
     let hourCount = 48;
     const time = moment().startOf('day');
@@ -31,7 +31,7 @@ class Time extends React.Component {
       );
 
       time.add(30, 'minute');
-      hourCount --;
+      hourCount--;
     }
     return timeEntry;
   }
@@ -43,15 +43,14 @@ class Time extends React.Component {
   }
 
   render() {
-    const { timeGenerator, selectionChange } = this;
     const { selectedTime } = this.state;
 
     return (
       <div className="reservation-seleciton-wrapper">
         <div className="reservation-selection-text">{ selectedTime }</div>
         <SVG />
-        <select className="reservation-seleciton" onChange={selectionChange}>
-          { timeGenerator() }
+        <select className="reservation-seleciton" onChange={this.selectionChange}>
+          { this.timeGenerator() }
         </select>
       </div>
     );

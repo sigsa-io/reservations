@@ -35,19 +35,20 @@ class PartySize extends React.Component {
 
   render() {
     const { partySize } = this.state;
-    const { selectionChange, generatePartySize } = this;
 
     return (
       <div className="reservation-seleciton-wrapper">
         <div className="reservation-selection-text">
-          For {partySize}
+          For
+          {' '}
+          {partySize}
         </div>
         <SVG />
         <select
           className="reservation-seleciton"
-          onChange={selectionChange}
+          onChange={this.selectionChange}
         >
-          { generatePartySize() }
+          { this.generatePartySize() }
         </select>
       </div>
     );

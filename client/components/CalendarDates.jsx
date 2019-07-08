@@ -1,8 +1,9 @@
 import React from 'react';
 import moment from 'moment';
+import propTypes from 'prop-types';
 
 class CalendarDates extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.renderDatesArr = this.renderDatesArr.bind(this);
@@ -10,9 +11,11 @@ class CalendarDates extends React.Component {
   }
 
   clickEvent(date) {
+    const { changeRenderDate, changeShowCalendarStatus } = this.props;
+
     // date is a moment object
-    this.props.changeRenderDate(date);
-    this.props.changeShowCalendarStatus();
+    changeRenderDate(date);
+    changeShowCalendarStatus();
   }
 
   renderDatesArr() {
@@ -82,6 +85,9 @@ class CalendarDates extends React.Component {
           key={`${keyIndex.format('M')}-${keyIndex.format('D')}`}
           className={classname}
           onClick={this.clickEvent.bind(this, keyIndex)}
+          onKeyDown={this.clickEvent.bind(this, keyIndex)}
+          role="button"
+          tabIndex="0"
         >
           {keyIndex.format('D')}
         </div>,
@@ -98,8 +104,10 @@ class CalendarDates extends React.Component {
             <div
               key={`${keyIndex.format('M')}-${keyIndex.format('D')}`}
               className="date-cell out-of-calendar"
-              // id={keyIndex.format('YYYY-MM-DD')}
               onClick={this.clickEvent.bind(this, keyIndex)}
+              onKeyDown={this.clickEvent.bind(this, keyIndex)}
+              role="button"
+              tabIndex="0"
             >
               {keyIndex.format('D')}
             </div>,
@@ -126,6 +134,9 @@ class CalendarDates extends React.Component {
           key={`${keyIndex.format('M')}-${keyIndex.format('D')}`}
           className="date-cell out-of-calendar"
           onClick={this.clickEvent.bind(this, keyIndex)}
+          onKeyDown={this.clickEvent.bind(this, keyIndex)}
+          role="button"
+          tabIndex="0"
         >
           {keyIndex.format('D')}
         </div>,
@@ -153,5 +164,11 @@ class CalendarDates extends React.Component {
     );
   }
 }
+
+CalendarDates.propTypes = {
+  momentDate: propTypes.instanceOf(moment).isRequired,
+  changeRenderDate: propTypes.func.isRequired,
+  changeShowCalendarStatus: propTypes.func.isRequired,
+};
 
 export default CalendarDates;

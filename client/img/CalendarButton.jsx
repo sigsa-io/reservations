@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import propTypes from 'prop-types';
 
 class SVG extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class SVG extends React.Component {
       return '#d8d9db';
     }
 
-    return input + ' diable-switch-calendar';
+    return `${input} diable-switch-calendar`;
   }
 
   checkPastMonth() {
@@ -60,5 +61,12 @@ class SVG extends React.Component {
     );
   }
 }
+
+SVG.propTypes = {
+  className: propTypes.func.isRequired,
+  toPriorMonth: propTypes.func.isRequired,
+  toNextMonth: propTypes.func.isRequired,
+  momentDate: propTypes.instanceOf(moment).isRequired,
+};
 
 export default SVG;

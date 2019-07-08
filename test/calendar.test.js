@@ -33,7 +33,7 @@ describe('Show Calendar', () => {
     expect(hasCalendar === null).toBe(false);
     await page.click('html');
   });
-  
+
   test('should render next month\'s calendar when clicking next calendar button', async () => {
     await page.click('.date-input-text');
     await page.click('.calendar-right-button');

@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import propTypes from 'prop-types';
+import moment from 'moment';
 import SVG from '../img/SelectionIcon';
 import Calendar from './Calendar';
 
@@ -35,14 +37,17 @@ const Date = ({ renderDate, changeRenderDate }) => {
       ref={node}
     >
       <div
+        tabIndex="0"
+        role="button"
         className="date-input-text"
         onClick={() => setShowCalendar(!showCalendar)}
+        onKeyDown={() => setShowCalendar(!showCalendar)}
       >
         {renderDate.format('ddd, MM/D')}
       </div>
       <SVG />
       {showCalendar && (
-        <div className="outer-calendar-container">
+        <div className="outer-calendar-container" role="grid">
           <Calendar
             changeShowCalendarStatus={changeShowCalendarStatus}
             changeRenderDate={changeRenderDate}
@@ -52,6 +57,11 @@ const Date = ({ renderDate, changeRenderDate }) => {
       )}
     </div>
   );
+};
+
+Date.propTypes = {
+  renderDate: propTypes.instanceOf(moment).isRequired,
+  changeRenderDate: propTypes.func.isRequired,
 };
 
 export default Date;
