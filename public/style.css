@@ -131,6 +131,7 @@ div, form, h3, h4, select, button {
   -webkit-box-flex: 1;
   -ms-flex: 1 50%;
   flex: 1 50%;
+  margin-left: .5rem;
 }
 
 .find-a-table-wrapper {
@@ -197,6 +198,35 @@ div, form, h3, h4, select, button {
   margin: 0 0 0 .25rem;
 }
 
+.date-selection-detail-wrapper {
+  border-right: none;
+  position: relative;
+  height: 35px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-bottom: 1px solid #d8d9db;
+  outline: none;
+  cursor: pointer;
+}
+
+.date-input-text {
+  position: absolute;
+  background-color: #fff;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: calc(100% - 2px);
+  padding-top: 2px;
+  border: 0;
+  width: 100%;
+}
+
 .calendar-container {
   position: absolute;
   background-color: #fff;
@@ -207,7 +237,8 @@ div, form, h3, h4, select, button {
   -webkit-font-smoothing: antialiased;
   border: 1px solid #d8d9db;
   background-color: #f1f2f4;
-  width: 100%;
+  width: 300px;
+  cursor: default;
 }
 
 .calendar-inner-wrapper {
@@ -336,6 +367,7 @@ div, form, h3, h4, select, button {
 
 .past-month-date {
   pointer-events: none !important;
+  cursor: default;
   color: #d8d9db;
 }
 
