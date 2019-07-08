@@ -1,7 +1,7 @@
 {
   "name": "reservations",
   "version": "1.0.0",
-  "description": "reservation module for mock up Open Table page",
+  "description": "Reservation module for users to reserve a time slot for dinning on Sigsa.io",
   "main": "./server/index.js",
   "scripts": {
     "test": "node_modules/jest/bin/jest.js --watch",
@@ -31,15 +31,15 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.2",
     "jest": "^24.8.0",
-    "path": "^0.12.7",
     "puppeteer": "^1.18.1",
     "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5"
+    "webpack-cli": "^3.3.5",
+    "morgan": "^1.9.1"
   },
   "dependencies": {
+    "path": "^0.12.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "morgan": "^1.9.1",
     "axios": "^0.19.0",
     "express": "^4.17.1",
     "moment": "^2.24.0",
