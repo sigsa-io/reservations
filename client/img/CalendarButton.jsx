@@ -11,10 +11,10 @@ class SVG extends React.Component {
     this.checkPastMonth = this.checkPastMonth.bind(this);
     this.getFillAndClassName = this.getFillAndClassName.bind(this);
   }
-  
+
   getFillAndClassName(input) {
-    let { toPriorMonth } = this.props;
-    
+    const { toPriorMonth } = this.props;
+
     if (toPriorMonth === undefined) {
       return input;
     }
@@ -24,10 +24,10 @@ class SVG extends React.Component {
     if (input === '#23333') {
       return '#d8d9db';
     }
-    
+
     return input + ' diable-switch-calendar';
   }
-  
+
   checkPastMonth() {
     const { momentDate } = this.props;
     const priorMonth = momentDate.clone().subtract(1, 'month');

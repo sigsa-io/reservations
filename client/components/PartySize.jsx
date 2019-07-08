@@ -40,8 +40,7 @@ class PartySize extends React.Component {
     return (
       <div className="reservation-seleciton-wrapper">
         <div className="reservation-selection-text">
-          For
-          {partySize}
+          For {partySize}
         </div>
         <SVG />
         <select

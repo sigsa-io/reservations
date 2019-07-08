@@ -10,7 +10,7 @@ class SizeDateTime extends React.Component {
 
     this.state = {
       renderDate: moment(),
-    }
+    };
 
     this.changeRenderDate = this.changeRenderDate.bind(this);
   }
@@ -23,6 +23,8 @@ class SizeDateTime extends React.Component {
   }
 
   render() {
+    const { renderDate } = this.state;
+
     return (
       <div className="reservation-detail-wrapper">
         <div className="reservation-detail-selection">
@@ -35,7 +37,7 @@ class SizeDateTime extends React.Component {
           <div className="reservation-detail-date-wrapper">
             <h4 className="reservation-detail-title">Date</h4>
             <Date
-              renderDate={this.state.renderDate}
+              renderDate={renderDate}
               changeRenderDate={this.changeRenderDate}
             />
           </div>

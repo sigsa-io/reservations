@@ -7,7 +7,6 @@ class CalendarDates extends React.Component {
 
     this.renderDatesArr = this.renderDatesArr.bind(this);
     this.renderDates = this.renderDates.bind(this);
-    this.clickEvent = this.clickEvent.bind(this);
   }
 
   clickEvent(date) {

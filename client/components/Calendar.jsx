@@ -41,7 +41,6 @@ class Calendar extends React.Component {
 
   render() {
     const { momentDate } = this.state;
-    const { toPriorMonth, toNextMonth } = this;
     const { changeRenderDate, changeShowCalendarStatus } = this.props;
 
     return (
@@ -51,11 +50,11 @@ class Calendar extends React.Component {
             <CalendarButton
               className="calendar-button calendar-left-button"
               momentDate={momentDate}
-              toPriorMonth={toPriorMonth}
+              toPriorMonth={this.toPriorMonth}
             />
             <CalendarButton
               className="calendar-button calendar-right-button"
-              toNextMonth={toNextMonth}
+              toNextMonth={this.toNextMonth}
               momentDate={momentDate}
             />
           </div>

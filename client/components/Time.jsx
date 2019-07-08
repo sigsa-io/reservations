@@ -21,7 +21,7 @@ class Time extends React.Component {
 
     while (hourCount > 0) {
       timeEntry.push(
-        <option 
+        <option
           key={`${time.format('HH')}-${time.format('mm')}`}
           name={`${time.format('HH')}-${time.format('mm')}`}
           value={time.format('h:mm A')}
