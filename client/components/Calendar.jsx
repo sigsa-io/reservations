@@ -16,7 +16,7 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ momentDate: this.props.renderDate.clone() })
+    this.setState({ momentDate: this.props.renderDate.clone() });
   }
 
   toNextMonth(e) {

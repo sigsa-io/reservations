@@ -1,52 +1,56 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SVG from '../img/SelectionIcon';
 import Calendar from './Calendar';
 
-class Date extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showCalendar: false,
-    };
+const Date = (props) => {
+  const node = useRef();
+  const [showCalendar, setShowCalendar] = useState(false);
 
-    this.changeShowCalendarStatus = this.changeShowCalendarStatus.bind(this);
-    this.toShowCalendar = this.toShowCalendar.bind(this);
-  }
-
-  changeShowCalendarStatus() {
-    this.setState({ showCalendar: !this.state.showCalendar });
-  }
-
-  toShowCalendar() {
-    if (this.state.showCalendar === true) {
-      const { changeRenderDate, renderDate } = this.props;
-      return (
-        <Calendar 
-          changeShowCalendarStatus={this.changeShowCalendarStatus}
-          changeRenderDate={changeRenderDate}
-          renderDate={renderDate}
-        />
-      );
+  const handleClickOutside = e => {
+    console.log("clicking anywhere");
+    if (node.current.contains(e.target)) {
+      // inside click
+      return;
     }
-    return <div></div>;
-  }
+    // outside click
+    setShowCalendar(false);
+  };
 
-  render() {
-    return (
+  const changeShowCalendarStatus = () => setShowCalendar(false);
+
+  useEffect(() => {
+    if (showCalendar) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showCalendar]);
+
+  return (
+    <div 
+      className="date-selection-detail-wrapper"
+      ref={node}
+    >
       <div 
-        className="date-selection-detail-wrapper"
+        className="date-input-text"
+        onClick={e => setShowCalendar(!showCalendar)}
       >
-        <div 
-          className="date-input-text"
-          onClick={this.changeShowCalendarStatus}
-        >
-          {this.props.renderDate.format('ddd, MM/D')}
-        </div>
-        <SVG />
-        {this.toShowCalendar()}
+        {props.renderDate.format('ddd, MM/D')}
       </div>
-    );
-  }
+      <SVG />
+      {showCalendar && (
+        <Calendar 
+          changeShowCalendarStatus={changeShowCalendarStatus}
+          changeRenderDate={props.changeRenderDate}
+          renderDate={props.renderDate}
+        />
+      )}
+    </div>
+  );
 }
 
 export default Date;
