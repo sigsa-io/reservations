@@ -54,7 +54,7 @@ class ComponentDates extends React.Component {
         keyIndex = momentDate.clone().date(1 - firstDay);
         firstDay -= 1;
       } else {
-        keyIndex = momentDate.date(datesArr[i]);
+        keyIndex = momentDate.clone().date(datesArr[i]);
         isOutOfCalendar = false;
       }
 
