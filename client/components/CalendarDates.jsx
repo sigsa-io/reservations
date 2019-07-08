@@ -7,6 +7,13 @@ class CalendarDates extends React.Component {
 
     this.renderDatesArr = this.renderDatesArr.bind(this);
     this.renderDates = this.renderDates.bind(this);
+    this.clickEvent = this.clickEvent.bind(this);
+  }
+
+  clickEvent(date) {
+    // date is a moment object
+    this.props.changeRenderDate(date);
+    this.props.changeShowCalendarStatus();
   }
 
   renderDatesArr() {
@@ -61,7 +68,7 @@ class CalendarDates extends React.Component {
       if (keyIndex.diff(curDate, 'days') >= 0) {
         isPastDate = false;
       } else {
-        true;
+        isPastDate = true;
       }
 
       if (isOutOfCalendar) {
@@ -75,6 +82,7 @@ class CalendarDates extends React.Component {
         <div
           key={`${keyIndex.format('M')}-${keyIndex.format('D')}`}
           className={classname}
+          onClick={this.clickEvent.bind(this, keyIndex)}
         >
           {keyIndex.format('D')}
         </div>,
@@ -91,6 +99,8 @@ class CalendarDates extends React.Component {
             <div
               key={`${keyIndex.format('M')}-${keyIndex.format('D')}`}
               className="date-cell out-of-calendar"
+              // id={keyIndex.format('YYYY-MM-DD')}
+              onClick={this.clickEvent.bind(this, keyIndex)}
             >
               {keyIndex.format('D')}
             </div>,
@@ -116,6 +126,7 @@ class CalendarDates extends React.Component {
         <div
           key={`${keyIndex.format('M')}-${keyIndex.format('D')}`}
           className="date-cell out-of-calendar"
+          onClick={this.clickEvent.bind(this, keyIndex)}
         >
           {keyIndex.format('D')}
         </div>,

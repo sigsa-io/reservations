@@ -5,8 +5,8 @@ import CalendarDays from './CalendarDays';
 import CalendarDates from './CalendarDates';
 
 class Calendar extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       momentDate: moment(),
     };
@@ -15,27 +15,34 @@ class Calendar extends React.Component {
     this.toPriorMonth = this.toPriorMonth.bind(this);
   }
 
-  toNextMonth() {
-    const { momentDate } = this.state;
-    const nextMomentDate = momentDate.add(1, 'month');
-
-    this.setState({
-      momentDate: nextMomentDate,
-    });
+  componentDidMount() {
+    this.setState({ momentDate: this.props.renderDate.clone() })
   }
 
-  toPriorMonth() {
+  toNextMonth(e) {
     const { momentDate } = this.state;
-    const nextMomentDate = momentDate.subtract(1, 'month');
+    const nextMomentDate = momentDate.clone().add(1, 'month');
 
     this.setState({
       momentDate: nextMomentDate,
     });
+    e.preventDefault();
+  }
+
+  toPriorMonth(e) {
+    const { momentDate } = this.state;
+    const priorMomentDate = momentDate.clone().subtract(1, 'month');
+
+    this.setState({
+      momentDate: priorMomentDate,
+    });
+    e.preventDefault();
   }
 
   render() {
     const { momentDate } = this.state;
     const { toPriorMonth, toNextMonth } = this;
+    const { changeRenderDate, changeShowCalendarStatus } = this.props;
 
     return (
       <div className="calendar-container">
@@ -59,6 +66,8 @@ class Calendar extends React.Component {
             <CalendarDays />
             <CalendarDates
               momentDate={momentDate}
+              changeShowCalendarStatus={changeShowCalendarStatus}
+              changeRenderDate={changeRenderDate}
             />
           </div>
         </div>

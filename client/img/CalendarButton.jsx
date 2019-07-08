@@ -50,7 +50,7 @@ class SVG extends React.Component {
         viewBox={viewBox}
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
-        onClick={toNextMonth ? toNextMonth : toPriorMonth}
+        onClick={toNextMonth ? e => toNextMonth(e) : e => toPriorMonth(e)}
       >
         <path
           fill={this.getFillAndClassName('#23333')}
