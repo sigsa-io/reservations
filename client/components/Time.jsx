@@ -1,20 +1,15 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import moment from 'moment';
 import SVG from '../img/SelectionIcon';
 
-class Time extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      selectedTime: '6:30 PM',
-    };
-
-    this.selectionChange = this.selectionChange.bind(this);
-    this.timeGenerator = this.timeGenerator.bind(this);
+const Time = (
+  {
+    userTargetTime,
+    timeSelectionChange,
   }
-
-  timeGenerator() {
+) => {
+  const timeGenerator = () => {
     const timeEntry = [];
     let hourCount = 48;
     const time = moment().startOf('day');
@@ -36,25 +31,20 @@ class Time extends React.Component {
     return timeEntry;
   }
 
-  selectionChange(e) {
-    this.setState({
-      selectedTime: e.target.value,
-    });
-  }
+  return (
+    <div className="reservation-seleciton-wrapper">
+      <div className="reservation-selection-text">{ userTargetTime }</div>
+      <SVG />
+      <select className="reservation-seleciton" onChange={timeSelectionChange}>
+        { timeGenerator() }
+      </select>
+    </div>
+  );
+}
 
-  render() {
-    const { selectedTime } = this.state;
-
-    return (
-      <div className="reservation-seleciton-wrapper">
-        <div className="reservation-selection-text">{ selectedTime }</div>
-        <SVG />
-        <select className="reservation-seleciton" onChange={this.selectionChange}>
-          { this.timeGenerator() }
-        </select>
-      </div>
-    );
-  }
+Time.propTypes = {
+  userTargetTime: propTypes.string.isRequired,
+  timeSelectionChange: propTypes.func.isRequired,
 }
 
 export default Time;
