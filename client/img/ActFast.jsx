@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 
 const SVG = ({
   className = 'act-fast-icon',
@@ -33,5 +34,11 @@ const SVG = ({
     />
   </svg>
 );
+
+SVG.propTypes = {
+  className: propTypes.string.isRequired,
+  viewBox: propTypes.string.isRequired,
+  fill: propTypes.string.isRequired,
+};
 
 export default SVG;

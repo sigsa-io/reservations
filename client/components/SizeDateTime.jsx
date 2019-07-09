@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import PartySize from './PartySize';
 import Time from './Time';
 import Date from './Date';
@@ -6,9 +7,24 @@ import Date from './Date';
 class SizeDateTime extends React.Component {
   constructor() {
     super();
+
+    this.state = {
+      renderDate: moment(),
+    };
+
+    this.changeRenderDate = this.changeRenderDate.bind(this);
+  }
+
+  changeRenderDate(newDate) {
+    // newDate should be a moment object
+    this.setState({
+      renderDate: newDate,
+    });
   }
 
   render() {
+    const { renderDate } = this.state;
+
     return (
       <div className="reservation-detail-wrapper">
         <div className="reservation-detail-selection">
@@ -20,7 +36,10 @@ class SizeDateTime extends React.Component {
         <div className="reservation-detail-date-time-wrapper">
           <div className="reservation-detail-date-wrapper">
             <h4 className="reservation-detail-title">Date</h4>
-            <Date />
+            <Date
+              renderDate={renderDate}
+              changeRenderDate={this.changeRenderDate}
+            />
           </div>
           <div className="reservation-detail-time-wrapper">
             <h4 className="reservation-detail-title">Time</h4>
