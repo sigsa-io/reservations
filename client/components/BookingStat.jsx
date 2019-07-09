@@ -22,7 +22,11 @@ class BookingStat extends React.Component {
     return (
       <div className="book-stat">
         <div className="book-stat-wrapper">
-          <BookedTimes />
+          <BookedTimes
+            className="book-times-icon"
+            viewBox="0 0 24 24"
+            fill="#333333"
+          />
           <div className="restaurant-booking-stat-text">
                 Booked
             {' '}
@@ -32,7 +36,11 @@ class BookingStat extends React.Component {
           </div>
         </div>
         <div hidden={false} className="book-stat-wrapper">
-          <ActFast />
+          <ActFast
+            className="act-fast-icon"
+            viewBox="0 0 24 24"
+            fill="#333333"
+          />
           <div className="restaurant-booking-stat-text">
             {'You\'re in luck! We still have'}
             {' '}

@@ -2,9 +2,9 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 const SVG = ({
-  className = 'book-times-icon',
-  viewBox = '0 0 24 24',
-  fill = '#333333',
+  className,
+  viewBox,
+  fill,
 }) => (
   <svg
     viewBox={viewBox}
