@@ -7,8 +7,8 @@ const app = express();
 
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.static(path.resolve(__dirname, '..', 'public')));
-app.set('port', 3003);
+app.use('/:restaurant_id/reservations', express.static(path.resolve(__dirname, '..', 'public')));
+app.set('port', 3000);
 
 app.use('/', router);
 
