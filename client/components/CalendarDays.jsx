@@ -2,9 +2,9 @@ import React from 'react';
 import moment from 'moment';
 
 const CalendarDays = () => {
-  const weekdaysshort = moment.weekdaysShort();
+  const weekdaysShort = moment.weekdaysShort();
 
-  const render = weekdaysshort.map(day => (
+  const render = weekdaysShort.map(day => (
     <div key={day} className="week-day">
       {day}
     </div>
