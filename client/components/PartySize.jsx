@@ -31,7 +31,11 @@ const PartySize = (
         {' '}
         {userPartySize}
       </div>
-      <SVG />
+      <SVG
+        className="selection-icon"
+        viewBox="0 0 8.07 5.24"
+        fill="rgb(51, 51, 51)"
+      />
       <select
         className="reservation-seleciton"
         onChange={partySizeSelectionChange}
