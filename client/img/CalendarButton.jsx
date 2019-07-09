@@ -63,7 +63,7 @@ class SVG extends React.Component {
 }
 
 SVG.propTypes = {
-  className: propTypes.func.isRequired,
+  className: propTypes.string.isRequired,
   toPriorMonth: propTypes.func.isRequired,
   toNextMonth: propTypes.func.isRequired,
   momentDate: propTypes.instanceOf(moment).isRequired,
