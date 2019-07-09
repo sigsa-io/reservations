@@ -1,6 +1,8 @@
 const moment = require('moment');
-const Reservations = require('./index.js');
+const db = require('./index.js');
 const restaurantNameId = require('./restaurantData.js');
+
+// get each day's starting unix first, then add additinal hours to the starting point
 
 // only available for the next 90 days reservation
 const createSeed = (days, data = []) => {
@@ -9,39 +11,32 @@ const createSeed = (days, data = []) => {
     const { restaurant_name, restaurant_id } = restaurantNameId[i];
 
     // generate date for the next 90 days
-    let dateCount = days;
-    const today = moment();
-    while (dateCount >= 0) {
+    let dateCount = 0;
+    let todayStartingUnix = moment().startOf('day').format('X');
+    while (dateCount < days) {
       let timeSlotCount = 6;
-
-      const reservation_date = today.date();// note: moment.date() is a number from 1 through 31
-      const reservation_month = today.month(); // note: moment.month() is a number from 0 through 11
-      const reservation_year = today.year();
 
       // generate 6 random time slots
       while (timeSlotCount > 0) {
         // hour and min randomizer
-        const reservation_hour = 9 + Math.floor(Math.random() * 12);
-        const reservation_min = 30 * (Math.floor(Math.random() * 2) % 2);
-        const available_seats = Math.floor(Math.random() * 20) + 5;
+        const randHourNum = 9 + 0.5 * Math.floor(Math.random() * 24); // 24 hour from 9am - 9pm
+        const randHourUnix = 60 * 60 * randHourNum;
+        const reservationTimeStamp = Number(todayStartingUnix) + randHourUnix;
+        const availableSeats = Math.floor(Math.random() * 20) + 5;
 
-        const curData = {
-          restaurant_name,
+        const curData = [
           restaurant_id,
-          reservation_date,
-          reservation_month,
-          reservation_year,
-          reservation_hour,
-          reservation_min,
-          available_seats,
-        };
+          restaurant_name,
+          reservationTimeStamp,
+          availableSeats,
+        ];
 
         data.push(curData);
         timeSlotCount --;
       }
 
-      today.add(1, 'day');
-      dateCount --;
+      dateCount += 1;
+      todayStartingUnix = moment().add(dateCount, 'day').startOf('day').format('X');
     }
   }
 
@@ -51,9 +46,15 @@ const createSeed = (days, data = []) => {
 const insertToReservationTable = () => {
   const seed = createSeed(90);
 
-  Reservations.ReservationsTable.bulkCreate(seed)
-    .then(() => console.log('data created'))
-    .catch(err => console.log(err));
+  const queryStr = 'INSERT INTO reservations_tables (restaurant_id, restaurant_name, reservationTimeStamp, availableSeats) VALUES ?';
+  db.query(queryStr, [seed], (err, data) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log(data);
+    return;
+  });
 };
 
 insertToReservationTable();
