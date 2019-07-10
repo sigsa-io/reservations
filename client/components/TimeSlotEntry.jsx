@@ -1,11 +1,11 @@
 import React from 'react';
 import moment from 'moment';
 
-const TimeSlotEntry = ({ timeStamp }) => {
+const TimeSlotEntry = ({ slot }) => {
   return (
     <div className="time-slot-entry">
       <div className="time-slot-entry-inner">
-        <span>{moment.unix(timeStamp)}</span>
+        <span>{moment.unix(slot).format('h:mm A')}</span>
       </div>
     </div>
   )

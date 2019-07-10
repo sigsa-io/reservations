@@ -5,11 +5,15 @@ const TimeSlots = ({ availableTargetTimeSlots }) => {
 
   const renderSlots = () => {
     console.log(availableTargetTimeSlots)
-    return availableTargetTimeSlots.map((slot) => (
-      <TimeSlotEntry
-        slot={slot.reservationTimeStamp}
-      />
-    ));
+    return availableTargetTimeSlots.map((slot) => {
+      const { reservationTimeStamp } = slot;
+      return (
+        <TimeSlotEntry
+          key={reservationTimeStamp}
+          slot={reservationTimeStamp}
+        />
+      );
+    });
   }
 
   return (

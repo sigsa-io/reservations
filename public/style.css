@@ -396,6 +396,7 @@ div, form, h3, h4, select, button {
 }
 
 .time-slot-title {
+  text-align: center;
   margin: 0 0 .5rem;
   font-size: 18px;
   font-weight: 700;
@@ -410,15 +411,6 @@ div, form, h3, h4, select, button {
   -ms-flex-pack: center;
   justify-content: center;
   margin-bottom: calc(-1*.5rem);
-}
-
-.time-slot-entry {
-  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
-  margin-right: .5rem;
-  margin-bottom: .5rem;
-  display: inline-block;
-  vertical-align: top;
-  text-decoration: none;
 }
 
 .time-slot-entry-inner {
@@ -440,4 +432,17 @@ div, form, h3, h4, select, button {
   -ms-flex-align: center;
   align-items: center;
   padding: 0 .25rem;
+}
+
+.time-slot-entry-inner:hover,
+.time-slot-entry-inner:focus {
+  background-color: #e15b64;
+}
+
+.time-slot-entry {
+  margin-right: .5rem;
+  margin-bottom: .5rem;
+  display: inline-block;
+  vertical-align: top;
+  text-decoration: none;
 }
