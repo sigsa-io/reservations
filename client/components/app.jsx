@@ -3,6 +3,7 @@ import moment from 'moment';
 import SizeDateTime from './SizeDateTime';
 import BookingStat from './BookingStat';
 import TimeSlots from './TimeSlots';
+import NoTimeSlot from './NoTimeSlot';
 import getRequests from '../helperFunc/getRequests';
 
 class App extends React.Component {
@@ -50,6 +51,7 @@ class App extends React.Component {
       this.setState({
         renderDate: newDate,
         availableDateTimeSlots: slotCount,
+        displayView: 'find-a-table',
       });
     });
   }
@@ -75,7 +77,6 @@ class App extends React.Component {
     const { restaurantId, renderDate, userTargetTime, userPartySize } = this.state;
     const requestInfo = { restaurantId, renderDate, userTargetTime, userPartySize };
     const captureData = (data) => {
-      console.log(data);
       if (data.length > 0) {
         this.setState({
           availableTargetTimeSlots: data,
@@ -94,7 +95,7 @@ class App extends React.Component {
 
   // render button or timeslots
   renderView() {
-    const { displayView, availableTargetTimeSlots } = this.state;
+    const { displayView, userTargetTime, availableTargetTimeSlots } = this.state;
 
     if (displayView === 'find-a-table') {
       return (
@@ -117,6 +118,14 @@ class App extends React.Component {
         />
       );
     }
+
+    if (displayView === 'no-time-slots') {
+      return (
+        <NoTimeSlot
+          userTargetTime={userTargetTime}
+        />
+      );
+    }
   }
 
   render() {
@@ -125,7 +134,7 @@ class App extends React.Component {
       userTargetTime,
       restaurantId,
       userPartySize,
-      availableTargetTimeSlots,
+      availableDateTimeSlots,
     } = this.state;
 
     return (
@@ -135,19 +144,21 @@ class App extends React.Component {
             <span>Make a reservation</span>
           </h3>
         </div>
-        <SizeDateTime
-          renderDate={renderDate}
-          userTargetTime={userTargetTime}
-          userPartySize={userPartySize}
-          timeSelectionChange={this.timeSelectionChange}
-          changeRenderDate={this.changeRenderDate}
-          partySizeSelectionChange={this.partySizeSelectionChange}
-        />
-        { this.renderView() }
-        <BookingStat
-          renderDate={renderDate}
-          availableTargetTimeSlots={availableTargetTimeSlots}
-        />
+        <div className="reservation-detail-wrapper">
+          <SizeDateTime
+            renderDate={renderDate}
+            userTargetTime={userTargetTime}
+            userPartySize={userPartySize}
+            timeSelectionChange={this.timeSelectionChange}
+            changeRenderDate={this.changeRenderDate}
+            partySizeSelectionChange={this.partySizeSelectionChange}
+          />
+          { this.renderView() }
+          <BookingStat
+            renderDate={renderDate}
+            availableDateTimeSlots={availableDateTimeSlots}
+          />
+        </div>
       </div>
     );
   }
