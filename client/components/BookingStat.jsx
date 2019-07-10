@@ -30,7 +30,7 @@ class BookingStat extends React.Component {
                 times today
           </div>
         </div>
-        <div hidden={false} className="book-stat-wrapper">
+        <div className="book-stat-wrapper">
           <ActFast
             className="act-fast-icon"
             viewBox="0 0 24 24"

@@ -15,7 +15,7 @@ const SizeDateTime = (
   }
 ) => {
   return (
-    <div className="reservation-detail-wrapper">
+    <div>
       <div className="reservation-detail-selection">
         <div>
           <h4 className="reservation-detail-title">Party Size</h4>

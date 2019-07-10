@@ -446,3 +446,45 @@ div, form, h3, h4, select, button {
   vertical-align: top;
   text-decoration: none;
 }
+
+.no-time-slot-wrapper {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 1rem auto 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.no-time-slot {
+  padding: .5rem;
+  background-color: #f1f2f4;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  max-width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.no-time-slot-text-wrap {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-overflow: ellipsis;
+  text-decoration: inherit;
+}
+
+.no-time-slot-warning {
+  position: relative;
+  height: 24px;
+  width: 24px;
+  pointer-events: none;
+  left: 0px;
+  margin: 0px 10px 0px 0px;
+}
