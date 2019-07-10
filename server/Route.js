@@ -46,51 +46,20 @@ router.get('/datetimeslots/:restaurant_id', (req, res) => {
   });
 });
 
-// !!to be fixed in the next PR
-router.post('/:restaurant_id/:reservation_year/:reservation_month/:reservation_date/:reservation_hour/:reservation_min', (req, res) => {
-  const {
-    restaurant_id,
-    reservation_year,
-    reservation_month,
-    reservation_date,
-    reservation_hour,
-    reservation_min,
-  } = req.params;
-  const { party_size } = req.body;
+router.post('/reservations', (req, res) => {
+  const { restaurantId, targetStartTimeUnix, partySize } = req.body;
+  const targetEndTimeUnix = Number(targetStartTimeUnix) + 60 * 60;
 
-  return db.ReservationsTable.findOne(
-    {
-      where: {
-        restaurant_id,
-        reservation_year,
-        reservation_month,
-        reservation_date,
-        reservation_hour,
-        reservation_min,
-      },
-    },
-  )
-    .tap((reservation) => {
-      reservation.decrement('available_seats', { by: party_size });
-    })
-    .tap((reservation) => {
-      reservation.increment('restaurant_total_booking_num', { by: 1 });
-    })
-    .tap((reservation) => {
-      const { restaurant_name } = reservation.dataValues;
-      db.ReservationsUser.create({
-        restaurant_name,
-        restaurant_id,
-        reservation_year,
-        reservation_month,
-        reservation_date,
-        reservation_hour,
-        reservation_min,
-        party_size,
-      });
-    })
-    .then(() => res.status(201).send('Reservation booked!'))
-    .catch(err => res.status(500).send(err));
+  const queryStr = 'INSERT INTO reservations (restaurantId, start_time, end_time, partySize) VALUES (?, ?, ?, ?)';
+  const queryArg = [restaurantId, targetStartTimeUnix, targetEndTimeUnix, partySize];
+
+  return db.query(queryStr, queryArg, (err, data) => {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      res.status(201).json(data);
+    }
+  });
 });
 
 module.exports = router;
