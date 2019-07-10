@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS restaurants (
   id INTEGER AUTO_INCREMENT PRIMARY KEY,
   restaurantId VARCHAR(100) NOT NULL,
   restaurantName VARCHAR(1000) NOT NULL,
-  timeSlot INTEGER NOT NULL, 
+  timeSlot FLOAT NOT NULL, 
   availableSeats INTEGER NOT NULL
 );
 
