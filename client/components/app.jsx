@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import SizeDateTime from './SizeDateTime';
 import BookingStat from './BookingStat';
-import getRequests from './helperFunc/getRequests';
+import getRequests from '../helperFunc/getRequests';
 
 class App extends React.Component {
   constructor() {
@@ -13,16 +13,22 @@ class App extends React.Component {
       userTargetTime: '6:30 PM', // default target time for initial render is 6:30 pm
       userPartySize: 2, // default render partySize is 2
       displayView: 'find-a-table', // default display is 'find a table' button
+      availableTargetTimeSlots: null,
     };
 
     this.changeRenderDate = this.changeRenderDate.bind(this);
     this.timeSelectionChange = this.timeSelectionChange.bind(this);
     this.partySizeSelectionChange = this.partySizeSelectionChange.bind(this);
     this.viewSwitch = this.viewSwitch.bind(this);
+    this.renderView = this.renderView.bind(this);
     this.getTimeSlot = this.getTimeSlot.bind(this);
   }
 
   // componentDidMount will get initial restaurantId
+  componentDidMount() {
+    const restaurantId = window.location.pathname.split('/')[1];
+    this.setState({ restaurantId });
+  }
 
   // invoke from calendar dates
   changeRenderDate(newDate) {
@@ -50,32 +56,33 @@ class App extends React.Component {
   getTimeSlot() {
     const { restaurantId, renderDate, userTargetTime, userPartySize } = this.state;
     const requestInfo = { restaurantId, renderDate, userTargetTime, userPartySize };
-    const captureData = (data) => {
-      console.log(data);
-    }
+    const captureData = (data) => this.setState({ availableTimeSlots: data });
 
-    getRequests(requestInfo, captureData, this.viewSwitch);
+    getRequests.getTimeSlotsForDateAndTime(requestInfo, captureData, this.viewSwitch);
   }
 
   // render button or timeslots
   renderView() {
-    switch (displayView) {
-      case 'find-a-table':
-        return (
-          <div className="find-a-table-wrapper">
-            <button 
-              className="find-a-table-button" 
-              type="submit"
-              onClick={this.getTimeSlot}
-            >
-              Find a Table
-            </button>
-          </div>
-        );          
-      case 'has-time-slots':
-        return (
-          <div>There will be time slot here</div>
-        );
+    const {displayView} = this.state;
+
+    if (displayView === 'find-a-table') {
+      return (
+        <div className="find-a-table-wrapper">
+          <button 
+            className="find-a-table-button" 
+            type="submit"
+            onClick={this.getTimeSlot}
+          >
+            Find a Table
+          </button>
+        </div>
+      );          
+    }
+    
+    if (displayView === 'has-time-slots') {
+      return (
+        <div>There will be time slot here</div>
+      );
     }
   }
 
@@ -85,7 +92,6 @@ class App extends React.Component {
       userTargetTime,
       restaurantId,
       userPartySize,
-      displayView,
     } = this.state;
 
     return (
@@ -105,7 +111,6 @@ class App extends React.Component {
         />
         { this.renderView() }
         <BookingStat
-          restaurantId={restaurantId}
           renderDate={renderDate}
         />
       </div>
