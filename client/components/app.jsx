@@ -14,6 +14,7 @@ class App extends React.Component {
       userPartySize: 2, // default render partySize is 2
       displayView: 'find-a-table', // default display is 'find a table' button
       availableTargetTimeSlots: null,
+      availableDateTimeSlots: null,
     };
 
     this.changeRenderDate = this.changeRenderDate.bind(this);
@@ -27,13 +28,29 @@ class App extends React.Component {
   // componentDidMount will get initial restaurantId
   componentDidMount() {
     const restaurantId = window.location.pathname.split('/')[1];
-    this.setState({ restaurantId });
+    const { renderDate } = this.state;
+    const requestInfo = { restaurantId, renderDate };
+
+    getRequests.getTimeSlotsCountForDate(requestInfo, (slotCount) => {
+      this.setState({ 
+        availableDateTimeSlots: slotCount,
+        restaurantId: restaurantId,
+      });
+    });
   }
 
   // invoke from calendar dates
   changeRenderDate(newDate) {
     // newDate should be a moment object
-    this.setState({ renderDate: newDate });
+    const { restaurantId, renderDate } = this.state;
+    const requestInfo = { restaurantId, renderDate };
+
+    getRequests.getTimeSlotsCountForDate(requestInfo, (slotCount) => {
+      this.setState({
+        renderDate: newDate,
+        availableDateTimeSlots: slotCount,
+      });
+    });
   }
 
   // invoke from time selection drop down
@@ -92,6 +109,7 @@ class App extends React.Component {
       userTargetTime,
       restaurantId,
       userPartySize,
+      availableDateTimeSlots,
     } = this.state;
 
     return (
@@ -112,6 +130,7 @@ class App extends React.Component {
         { this.renderView() }
         <BookingStat
           renderDate={renderDate}
+          availableDateTimeSlots={availableDateTimeSlots}
         />
       </div>
     );

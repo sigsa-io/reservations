@@ -1,28 +1,18 @@
 import React from 'react';
 import BookedTimes from '../img/BookTimes';
 import ActFast from '../img/ActFast';
-import getRequests from '../helperFunc/getRequests';
 
 class BookingStat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       bookedTimes: 0, //  to move to booking stat component, api call should be make in that component
-      remainingTimeSlot: 0, //  to move to booking stat component, api call should be make in that component
     }
   }
 
-  // componentDidMount to get the stats from the restaurant
-  componentDidMount() {
-    const restaurantId = window.location.pathname.split('/')[1];
-    const { renderDate } = this.props;
-    const requestInfo = { restaurantId, renderDate };
-    console.log(requestInfo)
-    getRequests.getTimeSlotsCountForDate(requestInfo, slotCount => this.setState({ remainingTimeSlot: slotCount }));
-  }
-
   render() {
-    const { bookedTimes, remainingTimeSlot } = this.state;
+    const { bookedTimes } = this.state;
+    const { availableDateTimeSlots } = this.props;
 
     return (
       <div className="book-stat">
@@ -49,7 +39,7 @@ class BookingStat extends React.Component {
           <div className="restaurant-booking-stat-text">
             {'You\'re in luck! We still have'}
             {' '}
-            {remainingTimeSlot}
+            {availableDateTimeSlots}
             {' '}
                 timeslots left
           </div>
