@@ -45,7 +45,11 @@ const Date = ({ renderDate, changeRenderDate }) => {
       >
         {renderDate.format('ddd, MM/D')}
       </div>
-      <SVG />
+      <SVG
+        className="selection-icon"
+        viewBox="0 0 8.07 5.24"
+        fill="rgb(51, 51, 51)"
+      />
       {showCalendar && (
         <div className="outer-calendar-container" role="grid">
           <Calendar

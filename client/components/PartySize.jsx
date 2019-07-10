@@ -1,19 +1,14 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import SVG from '../img/SelectionIcon';
 
-class PartySize extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      partySize: 2,
-    };
-
-    this.generatePartySize = this.generatePartySize.bind(this);
-    this.selectionChange = this.selectionChange.bind(this);
-  }
-
-  generatePartySize() {
+const PartySize = (
+  {
+    userPartySize,
+    partySizeSelectionChange,
+  },
+) => {
+  const generatePartySize = () => {
     const sizeEntry = [];
 
     for (let i = 2; i < 21; i++) {
@@ -27,32 +22,33 @@ class PartySize extends React.Component {
       );
     }
     return sizeEntry;
-  }
+  };
 
-  selectionChange(e) {
-    this.setState({ partySize: e.target.value });
-  }
-
-  render() {
-    const { partySize } = this.state;
-
-    return (
-      <div className="reservation-seleciton-wrapper">
-        <div className="reservation-selection-text">
-          For
-          {' '}
-          {partySize}
-        </div>
-        <SVG />
-        <select
-          className="reservation-seleciton"
-          onChange={this.selectionChange}
-        >
-          { this.generatePartySize() }
-        </select>
+  return (
+    <div className="reservation-seleciton-wrapper">
+      <div className="reservation-selection-text">
+        For
+        {' '}
+        {userPartySize}
       </div>
-    );
-  }
-}
+      <SVG
+        className="selection-icon"
+        viewBox="0 0 8.07 5.24"
+        fill="rgb(51, 51, 51)"
+      />
+      <select
+        className="reservation-seleciton"
+        onChange={partySizeSelectionChange}
+      >
+        { generatePartySize() }
+      </select>
+    </div>
+  );
+};
+
+PartySize.propTypes = {
+  userPartySize: propTypes.number.isRequired,
+  partySizeSelectionChange: propTypes.func.isRequired,
+};
 
 export default PartySize;

@@ -146,12 +146,12 @@ class CalendarDates extends React.Component {
     render.push(row);
 
     // render rows to <tr>
-    return render.map((row, j) => (
+    return render.map((r, j) => (
       <div
         key={`${momentDate.format('M')}-${j}`}
         className="calendar-row"
       >
-        {row}
+        {r}
       </div>
     ));
   }

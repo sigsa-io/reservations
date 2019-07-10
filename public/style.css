@@ -38,7 +38,7 @@ div, form, h3, h4, select, button {
   -ms-flex-direction: column;
   flex-direction: column;
   border-bottom: 1px solid #d8d9db;
-  margin: 0;
+  margin-left: .5rem;
 }
 
 .reservation-detail-wrapper {
@@ -50,7 +50,7 @@ div, form, h3, h4, select, button {
 }
 
 .reservation-detail-selection {
-  margin-left: 0;
+  margin-left: .5rem;
 }
 
 .reservation-detail-title {
@@ -381,4 +381,110 @@ div, form, h3, h4, select, button {
   border: 2px solid #da3743;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+.time-slot-wrapper {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 1rem auto 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.time-slot-title {
+  text-align: center;
+  margin: 0 0 .5rem;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.time-slot-entry-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-bottom: calc(-1*.5rem);
+}
+
+.time-slot-entry-inner {
+  min-width: 72px;
+  height: 32px;
+  font-size: .875rem;
+  background-color: #da3743;
+  cursor: pointer;
+  border-radius: 2px;
+  text-align: center;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 .25rem;
+}
+
+.time-slot-entry-inner:hover,
+.time-slot-entry-inner:focus {
+  background-color: #e15b64;
+}
+
+.time-slot-entry {
+  margin-right: .5rem;
+  margin-bottom: .5rem;
+  display: inline-block;
+  vertical-align: top;
+  text-decoration: none;
+}
+
+.no-time-slot-wrapper {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 1rem auto 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.no-time-slot {
+  padding: .5rem;
+  background-color: #f1f2f4;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  max-width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.no-time-slot-text-wrap {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-overflow: ellipsis;
+  text-decoration: inherit;
+}
+
+.no-time-slot-warning {
+  position: relative;
+  height: 24px;
+  width: 24px;
+  pointer-events: none;
+  left: 0px;
+  margin: 0px 10px 0px 0px;
 }
