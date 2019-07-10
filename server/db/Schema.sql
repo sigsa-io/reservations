@@ -1,19 +1,19 @@
-CREATE DATABASE IF NOT EXISTS reservations;
+CREATE DATABASE IF NOT EXISTS sigsa_reservation;
 
-USE reservations;
+USE sigsa_reservation;
 
-CREATE TABLE IF NOT EXISTS reservations_tables (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  restaurant_id VARCHAR(100) NOT NULL,
-  restaurant_name VARCHAR(1000) NOT NULL,
-  reservationTimeStamp INTEGER NOT NULL, 
+CREATE TABLE IF NOT EXISTS restaurants (
+  id INTEGER AUTO_INCREMENT PRIMARY KEY,
+  restaurantId VARCHAR(100) NOT NULL,
+  restaurantName VARCHAR(1000) NOT NULL,
+  timeSlot INTEGER NOT NULL, 
   availableSeats INTEGER NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS reservations_users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  restaurant_id VARCHAR(100) NOT NULL,
-  restaurant_name VARCHAR(1000) NOT NULL,
-  reservationTimeStamp INTEGER NOT NULL, 
+CREATE TABLE IF NOT EXISTS reservations (
+  id INTEGER AUTO_INCREMENT PRIMARY KEY,
+  restaurantId VARCHAR(100) NOT NULL,
+  start_time INTEGER NOT NULL,
+  end_time INTEGER NOT NULL, 
   partySize INTEGER NOT NULL
 );
