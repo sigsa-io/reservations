@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import SizeDateTime from './SizeDateTime';
 import BookingStat from './BookingStat';
+import TimeSlots from './TimeSlots';
 import getRequests from '../helperFunc/getRequests';
 
 class App extends React.Component {
@@ -73,14 +74,27 @@ class App extends React.Component {
   getTimeSlot() {
     const { restaurantId, renderDate, userTargetTime, userPartySize } = this.state;
     const requestInfo = { restaurantId, renderDate, userTargetTime, userPartySize };
-    const captureData = (data) => this.setState({ availableTimeSlots: data });
+    const captureData = (data) => {
+      console.log(data);
+      if (data.length > 0) {
+        this.setState({
+          availableTargetTimeSlots: data,
+          displayView: 'has-time-slots',
+        });
+      } else {
+        this.setState({
+          availableTargetTimeSlots: data,
+          displayView: 'no-time-slots',
+        });
+      }
+    };
 
-    getRequests.getTimeSlotsForDateAndTime(requestInfo, captureData, this.viewSwitch);
+    getRequests.getTimeSlotsForDateAndTime(requestInfo, captureData);
   }
 
   // render button or timeslots
   renderView() {
-    const {displayView} = this.state;
+    const { displayView, availableTargetTimeSlots } = this.state;
 
     if (displayView === 'find-a-table') {
       return (
@@ -98,7 +112,9 @@ class App extends React.Component {
     
     if (displayView === 'has-time-slots') {
       return (
-        <div>There will be time slot here</div>
+        <TimeSlots
+          availableTargetTimeSlots={availableTargetTimeSlots}
+        />
       );
     }
   }
@@ -109,7 +125,7 @@ class App extends React.Component {
       userTargetTime,
       restaurantId,
       userPartySize,
-      availableDateTimeSlots,
+      availableTargetTimeSlots,
     } = this.state;
 
     return (
@@ -130,7 +146,7 @@ class App extends React.Component {
         { this.renderView() }
         <BookingStat
           renderDate={renderDate}
-          availableDateTimeSlots={availableDateTimeSlots}
+          availableTargetTimeSlots={availableTargetTimeSlots}
         />
       </div>
     );

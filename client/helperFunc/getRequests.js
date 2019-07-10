@@ -13,8 +13,7 @@ const getRequests = {
     axios.get(`/targettimeslots/${restaurantId}`, {
       params: { targetTimeUnix, userPartySize },
     })
-      .then(data => captureData(data))
-      .then(switchView('has-time-slots')) // need to refactor if no time slots found
+      .then(({data}) => captureData(data))
       .catch(err => console.log(err));
   }, 
 

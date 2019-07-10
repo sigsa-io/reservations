@@ -5,7 +5,7 @@ const restaurantNameId = require('./restaurantData.js');
 // get each day's starting unix first, then add additinal hours to the starting point
 
 // only available for the next 90 days reservation
-const createSeed = (days, data = []) => {
+const createSeed = (days, restaurantNameId, data = []) => {
 
   for (let i = 0; i < restaurantNameId.length; i++) {
     const { restaurant_name, restaurant_id } = restaurantNameId[i];
@@ -44,7 +44,7 @@ const createSeed = (days, data = []) => {
 };
 
 const insertToReservationTable = () => {
-  const seed = createSeed(90);
+  const seed = createSeed(90, restaurantNameId);
 
   const queryStr = 'INSERT INTO reservations_tables (restaurant_id, restaurant_name, reservationTimeStamp, availableSeats) VALUES ?';
   db.query(queryStr, [seed], (err, data) => {
@@ -58,3 +58,5 @@ const insertToReservationTable = () => {
 };
 
 insertToReservationTable();
+
+module.exports = createSeed;

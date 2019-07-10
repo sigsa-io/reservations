@@ -382,3 +382,62 @@ div, form, h3, h4, select, button {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+.time-slot-wrapper {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 1rem auto 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.time-slot-title {
+  margin: 0 0 .5rem;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.time-slot-entry-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-bottom: calc(-1*.5rem);
+}
+
+.time-slot-entry {
+  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  margin-right: .5rem;
+  margin-bottom: .5rem;
+  display: inline-block;
+  vertical-align: top;
+  text-decoration: none;
+}
+
+.time-slot-entry-inner {
+  min-width: 72px;
+  height: 32px;
+  font-size: .875rem;
+  background-color: #da3743;
+  cursor: pointer;
+  border-radius: 2px;
+  text-align: center;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 .25rem;
+}
