@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import BookedTimes from '../img/BookTimes';
 import ActFast from '../img/ActFast';
 
@@ -6,8 +7,8 @@ class BookingStat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookedTimes: 0, //  to move to booking stat component, api call should be make in that component
-    }
+      bookedTimes: 0,
+    };
   }
 
   render() {
@@ -48,5 +49,9 @@ class BookingStat extends React.Component {
     );
   }
 }
+
+BookingStat.propTypes = {
+  availableDateTimeSlots: propTypes.number.isRequired,
+};
 
 export default BookingStat;

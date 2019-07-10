@@ -7,7 +7,7 @@ const Time = (
   {
     userTargetTime,
     timeSelectionChange,
-  }
+  },
 ) => {
   const timeGenerator = () => {
     const timeEntry = [];
@@ -29,7 +29,7 @@ const Time = (
       hourCount--;
     }
     return timeEntry;
-  }
+  };
 
   return (
     <div className="reservation-seleciton-wrapper">
@@ -44,11 +44,11 @@ const Time = (
       </select>
     </div>
   );
-}
+};
 
 Time.propTypes = {
   userTargetTime: propTypes.string.isRequired,
   timeSelectionChange: propTypes.func.isRequired,
-}
+};
 
 export default Time;

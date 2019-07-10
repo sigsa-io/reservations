@@ -1,10 +1,9 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import TimeSlotEntry from './TimeSlotEntry';
 
 const TimeSlots = ({ availableTargetTimeSlots }) => {
-
   const renderSlots = () => {
-    console.log(availableTargetTimeSlots)
     return availableTargetTimeSlots.map((slot) => {
       const { reservationTimeStamp } = slot;
       return (
@@ -14,7 +13,7 @@ const TimeSlots = ({ availableTargetTimeSlots }) => {
         />
       );
     });
-  }
+  };
 
   return (
     <span className="time-slot-wrapper">
@@ -29,5 +28,9 @@ const TimeSlots = ({ availableTargetTimeSlots }) => {
     </span>
   );
 };
+
+TimeSlots.propTypes = {
+  availableTargetTimeSlots: propTypes.array.isRequired,
+}
 
 export default TimeSlots;

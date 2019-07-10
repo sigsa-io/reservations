@@ -6,7 +6,7 @@ const PartySize = (
   {
     userPartySize,
     partySizeSelectionChange,
-  }
+  },
 ) => {
   const generatePartySize = () => {
     const sizeEntry = [];
@@ -22,7 +22,7 @@ const PartySize = (
       );
     }
     return sizeEntry;
-  }
+  };
 
   return (
     <div className="reservation-seleciton-wrapper">
@@ -44,11 +44,11 @@ const PartySize = (
       </select>
     </div>
   );
-}
+};
 
 PartySize.propTypes = {
   userPartySize: propTypes.number.isRequired,
   partySizeSelectionChange: propTypes.func.isRequired,
-}
+};
 
 export default PartySize;

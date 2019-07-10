@@ -16,7 +16,7 @@ class App extends React.Component {
       userPartySize: 2, // default render partySize is 2
       displayView: 'find-a-table', // default display is 'find a table' button
       availableTargetTimeSlots: null,
-      availableDateTimeSlots: null,
+      availableDateTimeSlots: 0,
     };
 
     this.changeRenderDate = this.changeRenderDate.bind(this);
@@ -34,11 +34,36 @@ class App extends React.Component {
     const requestInfo = { restaurantId, renderDate };
 
     getRequests.getTimeSlotsCountForDate(requestInfo, (slotCount) => {
-      this.setState({ 
+      this.setState({
         availableDateTimeSlots: slotCount,
-        restaurantId: restaurantId,
+        restaurantId,
       });
     });
+  }
+
+  // get timeslots in an array with correct partysize and time range
+  getTimeSlot() {
+    const {
+      restaurantId, renderDate, userTargetTime, userPartySize,
+    } = this.state;
+    const requestInfo = {
+      restaurantId, renderDate, userTargetTime, userPartySize,
+    };
+    const captureData = (data) => {
+      if (data.length > 0) {
+        this.setState({
+          availableTargetTimeSlots: data,
+          displayView: 'has-time-slots',
+        });
+      } else {
+        this.setState({
+          availableTargetTimeSlots: data,
+          displayView: 'no-time-slots',
+        });
+      }
+    };
+
+    getRequests.getTimeSlotsForDateAndTime(requestInfo, captureData);
   }
 
   // invoke from calendar dates
@@ -67,30 +92,9 @@ class App extends React.Component {
   }
 
   // view switcher, invoke from app.jsx
-  // note that clicking a date in the calendar should rerender the button again!! 
+  // note that clicking a date in the calendar should rerender the button again!!
   viewSwitch(option) {
     this.setState({ displayView: option });
-  }
-
-  // get timeslots in an array with correct partysize and time range
-  getTimeSlot() {
-    const { restaurantId, renderDate, userTargetTime, userPartySize } = this.state;
-    const requestInfo = { restaurantId, renderDate, userTargetTime, userPartySize };
-    const captureData = (data) => {
-      if (data.length > 0) {
-        this.setState({
-          availableTargetTimeSlots: data,
-          displayView: 'has-time-slots',
-        });
-      } else {
-        this.setState({
-          availableTargetTimeSlots: data,
-          displayView: 'no-time-slots',
-        });
-      }
-    };
-
-    getRequests.getTimeSlotsForDateAndTime(requestInfo, captureData);
   }
 
   // render button or timeslots
@@ -100,17 +104,17 @@ class App extends React.Component {
     if (displayView === 'find-a-table') {
       return (
         <div className="find-a-table-wrapper">
-          <button 
-            className="find-a-table-button" 
+          <button
+            className="find-a-table-button"
             type="submit"
             onClick={this.getTimeSlot}
           >
             Find a Table
           </button>
         </div>
-      );          
+      );
     }
-    
+
     if (displayView === 'has-time-slots') {
       return (
         <TimeSlots
@@ -126,13 +130,14 @@ class App extends React.Component {
         />
       );
     }
+
+    return <div />;
   }
 
   render() {
-    const { 
+    const {
       renderDate,
       userTargetTime,
-      restaurantId,
       userPartySize,
       availableDateTimeSlots,
     } = this.state;

@@ -19,24 +19,25 @@ describe('Get and Post API', () => {
 
   // delete the mock entry after each test
   afterEach(async () => {
-    const queryStr = `DELETE FROM reservations_tables WHERE restaurant_name = 'Jest Mock'`;
+    const queryStr = 'DELETE FROM reservations_tables WHERE restaurant_name = \'Jest Mock\'';
     await db.query(queryStr);
   });
 
   // test GET API
+  // TO FIX in db refactor branch
   test('Get timeslots for 2.5hr range before and after for a restaurant', async () => {
-    const response = await request(app).get('/0001', 
+    const response = await request(app).get('/0001',
       {
         partySize: 5,
         targetTimeStamp: 1562700600,
-      }
+      },
     );
     expect(response.body[0].timeSlots.length).toEqual(2);
     expect(response.statusCode).toBe(200);
   });
 
   // test POST API
-  // TO FIX!!! 
+  // TO FIX in db refactor branch
   test('Reserving a table should descrease the available seating in restaurant', async () => {
     const response = await request(app).post('/0001/2019/7/5/8/30').send({ party_size: 10 });
     expect(response.statusCode).toBe(201);

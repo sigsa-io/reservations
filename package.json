@@ -8,7 +8,7 @@
     "start": "nodemon ./server/index.js",
     "build": "webpack -d --watch",
     "seed": "node ./server/db/seed.js",
-    "lint": "eslint --ext .js --ext .jsx . --fix"
+    "lint": "eslint --ext .js --ext .jsx ."
   },
   "repository": {
     "type": "git",

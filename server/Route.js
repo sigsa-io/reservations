@@ -13,7 +13,9 @@ router.get('/targettimeslots/:restaurant_id', (req, res) => {
 
   // need to evaluate if partysize fit
   // need to get 2.5 hr range (both before and after, thus 5hr range in total)
-  const queryStr = `SELECT * FROM reservations_tables WHERE restaurant_id = ? AND availableSeats > ? AND (reservationTimeStamp BETWEEN ? AND ?)`;
+  const queryStr =
+    'SELECT * FROM reservations_tables WHERE restaurant_id = ? ' +
+    'AND availableSeats > ? AND (reservationTimeStamp BETWEEN ? AND ?)';
   const queryArg = [restaurant_id, partySize, timeLowerBound, timeUpperBound];
 
   return db.query(queryStr, queryArg, (err, data) => {
@@ -30,7 +32,9 @@ router.get('/datetimeslots/:restaurant_id', (req, res) => {
   const { targetDateStartUnix } = req.query;
   const targetDateEndUnix = Number(targetDateStartUnix) + 60 * 60 * 24;
 
-  const queryStr = `SELECT * FROM reservations_tables WHERE restaurant_id = ? AND (reservationTimeStamp BETWEEN ? AND ?)`;
+  const queryStr =
+    'SELECT * FROM reservations_tables WHERE restaurant_id = ? ' +
+    'AND (reservationTimeStamp BETWEEN ? AND ?)';
   const queryArg = [restaurant_id, targetDateStartUnix, targetDateEndUnix];
 
   return db.query(queryStr, queryArg, (err, data) => {
@@ -40,11 +44,18 @@ router.get('/datetimeslots/:restaurant_id', (req, res) => {
       res.status(200).json(data);
     }
   });
+});
 
-})
-
+// !!to be fixed in the next PR
 router.post('/:restaurant_id/:reservation_year/:reservation_month/:reservation_date/:reservation_hour/:reservation_min', (req, res) => {
-  const { restaurant_id, reservation_year, reservation_month, reservation_date, reservation_hour, reservation_min } = req.params;
+  const {
+    restaurant_id,
+    reservation_year,
+    reservation_month,
+    reservation_date,
+    reservation_hour,
+    reservation_min,
+  } = req.params;
   const { party_size } = req.body;
 
   return db.ReservationsTable.findOne(
