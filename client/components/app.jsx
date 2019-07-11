@@ -4,6 +4,7 @@ import SizeDateTime from './SizeDateTime';
 import BookingStat from './BookingStat';
 import TimeSlots from './TimeSlots';
 import NoTimeSlot from './NoTimeSlot';
+import MaxPartySize from './MaxPartySize';
 import getRequests from '../helperFunc/getRequests';
 
 class App extends React.Component {
@@ -15,8 +16,8 @@ class App extends React.Component {
       userTargetTime: '6:30 PM', // default target time for initial render is 6:30 pm
       userPartySize: 2, // default render partySize is 2
       displayView: 'find-a-table', // default display is 'find a table' button
-      availableTargetTimeSlots: null,
-      availableDateTimeSlots: 0,
+      availableTargetTimeSlots: [],
+      bookingCount: 0,
     };
 
     this.changeRenderDate = this.changeRenderDate.bind(this);
@@ -30,14 +31,10 @@ class App extends React.Component {
   // componentDidMount will get initial restaurantId
   componentDidMount() {
     const restaurantId = window.location.pathname.split('/')[1];
-    const { renderDate } = this.state;
-    const requestInfo = { restaurantId, renderDate };
+    const requestInfo = { restaurantId };
 
-    getRequests.getTimeSlotsCountForDate(requestInfo, (slotCount) => {
-      this.setState({
-        availableDateTimeSlots: slotCount,
-        restaurantId,
-      });
+    getRequests.getTotalBookingCount(requestInfo, (bookingCount) => {
+      this.setState({ bookingCount, restaurantId })
     });
   }
 
@@ -63,21 +60,23 @@ class App extends React.Component {
       }
     };
 
-    getRequests.getTimeSlotsForDateAndTime(requestInfo, captureData);
+    getRequests.getMaxPartySize(restaurantId, (restaurantMaxSeat) => {
+      if (userPartySize > restaurantMaxSeat) {
+        this.setState({
+          displayView: 'max-party-size',
+        });
+      } else {
+        getRequests.getTimeSlotsForDateAndTime(requestInfo, captureData);
+      }
+    })
+
   }
 
   // invoke from calendar dates
   changeRenderDate(newDate) {
-    // newDate should be a moment object
-    const { restaurantId, renderDate } = this.state;
-    const requestInfo = { restaurantId, renderDate };
-
-    getRequests.getTimeSlotsCountForDate(requestInfo, (slotCount) => {
-      this.setState({
-        renderDate: newDate,
-        availableDateTimeSlots: slotCount,
-        displayView: 'find-a-table',
-      });
+    this.setState({
+      renderDate: newDate,
+      displayView: 'find-a-table',
     });
   }
 
@@ -131,6 +130,12 @@ class App extends React.Component {
       );
     }
 
+    if (displayView === 'max-party-size') {
+      return (
+        <MaxPartySize />
+      );
+    }
+
     return <div />;
   }
 
@@ -139,7 +144,8 @@ class App extends React.Component {
       renderDate,
       userTargetTime,
       userPartySize,
-      availableDateTimeSlots,
+      availableTargetTimeSlots,
+      bookingCount,
     } = this.state;
 
     return (
@@ -160,8 +166,8 @@ class App extends React.Component {
           />
           { this.renderView() }
           <BookingStat
-            renderDate={renderDate}
-            availableDateTimeSlots={availableDateTimeSlots}
+            bookingCount={bookingCount}
+            availableTargetTimeSlots={availableTargetTimeSlots}
           />
         </div>
       </div>

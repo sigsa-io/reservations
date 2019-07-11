@@ -3,12 +3,10 @@ import moment from 'moment';
 
 const getRequests = {
 
-  getMaxPartySize: (requestInfo, cb) => {
-    const { restaurantId } = requestInfo; 
+  getMaxPartySize: (restaurantId, cb) => {
     axios.get(`/seatingSize/${restaurantId}`)
       .then(({data}) => {
-        console.log(data);
-        cb(data);
+        cb(data[0].availableSeats);
       })
       .catch(err => console.log(err));
   },

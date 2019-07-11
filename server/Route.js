@@ -23,10 +23,11 @@ router.get('/seatingSize/:restaurantId', (req, res) => {
 
   const queryStr = 'SELECT availableSeats FROM restaurants WHERE restaurantId = ? LIMIT 1';
 
-  return db.query(queryStr, restaurantId, (err, data) => {
+  return db.query(queryStr, [Number(restaurantId)], (err, data) => {
     if (err) {
       res.status(500).json(err);
     } else {
+      console.log(data)
       res.status(200).json(data);
     }
   });
