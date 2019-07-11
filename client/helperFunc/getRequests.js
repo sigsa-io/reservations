@@ -30,11 +30,18 @@ const getRequests = {
       .catch(err => console.log(err));
   },
 
-  getTotalBookingCount: (requestInfo, cb) => {
-    const { restaurantId } = requestInfo; 
+  getTotalBookingCount: (restaurantId, cb) => {
     axios.get(`/bookingCount/${restaurantId}`)
       .then(({data}) => {
         cb(data[0].bookingCount);
+      })
+      .catch(err => console.log(err));
+  },
+
+  getRestaurantName: (restaurantId, cb) => {
+    axios.get(`/restaurantName/${restaurantId}`)
+      .then(({data}) => {
+        cb(data[0].restaurantName);
       })
       .catch(err => console.log(err));
   },

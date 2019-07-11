@@ -5,7 +5,9 @@ import BookingStat from './BookingStat';
 import TimeSlots from './TimeSlots';
 import NoTimeSlot from './NoTimeSlot';
 import MaxPartySize from './MaxPartySize';
+import SuccessfulBooking from './SuccessfulBooking';
 import getRequests from '../helperFunc/getRequests';
+import postRequests from '../helperFunc/postRequests';
 
 class App extends React.Component {
   constructor() {
@@ -18,23 +20,26 @@ class App extends React.Component {
       displayView: 'find-a-table', // default display is 'find a table' button
       availableTargetTimeSlots: [],
       bookingCount: 0,
+      bookedTimeSlot: '',
+      restaurantName: '',
     };
 
     this.changeRenderDate = this.changeRenderDate.bind(this);
     this.timeSelectionChange = this.timeSelectionChange.bind(this);
     this.partySizeSelectionChange = this.partySizeSelectionChange.bind(this);
-    this.viewSwitch = this.viewSwitch.bind(this);
     this.renderView = this.renderView.bind(this);
     this.getTimeSlot = this.getTimeSlot.bind(this);
+    this.bookTimeSlot = this.bookTimeSlot.bind(this);
   }
 
   // componentDidMount will get initial restaurantId
   componentDidMount() {
     const restaurantId = window.location.pathname.split('/')[1];
-    const requestInfo = { restaurantId };
 
-    getRequests.getTotalBookingCount(requestInfo, (bookingCount) => {
-      this.setState({ bookingCount, restaurantId })
+    getRequests.getTotalBookingCount(restaurantId, (bookingCount) => {
+      getRequests.getRestaurantName(restaurantId, (restaurantName) => {
+        this.setState({ bookingCount, restaurantId, restaurantName });
+      })
     });
   }
 
@@ -68,8 +73,7 @@ class App extends React.Component {
       } else {
         getRequests.getTimeSlotsForDateAndTime(requestInfo, captureData);
       }
-    })
-
+    });
   }
 
   // invoke from calendar dates
@@ -90,15 +94,29 @@ class App extends React.Component {
     this.setState({ userPartySize: e.target.value });
   }
 
-  // view switcher, invoke from app.jsx
-  // note that clicking a date in the calendar should rerender the button again!!
-  viewSwitch(option) {
-    this.setState({ displayView: option });
+  // book time slot
+  bookTimeSlot(e, bookingTimeSlot) {
+    const { restaurantId, renderDate, userPartySize } = this.state;
+    const requestInfo = { restaurantId, renderDate, userPartySize, bookingTimeSlot };
+
+    postRequests.bookTimeSlot(requestInfo, () => {
+      this.setState({
+        displayView: 'successful-book-time',
+        bookedTimeSlot: bookingTimeSlot,
+      });
+    })
   }
 
   // render button or timeslots
   renderView() {
-    const { displayView, userTargetTime, availableTargetTimeSlots } = this.state;
+    const {
+      displayView,
+      userTargetTime,
+      availableTargetTimeSlots,
+      bookedTimeSlot,
+      renderDate,
+      restaurantName,
+    } = this.state;
 
     if (displayView === 'find-a-table') {
       return (
@@ -118,6 +136,7 @@ class App extends React.Component {
       return (
         <TimeSlots
           availableTargetTimeSlots={availableTargetTimeSlots}
+          bookTimeSlot={this.bookTimeSlot}
         />
       );
     }
@@ -134,6 +153,16 @@ class App extends React.Component {
       return (
         <MaxPartySize />
       );
+    }
+
+    if (displayView === 'successful-book-time') {
+      return (
+        <SuccessfulBooking
+          renderDate={renderDate}
+          bookedTimeSlot={bookedTimeSlot}
+          restaurantName={restaurantName}
+        />
+      )
     }
 
     return <div />;
