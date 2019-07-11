@@ -9,12 +9,11 @@ router.get('/seatingSize/:restaurantId', (req, res) => {
   const { restaurantId } = req.params;
 
   const queryStr = 'SELECT availableSeats FROM restaurants WHERE restaurantId = ? LIMIT 1';
-  
+
   return db.query(queryStr, restaurantId, (err, data) => {
     if (err) {
       res.status(500).json(err);
     } else {
-      console.log(data);
       res.status(200).json(data);
     }
   });
@@ -38,7 +37,7 @@ router.get('/targettimeslots/:restaurantId', (req, res) => {
   // find reservations within this unix range, partysize doesn't matter
   const queryStrReservations =
     'SELECT * FROM reservations WHERE restaurantId = ? ' +
-    'AND start_time >= ? ' + 
+    'AND start_time >= ? ' +
     'AND end_time <= ?';
   const queryArgReservations = [restaurantId, timeLowerBound, timeUpperBound];
   return db.query(queryStrReservations, queryArgReservations, (err, data) => {
@@ -52,7 +51,7 @@ router.get('/targettimeslots/:restaurantId', (req, res) => {
       if (data.length === 0) {
         // we then provide the count of time slots from restaurant table
         queryStrRestaurant = 'SELECT COUNT(*) FROM restaurants WHERE restaurantId = ?';
-        queryArgRestaurant = [ restaurantId ];
+        queryArgRestaurant = [restaurantId];
 
         db.query(queryStrRestaurant, queryArgRestaurant, (err, data) => {
           if (err) {
@@ -60,11 +59,11 @@ router.get('/targettimeslots/:restaurantId', (req, res) => {
           } else {
             res.status(200).json(data);
           }
-        })
+        });
       } else {
         // we first get the reservation start_time in 'AMPM' format but in number
         const startTimeInReservation = {};
-        for (var i = 0; i < data.length; i ++) {
+        for (let i = 0; i < data.length; i ++) {
           const timeSlotStr = moment.unix(data[i].start_time).format('HH:mm');
           const timeSlotNum = Number(timeSlotStr.split(':')[0]) + Number(timeSlotStr.split(':')[1]) / 60;
           startTimeInReservation[timeSlotNum] = startTimeInReservation[timeSlotNum] + data[i].partySize || data[i].partySize;
@@ -73,14 +72,14 @@ router.get('/targettimeslots/:restaurantId', (req, res) => {
         queryStrRestaurant =
           'SELECT * FROM restaurants WHERE restaurantId = ?' +
           'AND (timeSlot BETWEEN ? AND ?)';
-        queryArgRestaurant = [ restaurantId, targetTimeLowerBoundNum, targetTimeUpperBoundNum ];
+        queryArgRestaurant = [restaurantId, targetTimeLowerBoundNum, targetTimeUpperBoundNum];
         db.query(queryStrRestaurant, queryArgRestaurant, (err, data) => {
           if (err) {
             res.status(500).json(err);
           } else {
             // evaluate if the time slot is full for reservation such party size
             const availableTimeSlot = [];
-            for (var j = 0; j < data.length; j++) {
+            for (let j = 0; j < data.length; j++) {
               if (startTimeInReservation[data[j].timeSlot]) {
                 if (data[j].availableSeats - startTimeInReservation[data[j].timeSlot] > partySize) {
                   availableTimeSlot.push(data[j]);
@@ -89,7 +88,6 @@ router.get('/targettimeslots/:restaurantId', (req, res) => {
                 availableTimeSlot.push(data[j]);
               }
             }
-            console.log(availableTimeSlot);
             res.status(200).json(availableTimeSlot);
           }
         });
@@ -105,7 +103,6 @@ router.post('/reservations', (req, res) => {
 
   const queryStrReservation = 'INSERT INTO reservations (restaurantId, start_time, end_time, partySize) VALUES (?, ?, ?, ?)';
   const queryArgReservation = [restaurantId, targetStartTimeUnix, targetEndTimeUnix, partySize];
-  // const queryStrBookingCount = 'INSERT INTO bookingCount (restaurantId, bookingCount) VALUES (?, 1) ON DUPLICATE KEY UPDATE bookingCount = VALUES(bookingCount) + 1';
   const queryStrBookingCount = 'UPDATE bookingCount SET bookingCount = bookingCount + 1 WHERE restaurantId = ?';
   const queryArgBookingCount = [restaurantId];
 
@@ -116,7 +113,6 @@ router.post('/reservations', (req, res) => {
       // increase booking count
       db.query(queryStrBookingCount, queryArgBookingCount, (err, data) => {
         if (err) {
-          console.log(err);
           res.status(500).json(err);
         } else {
           res.status(201).json(data);
