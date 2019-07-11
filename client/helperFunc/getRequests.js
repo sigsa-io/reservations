@@ -2,6 +2,17 @@ import axios from 'axios';
 import moment from 'moment';
 
 const getRequests = {
+
+  getMaxPartySize: (requestInfo, cb) => {
+    const { restaurantId } = requestInfo; 
+    axios.get(`/seatingSize/${restaurantId}`)
+      .then(({data}) => {
+        console.log(data);
+        cb(data);
+      })
+      .catch(err => console.log(err));
+  },
+
   getTimeSlotsForDateAndTime: (requestInfo, captureData) => {
     const {
       restaurantId, renderDate, userTargetTime, userPartySize,
@@ -12,20 +23,21 @@ const getRequests = {
     axios.get(`/targettimeslots/${restaurantId}`, {
       params: { targetTimeUnix, userPartySize },
     })
-      .then(({ data }) => captureData(data))
+      .then(({ data }) => {
+        console.log(data);
+        captureData(data);
+      })
       .catch(err => console.log(err));
   },
 
-  getTimeSlotsCountForDate: (requestInfo, cb) => {
-    const { restaurantId, renderDate } = requestInfo;
-    const targetDateStartUnix = renderDate.startOf('day').format('X');
-
-    axios.get(`/datetimeslots/${restaurantId}`, {
-      params: { targetDateStartUnix },
-    })
-      .then(({ data }) => cb(data.length))
+  getTotalBookingCount: (requestInfo, cb) => {
+    const { restaurantId } = requestInfo; 
+    axios.get(`/bookingCount/${restaurantId}`)
+      .then(({data}) => {
+        cb(data[0].bookingCount);
+      })
       .catch(err => console.log(err));
-  },
+  }
 };
 
 export default getRequests;
