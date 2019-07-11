@@ -25,7 +25,7 @@ const PartySize = (
   };
 
   return (
-    <div className="reservation-seleciton-wrapper">
+    <div className="reservation-selection-wrapper">
       <div className="reservation-selection-text">
         For
         {' '}
@@ -37,7 +37,7 @@ const PartySize = (
         fill="rgb(51, 51, 51)"
       />
       <select
-        className="reservation-seleciton"
+        className="reservation-selection"
         onChange={partySizeSelectionChange}
       >
         { generatePartySize() }

@@ -59,7 +59,7 @@ div, form, h3, h4, select, button {
   padding-bottom: .25rem;
 }
 
-.reservation-seleciton-wrapper {
+.reservation-selection-wrapper {
   cursor: pointer;
   border-right: none;
   position: relative;
@@ -98,7 +98,7 @@ div, form, h3, h4, select, button {
   pointer-events: none;
 }
 
-.reservation-seleciton {
+.reservation-selection {
   cursor: pointer;
   font-family: inherit;
   background-color: #fff;
@@ -113,6 +113,13 @@ div, form, h3, h4, select, button {
   appearance: none;
   border-radius: 0;
   border-bottom: 1px solid #d8d9db;
+}
+
+.reservation-selection:hover,
+.reservation-selection:focus,
+.date-selection-detail-wrapper:hover,
+.date-selection-detail-wrapper:focus {
+  border-bottom: 2px solid #da3743;
 }
 
 .reservation-detail-date-time-wrapper {
