@@ -5,13 +5,13 @@ import moment from 'moment';
 const TimeSlotEntry = ({ slot }) => (
   <div className="time-slot-entry">
     <div className="time-slot-entry-inner">
-      <span>{moment.unix(slot).format('h:mm A')}</span>
+      <span>{slot}</span>
     </div>
   </div>
 );
 
 TimeSlotEntry.propTypes = {
-  slot: propTypes.number.isRequired,
+  slot: propTypes.string.isRequired,
 };
 
 export default TimeSlotEntry;

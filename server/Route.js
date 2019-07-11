@@ -36,7 +36,7 @@ router.get('/seatingSize/:restaurantId', (req, res) => {
 // after validating the partysize fit, then we find the available seating slots
 router.get('/targettimeslots/:restaurantId', (req, res) => {
   const { restaurantId } = req.params;
-  const { targetTimeUnix, userPartySize } = req.body;
+  const { targetTimeUnix, userPartySize } = req.query;
 
   const timeLowerBound = Number(targetTimeUnix) - 60 * 60 * 2.5;
   const timeUpperBound = Number(targetTimeUnix) + 60 * 60 * 2.5;
@@ -64,8 +64,9 @@ router.get('/targettimeslots/:restaurantId', (req, res) => {
 
       if (data.length === 0) {
         // we then provide the count of time slots from restaurant table
-        queryStrRestaurant = 'SELECT COUNT(*) FROM restaurants WHERE restaurantId = ?';
-        queryArgRestaurant = [restaurantId];
+        queryStrRestaurant = 'SELECT * FROM restaurants WHERE restaurantId = ? ' + 
+        'AND (timeSlot BETWEEN ? AND ?) ORDER BY timeSlot';
+        queryArgRestaurant = [restaurantId, targetTimeLowerBoundNum, targetTimeUpperBoundNum];
 
         db.query(queryStrRestaurant, queryArgRestaurant, (err, data) => {
           if (err) {
@@ -85,7 +86,8 @@ router.get('/targettimeslots/:restaurantId', (req, res) => {
         // find within bound time slot from restaurant table
         queryStrRestaurant =
           'SELECT * FROM restaurants WHERE restaurantId = ?' +
-          'AND (timeSlot BETWEEN ? AND ?)';
+          'AND (timeSlot BETWEEN ? AND ?)' +
+          'ORDER BY timeSlot';
         queryArgRestaurant = [restaurantId, targetTimeLowerBoundNum, targetTimeUpperBoundNum];
         db.query(queryStrRestaurant, queryArgRestaurant, (err, data) => {
           if (err) {
@@ -111,8 +113,9 @@ router.get('/targettimeslots/:restaurantId', (req, res) => {
 });
 
 // create reservation when a time slot is clicked
-router.post('/reservations', (req, res) => {
-  const { restaurantId, targetStartTimeUnix, partySize } = req.body;
+router.post('/reservations/:restaurantId', (req, res) => {
+  const { restaurantId } = req.params;
+  const { targetStartTimeUnix, partySize } = req.body;
   const targetEndTimeUnix = Number(targetStartTimeUnix) + 60 * 60;
 
   const queryStrReservation = 'INSERT INTO reservations (restaurantId, start_time, end_time, partySize) VALUES (?, ?, ?, ?)';

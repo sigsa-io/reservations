@@ -22,8 +22,10 @@ const getRequests = {
       params: { targetTimeUnix, userPartySize },
     })
       .then(({ data }) => {
-        console.log(data);
-        captureData(data);
+        const timeSlotStrArr = data.map(slot => (
+          moment(Math.floor(slot.timeSlot) + ':' + (slot.timeSlot - Math.floor(slot.timeSlot)) * 60, 'HH:mm').format('h:mm A')
+        ));
+        captureData(timeSlotStrArr);
       })
       .catch(err => console.log(err));
   },
