@@ -26,7 +26,7 @@ const shuffleArr = function(arr) {
 };
 
 
-const createSeed = (restaurantNameId) => {
+const createSeedRestaurants = (restaurantNameId) => {
   const seed = [];
   const timeSlotOptionsArr = timeSlotOptions();
 
@@ -46,11 +46,16 @@ const createSeed = (restaurantNameId) => {
   return seed;
 }
 
-const insertToReservationTable = () => {
-  const seed = createSeed(restaurantNameId);
+const createSeedBookingCount = (restaurantNameId) => {
+  return restaurantNameId.map(id => [Number(id.restaurant_id)]);
+}
 
-  const queryStr = 'INSERT INTO restaurants (restaurantId, restaurantName, timeSlot, availableSeats) VALUES ?';
-  db.query(queryStr, [seed], (err, data) => {
+const insertToReservationTable = () => {
+  const seedRestaurants = createSeedRestaurants(restaurantNameId);
+  const seedBookingCount = createSeedBookingCount(restaurantNameId);
+
+  const queryStrRestaurants = 'INSERT INTO restaurants (restaurantId, restaurantName, timeSlot, availableSeats) VALUES ?';
+  db.query(queryStrRestaurants, [seedRestaurants], (err, data) => {
     if (err) {
       console.log(err);
       return;
@@ -58,6 +63,17 @@ const insertToReservationTable = () => {
     console.log(data);
     return;
   });
+
+  const queryStrBookingCount = 'INSERT INTO bookingCount (restaurantId) VALUES ?';
+  db.query(queryStrBookingCount, [seedBookingCount], (err, data) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log(data);
+    return;
+  });
+
 };
 
 insertToReservationTable();
