@@ -2,12 +2,13 @@ import React from 'react';
 import propTypes from 'prop-types';
 import TimeSlotEntry from './TimeSlotEntry';
 
-const TimeSlots = ({ availableTargetTimeSlots }) => {
+const TimeSlots = ({ availableTargetTimeSlots, bookTimeSlot }) => {
   const renderSlots = () => {
     return availableTargetTimeSlots.map((slot) => (
       <TimeSlotEntry
         key={slot}
         slot={slot}
+        bookTimeSlot={bookTimeSlot}
       />
     ));
   };
@@ -28,6 +29,7 @@ const TimeSlots = ({ availableTargetTimeSlots }) => {
 
 TimeSlots.propTypes = {
   availableTargetTimeSlots: propTypes.array.isRequired,
+  bookTimeSlot: propTypes.func.isRequired,
 }
 
 export default TimeSlots;

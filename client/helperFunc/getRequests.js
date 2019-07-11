@@ -37,7 +37,7 @@ const getRequests = {
         cb(data[0].bookingCount);
       })
       .catch(err => console.log(err));
-  }
+  },
 };
 
 export default getRequests;

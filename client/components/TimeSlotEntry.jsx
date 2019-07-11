@@ -2,9 +2,13 @@ import React from 'react';
 import propTypes from 'prop-types';
 import moment from 'moment';
 
-const TimeSlotEntry = ({ slot }) => (
+const TimeSlotEntry = ({ slot, bookTimeSlot }) => (
   <div className="time-slot-entry">
-    <div className="time-slot-entry-inner">
+    <div 
+      className="time-slot-entry-inner"
+      onClick={(e) => bookTimeSlot(e, slot)}
+      value={slot}
+    >
       <span>{slot}</span>
     </div>
   </div>
@@ -12,6 +16,7 @@ const TimeSlotEntry = ({ slot }) => (
 
 TimeSlotEntry.propTypes = {
   slot: propTypes.string.isRequired,
+  bookTimeSlot: propTypes.func.isRequired,
 };
 
 export default TimeSlotEntry;
