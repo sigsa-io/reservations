@@ -86,12 +86,18 @@ class App extends React.Component {
 
   // invoke from time selection drop down
   timeSelectionChange(e) {
-    this.setState({ userTargetTime: e.target.value });
+    this.setState({ 
+      userTargetTime: e.target.value,
+      displayView: 'find-a-table',
+    });
   }
 
   // invoke from partySize selection drop down
   partySizeSelectionChange(e) {
-    this.setState({ userPartySize: e.target.value });
+    this.setState({ 
+      userPartySize: e.target.value,
+      displayView: 'find-a-table',
+    });
   }
 
   // book time slot
@@ -151,7 +157,9 @@ class App extends React.Component {
 
     if (displayView === 'max-party-size') {
       return (
-        <MaxPartySize />
+        <MaxPartySize
+          restaurantName={restaurantName}
+        />
       );
     }
 
