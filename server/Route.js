@@ -4,6 +4,19 @@ const db = require('./db/index');
 
 const router = express.Router();
 
+router.get('/bookingCount/:restaurantId', (req, res) => {
+  const { restaurantId } = req.params;
+  const queryStr = 'SELECT bookingCount FROM bookingCount WHERE restaurantId = ?';
+
+  return db.query(queryStr, restaurantId, (err, data) => {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      res.status(200).json(data);
+    }
+  });
+});
+
 // front end will first call this to evaluate if the party size is too big
 router.get('/seatingSize/:restaurantId', (req, res) => {
   const { restaurantId } = req.params;
