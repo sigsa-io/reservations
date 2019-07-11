@@ -448,7 +448,7 @@ div, form, h3, h4, select, button {
   text-decoration: none;
 }
 
-.no-time-slot-wrapper {
+.no-time-slot-wrapper, .sucessful-booking-wrapper {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
@@ -481,11 +481,32 @@ div, form, h3, h4, select, button {
   text-decoration: inherit;
 }
 
-.no-time-slot-warning {
+.no-time-slot-warning, .successful-booking-icon {
   position: relative;
   height: 24px;
   width: 24px;
   pointer-events: none;
   left: 0px;
   margin: 0px 10px 0px 0px;
+}
+
+.sucessful-booking {
+  padding: .5rem;
+  background-color: #ffe1e8;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  max-width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.sucessful-booking-text-wrap {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-overflow: ellipsis;
+  text-decoration: inherit;
 }
