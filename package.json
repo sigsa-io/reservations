@@ -4,11 +4,11 @@
   "description": "Reservation module for users to reserve a time slot for dinning on Sigsa.io",
   "main": "./server/index.js",
   "scripts": {
-    "test": "node_modules/jest/bin/jest.js --watch",
+    "test": "NODE_ENV=test jest",
     "start": "nodemon ./server/index.js",
     "build": "webpack -d --watch",
     "seed": "node ./server/db/seed.js",
-    "lint": "eslint --ext .js --ext .jsx ."
+    "lint": "eslint --ext .js --ext .jsx . --fix"
   },
   "repository": {
     "type": "git",

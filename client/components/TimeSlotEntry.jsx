@@ -1,12 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import moment from 'moment';
 
 const TimeSlotEntry = ({ slot, bookTimeSlot }) => (
   <div className="time-slot-entry">
-    <div 
+    <div
       className="time-slot-entry-inner"
-      onClick={(e) => bookTimeSlot(e, slot)}
+      onClick={e => bookTimeSlot(e, slot)}
       value={slot}
     >
       <span>{slot}</span>

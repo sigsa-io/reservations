@@ -24,8 +24,8 @@ const BookingStat = ({ bookingCount, availableTargetTimeSlots, inLuckView }) => 
       );
     }
 
-    return <div></div>;
-  }
+    return <div />;
+  };
 
   return (
     <div className="book-stat">
@@ -46,11 +46,12 @@ const BookingStat = ({ bookingCount, availableTargetTimeSlots, inLuckView }) => 
       { renderInLuckMsg() }
     </div>
   );
-}
+};
 
 BookingStat.propTypes = {
   availableTargetTimeSlots: propTypes.array.isRequired,
   bookingCount: propTypes.number.isRequired,
+  inLuckView: propTypes.boolean.isRequired,
 };
 
 export default BookingStat;

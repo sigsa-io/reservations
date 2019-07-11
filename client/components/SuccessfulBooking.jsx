@@ -28,6 +28,6 @@ SuccessfulBooking.propTypes = {
   renderDate: propTypes.instanceOf(moment).isRequired,
   restaurantName: propTypes.string.isRequired,
   bookedTimeSlot: propTypes.string.isRequired,
-}
+};
 
 export default SuccessfulBooking;

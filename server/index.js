@@ -12,6 +12,8 @@ app.set('port', 3000);
 
 app.use('/', router);
 
-app.listen(app.get('port'));
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(app.get('port'));
+}
 console.log('Now listening on port', app.get('port'));
 module.exports = app;

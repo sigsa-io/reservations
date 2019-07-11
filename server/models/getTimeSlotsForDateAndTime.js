@@ -1,5 +1,5 @@
-const db = require('../db/index');
 const moment = require('moment');
+const db = require('../db/index');
 
 module.exports = (req, res) => {
   const { restaurantId } = req.params;
@@ -16,10 +16,9 @@ module.exports = (req, res) => {
   const partySize = Number(userPartySize);
 
   // find reservations within this unix range, partysize doesn't matter
-  const queryStrReservations =
-    'SELECT * FROM reservations WHERE restaurantId = ? ' +
-    'AND start_time >= ? ' +
-    'AND end_time <= ?';
+  const queryStrReservations = 'SELECT * FROM reservations WHERE restaurantId = ? '
+    + 'AND start_time >= ? '
+    + 'AND end_time <= ?';
   const queryArgReservations = [restaurantId, timeLowerBound, timeUpperBound];
   return db.query(queryStrReservations, queryArgReservations, (err, data) => {
     if (err) {
@@ -31,8 +30,8 @@ module.exports = (req, res) => {
 
       if (data.length === 0) {
         // we then provide the count of time slots from restaurant table
-        queryStrRestaurant = 'SELECT * FROM restaurants WHERE restaurantId = ? ' + 
-        'AND (timeSlot BETWEEN ? AND ?) ORDER BY timeSlot';
+        queryStrRestaurant = 'SELECT * FROM restaurants WHERE restaurantId = ? '
+        + 'AND (timeSlot BETWEEN ? AND ?) ORDER BY timeSlot';
         queryArgRestaurant = [restaurantId, targetTimeLowerBoundNum, targetTimeUpperBoundNum];
 
         db.query(queryStrRestaurant, queryArgRestaurant, (err, data) => {
@@ -45,16 +44,15 @@ module.exports = (req, res) => {
       } else {
         // we first get the reservation start_time in 'AMPM' format but in number
         const startTimeInReservation = {};
-        for (let i = 0; i < data.length; i ++) {
+        for (let i = 0; i < data.length; i++) {
           const timeSlotStr = moment.unix(data[i].start_time).format('HH:mm');
           const timeSlotNum = Number(timeSlotStr.split(':')[0]) + Number(timeSlotStr.split(':')[1]) / 60;
           startTimeInReservation[timeSlotNum] = startTimeInReservation[timeSlotNum] + data[i].partySize || data[i].partySize;
         }
         // find within bound time slot from restaurant table
-        queryStrRestaurant =
-          'SELECT * FROM restaurants WHERE restaurantId = ?' +
-          'AND (timeSlot BETWEEN ? AND ?)' +
-          'ORDER BY timeSlot';
+        queryStrRestaurant = 'SELECT * FROM restaurants WHERE restaurantId = ?'
+          + 'AND (timeSlot BETWEEN ? AND ?)'
+          + 'ORDER BY timeSlot';
         queryArgRestaurant = [restaurantId, targetTimeLowerBoundNum, targetTimeUpperBoundNum];
         db.query(queryStrRestaurant, queryArgRestaurant, (err, data) => {
           if (err) {

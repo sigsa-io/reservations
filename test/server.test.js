@@ -30,9 +30,8 @@ describe('Get and Post API', () => {
       {
         partySize: 5,
         targetTimeStamp: 1562700600,
-      },
-    );
-    expect(response.body[0].timeSlots.length).toEqual(2);
+      });
+    expect(response.body[0].timeSlots).toHaveLength(2);
     expect(response.statusCode).toBe(200);
   });
 
