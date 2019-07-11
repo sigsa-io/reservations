@@ -19,8 +19,8 @@ describe('Get and Post API', () => {
 
   // delete the mock entry after each test
   afterEach(async () => {
-    const queryStr = 'DELETE FROM restaurants WHERE restaurantName = \'Jest Mock\'';
-    await db.query(queryStr);
+    await db.query('DELETE FROM restaurants WHERE restaurantName = \'Jest Mock\'');
+    await db.query('DELETE FROM reservations WHERE restaurantId = 0001');
   });
 
   test('Get the max party size for a restaurant', async() => {
@@ -53,7 +53,6 @@ describe('Get and Post API', () => {
     let targetTimeUnix = moment('2019 08 04 6:30 PM', 'YYYY MM DD h:mm A').format('X');
     let userPartySize = 10;
     let response = await request(app).get('/targettimeslots/0001').query({ targetTimeUnix, userPartySize });
-    console.log(response.body)
     expect(response.body.length).toBe(2);
 
     targetTimeUnix = moment('2019 08 05 6:30 PM', 'YYYY MM DD h:mm A').format('X');
