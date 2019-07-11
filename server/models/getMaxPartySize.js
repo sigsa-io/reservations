@@ -1,4 +1,4 @@
-const db = require('./db/index');
+const db = require('../db/index');
 
 module.exports = (req, res) => {
   const { restaurantId } = req.params;
