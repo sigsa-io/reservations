@@ -455,7 +455,7 @@ div, form, h3, h4, select, button {
   text-decoration: none;
 }
 
-.no-time-slot-wrapper, .sucessful-booking-wrapper {
+.no-time-slot-wrapper, .successful-booking-wrapper {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
