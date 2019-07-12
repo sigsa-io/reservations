@@ -3,4 +3,4 @@ const MYSQLCREDENTIAL = {
   user: FILL_ME_IN,
 };
 
-module.exports = MYSQLCREDENCIAL;
+module.exports = MYSQLCREDENTIAL;
