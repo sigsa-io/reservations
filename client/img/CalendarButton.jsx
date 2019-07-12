@@ -2,7 +2,9 @@ import React from 'react';
 import moment from 'moment';
 import propTypes from 'prop-types';
 
-const SVG = ({ momentDate, buttonClass, switchMonth, viewBox }) => {
+const SVG = ({
+  momentDate, buttonClass, switchMonth, viewBox,
+}) => {
   const checkPastMonth = () => {
     const priorMonth = momentDate.clone().subtract(1, 'month');
     const curMonth = moment();
@@ -12,24 +14,20 @@ const SVG = ({ momentDate, buttonClass, switchMonth, viewBox }) => {
     }
 
     return false;
-  }
+  };
 
   const getFill = (input) => {
     if (input === buttonClass) {
       if (buttonClass.includes('calendar-left-button') && !checkPastMonth()) {
-        console.log(input + ' diable-switch-calendar')
-        return input + ' diable-switch-calendar';
-      } else {
-        return input;
+        return `${input} diable-switch-calendar`;
       }
-    } else {
-      if (buttonClass.includes('calendar-left-button') && !checkPastMonth()) {
-        return '#d8d9db';
-      } else {
-        return input;
-      }
+      return input;
     }
-  }
+    if (buttonClass.includes('calendar-left-button') && !checkPastMonth()) {
+      return '#d8d9db';
+    }
+    return input;
+  };
 
   return (
     <svg
@@ -37,7 +35,7 @@ const SVG = ({ momentDate, buttonClass, switchMonth, viewBox }) => {
       viewBox={viewBox}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      onClick={(e) => switchMonth(e)}
+      onClick={e => switchMonth(e)}
     >
       <path
         fill={getFill()}
@@ -45,12 +43,13 @@ const SVG = ({ momentDate, buttonClass, switchMonth, viewBox }) => {
       />
     </svg>
   );
-}
+};
 
 SVG.propTypes = {
   buttonClass: propTypes.string.isRequired,
   switchMonth: propTypes.func.isRequired,
   momentDate: propTypes.instanceOf(moment).isRequired,
+  viewBox: propTypes.string.isRequired,
 };
 
 export default SVG;

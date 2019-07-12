@@ -10,9 +10,9 @@ module.exports = (req, res) => {
   const queryStrBookingCount = 'UPDATE bookingCount SET bookingCount = bookingCount + 1 WHERE restaurantId = ?';
   const queryArgBookingCount = [restaurantId];
 
-  return db.query(queryStrReservation, queryArgReservation, (err) => {
-    if (err) {
-      res.status(500).json(err);
+  return db.query(queryStrReservation, queryArgReservation, (reservationErr) => {
+    if (reservationErr) {
+      res.status(500).json(reservationErr);
     } else {
       // increase booking count
       db.query(queryStrBookingCount, queryArgBookingCount, (err, data) => {

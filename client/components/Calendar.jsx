@@ -50,13 +50,15 @@ class Calendar extends React.Component {
         <div className="calendar-inner-wrapper">
           <div className="calendar-button-wrapper">
             <CalendarButton
-              className="calendar-button calendar-left-button"
+              viewBox="0 0 5.24 8.07"
+              buttonClass="calendar-button calendar-left-button"
               momentDate={momentDate}
-              toPriorMonth={this.toPriorMonth}
+              switchMonth={this.toPriorMonth}
             />
             <CalendarButton
-              className="calendar-button calendar-right-button"
-              toNextMonth={this.toNextMonth}
+              viewBox="0 0 5.24 8.07"
+              buttonClass="calendar-button calendar-right-button"
+              switchMonth={this.toNextMonth}
               momentDate={momentDate}
             />
           </div>

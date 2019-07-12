@@ -60,7 +60,6 @@ const insertToReservationTable = () => {
       console.log(err);
       return;
     }
-    console.log(data);
     return;
   });
 
@@ -70,7 +69,6 @@ const insertToReservationTable = () => {
       console.log(err);
       return;
     }
-    console.log(data);
     return;
   });
 
