@@ -23,12 +23,12 @@ describe('Get and Post API', () => {
     await db.query('DELETE FROM reservations WHERE restaurantId = 0001');
   });
 
-  test('Get the max party size for a restaurant', async() => {
+  test('Get the max party size for a restaurant', async () => {
     const response = await request(app).get('/seatingSize/0001');
     expect(response.body[0].availableSeats).toBe(15);
   });
 
-  test('Get the name of a restaurant', async() => {
+  test('Get the name of a restaurant', async () => {
     const response = await request(app).get('/restaurantName/0001');
     expect(response.body[0].restaurantName).toBe('Jest Mock');
   });
@@ -37,27 +37,27 @@ describe('Get and Post API', () => {
     let targetTimeUnix = moment('2019 08 04 6:30 PM', 'YYYY MM DD h:mm A').format('X');
     let userPartySize = 10;
     let response = await request(app).get('/targettimeslots/0001').query({ targetTimeUnix, userPartySize });
-    expect(response.body.length).toBe(3);
+    expect(response.body).toHaveLength(3);
 
     targetTimeUnix = moment('2019 08 04 5:30 AM', 'YYYY MM DD h:mm A').format('X');
     userPartySize = 10;
     response = await request(app).get('/targettimeslots/0001').query({ targetTimeUnix, userPartySize });
-    expect(response.body.length).toBe(0);
+    expect(response.body).toHaveLength(0);
   });
 
   test('Get all timeslots for 2.5hr range before and after for a restaurant some reservations are created', async () => {
-    let targetStartTimeUnix = moment('2019 08 04 6:00 PM', 'YYYY MM DD h:mm A').format('X');
-    let partySize = 15;
+    const targetStartTimeUnix = moment('2019 08 04 6:00 PM', 'YYYY MM DD h:mm A').format('X');
+    const partySize = 15;
     await request(app).post('/reservations/0001').send({ targetStartTimeUnix, partySize });
 
     let targetTimeUnix = moment('2019 08 04 6:30 PM', 'YYYY MM DD h:mm A').format('X');
     let userPartySize = 10;
     let response = await request(app).get('/targettimeslots/0001').query({ targetTimeUnix, userPartySize });
-    expect(response.body.length).toBe(2);
+    expect(response.body).toHaveLength(2);
 
     targetTimeUnix = moment('2019 08 05 6:30 PM', 'YYYY MM DD h:mm A').format('X');
     userPartySize = 10;
     response = await request(app).get('/targettimeslots/0001').query({ targetTimeUnix, userPartySize });
-    expect(response.body.length).toBe(3);
+    expect(response.body).toHaveLength(3);
   });
 });
