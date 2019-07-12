@@ -23,7 +23,7 @@ describe('App Component', () => {
 
   test('shows success message when displayView is \'successful-book-time\'', async () => {
     await wrapper.setState({ displayView: 'successful-book-time' });
-    expect(wrapper.exists('.sucessful-booking-text-wrap')).toBe(true);
+    expect(wrapper.exists('.successful-booking-text-wrap')).toBe(true);
   });
 
   test('shows success message when displayView is \'has-time-slots\'', async () => {

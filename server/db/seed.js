@@ -54,7 +54,11 @@ const insertToReservationTable = () => {
   const seedRestaurants = createSeedRestaurants(restaurantNameId);
   const seedBookingCount = createSeedBookingCount(restaurantNameId);
 
-  const queryStrRestaurants = 'INSERT INTO restaurants (restaurantId, restaurantName, timeSlot, availableSeats) VALUES ?';
+  const queryStrRestaurants = `
+    INSERT INTO restaurants 
+      (restaurantId, restaurantName, timeSlot, availableSeats) 
+    VALUES ?
+  `;
   db.query(queryStrRestaurants, [seedRestaurants], (err, data) => {
     if (err) {
       console.log(err);
