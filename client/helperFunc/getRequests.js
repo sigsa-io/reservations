@@ -2,28 +2,47 @@ import axios from 'axios';
 import moment from 'moment';
 
 const getRequests = {
+
+  getMaxPartySize: (restaurantId, cb) => {
+    axios.get(`/seatingSize/${restaurantId}`)
+      .then(({ data }) => {
+        cb(data[0].availableSeats);
+      })
+      .catch(err => console.log(err));
+  },
+
   getTimeSlotsForDateAndTime: (requestInfo, captureData) => {
     const {
       restaurantId, renderDate, userTargetTime, userPartySize,
     } = requestInfo;
-    const targetDateTimeStr = renderDate.startOf('day').format('YYYY MM DD') + ' ' + userTargetTime;
+    const targetDateTimeStr = `${renderDate.startOf('day').format('YYYY MM DD')} ${userTargetTime}`;
     const targetTimeUnix = moment(targetDateTimeStr, 'YYYY MM DD h:mm AA').format('X');
 
     axios.get(`/targettimeslots/${restaurantId}`, {
       params: { targetTimeUnix, userPartySize },
     })
-      .then(({ data }) => captureData(data))
+      .then(({ data }) => {
+        const timeSlotStrArr = data.map(slot => (
+          moment(`${Math.floor(slot.timeSlot)}:${(slot.timeSlot - Math.floor(slot.timeSlot)) * 60}`, 'HH:mm').format('h:mm A')
+        ));
+        captureData(timeSlotStrArr);
+      })
       .catch(err => console.log(err));
   },
 
-  getTimeSlotsCountForDate: (requestInfo, cb) => {
-    const { restaurantId, renderDate } = requestInfo;
-    const targetDateStartUnix = renderDate.startOf('day').format('X');
+  getTotalBookingCount: (restaurantId, cb) => {
+    axios.get(`/bookingCount/${restaurantId}`)
+      .then(({ data }) => {
+        cb(data[0].bookingCount);
+      })
+      .catch(err => console.log(err));
+  },
 
-    axios.get(`/datetimeslots/${restaurantId}`, {
-      params: { targetDateStartUnix },
-    })
-      .then(({ data }) => cb(data.length))
+  getRestaurantName: (restaurantId, cb) => {
+    axios.get(`/restaurantName/${restaurantId}`)
+      .then(({ data }) => {
+        cb(data[0].restaurantName);
+      })
       .catch(err => console.log(err));
   },
 };

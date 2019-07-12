@@ -1,17 +1,21 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import moment from 'moment';
 
-const TimeSlotEntry = ({ slot }) => (
+const TimeSlotEntry = ({ slot, bookTimeSlot }) => (
   <div className="time-slot-entry">
-    <div className="time-slot-entry-inner">
-      <span>{moment.unix(slot).format('h:mm A')}</span>
+    <div
+      className="time-slot-entry-inner"
+      onClick={e => bookTimeSlot(e, slot)}
+      value={slot}
+    >
+      <span>{slot}</span>
     </div>
   </div>
 );
 
 TimeSlotEntry.propTypes = {
-  slot: propTypes.number.isRequired,
+  slot: propTypes.string.isRequired,
+  bookTimeSlot: propTypes.func.isRequired,
 };
 
 export default TimeSlotEntry;

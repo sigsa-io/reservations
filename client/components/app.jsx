@@ -4,39 +4,42 @@ import SizeDateTime from './SizeDateTime';
 import BookingStat from './BookingStat';
 import TimeSlots from './TimeSlots';
 import NoTimeSlot from './NoTimeSlot';
+import MaxPartySize from './MaxPartySize';
+import SuccessfulBooking from './SuccessfulBooking';
 import getRequests from '../helperFunc/getRequests';
+import postRequests from '../helperFunc/postRequests';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       restaurantId: null,
+      restaurantName: '',
       renderDate: moment(), // default render date is today
       userTargetTime: '6:30 PM', // default target time for initial render is 6:30 pm
       userPartySize: 2, // default render partySize is 2
       displayView: 'find-a-table', // default display is 'find a table' button
-      availableTargetTimeSlots: null,
-      availableDateTimeSlots: 0,
+      availableTargetTimeSlots: [],
+      bookingCount: 0,
+      bookedTimeSlot: '',
+      inLuckView: false,
     };
 
     this.changeRenderDate = this.changeRenderDate.bind(this);
     this.timeSelectionChange = this.timeSelectionChange.bind(this);
     this.partySizeSelectionChange = this.partySizeSelectionChange.bind(this);
-    this.viewSwitch = this.viewSwitch.bind(this);
     this.renderView = this.renderView.bind(this);
     this.getTimeSlot = this.getTimeSlot.bind(this);
+    this.bookTimeSlot = this.bookTimeSlot.bind(this);
   }
 
   // componentDidMount will get initial restaurantId
   componentDidMount() {
     const restaurantId = window.location.pathname.split('/')[1];
-    const { renderDate } = this.state;
-    const requestInfo = { restaurantId, renderDate };
 
-    getRequests.getTimeSlotsCountForDate(requestInfo, (slotCount) => {
-      this.setState({
-        availableDateTimeSlots: slotCount,
-        restaurantId,
+    getRequests.getTotalBookingCount(restaurantId, (bookingCount) => {
+      getRequests.getRestaurantName(restaurantId, (restaurantName) => {
+        this.setState({ bookingCount, restaurantId, restaurantName });
       });
     });
   }
@@ -54,6 +57,7 @@ class App extends React.Component {
         this.setState({
           availableTargetTimeSlots: data,
           displayView: 'has-time-slots',
+          inLuckView: true,
         });
       } else {
         this.setState({
@@ -63,43 +67,74 @@ class App extends React.Component {
       }
     };
 
-    getRequests.getTimeSlotsForDateAndTime(requestInfo, captureData);
+    getRequests.getMaxPartySize(restaurantId, (restaurantMaxSeat) => {
+      if (userPartySize > restaurantMaxSeat) {
+        this.setState({
+          displayView: 'max-party-size',
+        });
+      } else {
+        getRequests.getTimeSlotsForDateAndTime(requestInfo, captureData);
+      }
+    });
   }
 
   // invoke from calendar dates
   changeRenderDate(newDate) {
-    // newDate should be a moment object
-    const { restaurantId, renderDate } = this.state;
-    const requestInfo = { restaurantId, renderDate };
-
-    getRequests.getTimeSlotsCountForDate(requestInfo, (slotCount) => {
-      this.setState({
-        renderDate: newDate,
-        availableDateTimeSlots: slotCount,
-        displayView: 'find-a-table',
-      });
+    this.setState({
+      renderDate: newDate,
+      displayView: 'find-a-table',
+      inLuckView: false,
     });
   }
 
   // invoke from time selection drop down
   timeSelectionChange(e) {
-    this.setState({ userTargetTime: e.target.value });
+    this.setState({
+      userTargetTime: e.target.value,
+      displayView: 'find-a-table',
+      inLuckView: false,
+    });
   }
 
   // invoke from partySize selection drop down
   partySizeSelectionChange(e) {
-    this.setState({ userPartySize: e.target.value });
+    this.setState({
+      userPartySize: e.target.value,
+      displayView: 'find-a-table',
+      inLuckView: false,
+    });
   }
 
-  // view switcher, invoke from app.jsx
-  // note that clicking a date in the calendar should rerender the button again!!
-  viewSwitch(option) {
-    this.setState({ displayView: option });
+  // book time slot
+  bookTimeSlot(e, bookingTimeSlot) {
+    const {
+      restaurantId, renderDate, userPartySize,
+    } = this.state;
+    const requestInfo = {
+      restaurantId, renderDate, userPartySize, bookingTimeSlot,
+    };
+
+    postRequests.bookTimeSlot(requestInfo, () => {
+      getRequests.getTotalBookingCount(restaurantId, (bookingCount) => {
+        this.setState({
+          bookingCount,
+          displayView: 'successful-book-time',
+          bookedTimeSlot: bookingTimeSlot,
+        });
+      });
+    });
   }
 
   // render button or timeslots
   renderView() {
-    const { displayView, userTargetTime, availableTargetTimeSlots } = this.state;
+    const {
+      displayView,
+      userTargetTime,
+      availableTargetTimeSlots,
+      bookedTimeSlot,
+      renderDate,
+      restaurantName,
+    } = this.state;
 
     if (displayView === 'find-a-table') {
       return (
@@ -119,6 +154,7 @@ class App extends React.Component {
       return (
         <TimeSlots
           availableTargetTimeSlots={availableTargetTimeSlots}
+          bookTimeSlot={this.bookTimeSlot}
         />
       );
     }
@@ -131,6 +167,24 @@ class App extends React.Component {
       );
     }
 
+    if (displayView === 'max-party-size') {
+      return (
+        <MaxPartySize
+          restaurantName={restaurantName}
+        />
+      );
+    }
+
+    if (displayView === 'successful-book-time') {
+      return (
+        <SuccessfulBooking
+          renderDate={renderDate}
+          bookedTimeSlot={bookedTimeSlot}
+          restaurantName={restaurantName}
+        />
+      );
+    }
+
     return <div />;
   }
 
@@ -139,7 +193,9 @@ class App extends React.Component {
       renderDate,
       userTargetTime,
       userPartySize,
-      availableDateTimeSlots,
+      availableTargetTimeSlots,
+      bookingCount,
+      inLuckView,
     } = this.state;
 
     return (
@@ -160,8 +216,9 @@ class App extends React.Component {
           />
           { this.renderView() }
           <BookingStat
-            renderDate={renderDate}
-            availableDateTimeSlots={availableDateTimeSlots}
+            bookingCount={bookingCount}
+            availableTargetTimeSlots={availableTargetTimeSlots}
+            inLuckView={inLuckView}
           />
         </div>
       </div>

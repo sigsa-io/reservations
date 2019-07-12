@@ -11,7 +11,7 @@ describe('Show Calendar', () => {
       slowMo: 200,
     });
     page = await browser.newPage();
-    await page.goto('http://localhost:3003');
+    await page.goto('http://localhost:3000');
     await page.screenshot({ path: './test/test_img/reservation_image.jpg', type: 'jpeg' });
   });
 

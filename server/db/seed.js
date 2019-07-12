@@ -1,53 +1,61 @@
-const moment = require('moment');
 const db = require('./index.js');
 const restaurantNameId = require('./restaurantData.js');
 
-// get each day's starting unix first, then add additinal hours to the starting point
+const timeSlotOptions = () => {
+  const options = [];
 
-// only available for the next 90 days reservation
-const createSeed = (days, restaurantNameId, data = []) => {
+  for (let slot = 9; slot < 21; slot += 0.5) {
+    options.push(slot);
+  }
+  return options;
+}
 
-  for (let i = 0; i < restaurantNameId.length; i++) {
-    const { restaurant_name, restaurant_id } = restaurantNameId[i];
+const shuffleArr = function(arr) {
+  let curIndex = arr.length - 1;
+  
+  // the first index won't be shuffled in this loop
+  while (curIndex >= 0) {
+    const randomIndex = Math.floor(Math.random() * curIndex);
+    const temp = arr[randomIndex];
+    arr[randomIndex] = arr[curIndex];
+    arr[curIndex] = temp;
+    curIndex --;
+  }
 
-    // generate date for the next 90 days
-    let dateCount = 0;
-    let todayStartingUnix = moment().startOf('day').format('X');
-    while (dateCount < days) {
-      let timeSlotCount = 6;
+  return arr;
+};
 
-      // generate 6 random time slots
-      while (timeSlotCount > 0) {
-        // hour and min randomizer
-        const randHourNum = 9 + 0.5 * Math.floor(Math.random() * 24); // 24 hour from 9am - 9pm
-        const randHourUnix = 60 * 60 * randHourNum;
-        const reservationTimeStamp = Number(todayStartingUnix) + randHourUnix;
-        const availableSeats = Math.floor(Math.random() * 20) + 5;
 
-        const curData = [
-          restaurant_id,
-          restaurant_name,
-          reservationTimeStamp,
-          availableSeats,
-        ];
+const createSeedRestaurants = (restaurantNameId) => {
+  const seed = [];
+  const timeSlotOptionsArr = timeSlotOptions();
 
-        data.push(curData);
-        timeSlotCount --;
-      }
-
-      dateCount += 1;
-      todayStartingUnix = moment().add(dateCount, 'day').startOf('day').format('X');
+  for (let id in restaurantNameId) {
+    const randomTimeSlots = shuffleArr(timeSlotOptionsArr);
+    const restaurantId = restaurantNameId[id].restaurant_id;
+    const restaurantName = restaurantNameId[id].restaurant_name;
+    const availableSeats = Math.floor(Math.random() * 30) + 5;
+    let restaurantTimeSlotNum = Math.floor(Math.random() * 10) + 2;
+    
+    while (restaurantTimeSlotNum > 0) {
+      seed.push([ restaurantId, restaurantName, randomTimeSlots[restaurantTimeSlotNum], availableSeats ]);
+      restaurantTimeSlotNum --;
     }
   }
 
-  return data;
-};
+  return seed;
+}
+
+const createSeedBookingCount = (restaurantNameId) => {
+  return restaurantNameId.map(id => [Number(id.restaurant_id)]);
+}
 
 const insertToReservationTable = () => {
-  const seed = createSeed(90, restaurantNameId);
+  const seedRestaurants = createSeedRestaurants(restaurantNameId);
+  const seedBookingCount = createSeedBookingCount(restaurantNameId);
 
-  const queryStr = 'INSERT INTO reservations_tables (restaurant_id, restaurant_name, reservationTimeStamp, availableSeats) VALUES ?';
-  db.query(queryStr, [seed], (err, data) => {
+  const queryStrRestaurants = 'INSERT INTO restaurants (restaurantId, restaurantName, timeSlot, availableSeats) VALUES ?';
+  db.query(queryStrRestaurants, [seedRestaurants], (err, data) => {
     if (err) {
       console.log(err);
       return;
@@ -55,8 +63,17 @@ const insertToReservationTable = () => {
     console.log(data);
     return;
   });
+
+  const queryStrBookingCount = 'INSERT INTO bookingCount (restaurantId) VALUES ?';
+  db.query(queryStrBookingCount, [seedBookingCount], (err, data) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log(data);
+    return;
+  });
+
 };
 
 insertToReservationTable();
-
-module.exports = createSeed;

@@ -4,7 +4,7 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: 'password',
-  database: 'reservations',
+  database: 'sigsa_reservation',
 });
 
 connection.connect();
