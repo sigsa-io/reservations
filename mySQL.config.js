@@ -1,4 +1,4 @@
-const MYSQLCREDENCIAL = {
+const MYSQLCREDENTIAL = {
   password: 'password',
   user: 'root',
 };
