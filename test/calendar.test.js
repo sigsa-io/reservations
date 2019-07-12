@@ -1,54 +1,50 @@
-const moment = require('moment');
-const puppeteer = require('puppeteer');
+import { mount, shallow } from 'enzyme';
+import moment from 'moment';
+import React from 'react';
+import Calendar from '../client/components/Calendar';
+import CalendarDays from '../client/components/CalendarDays';
+import CalendarButton from '../client/img/CalendarButton';
 
-let browser;
-let page;
+describe('<Calendar />', () => {
+  const changeRenderDateMock = jest.fn(date => date);
+  const changeShowCalendarStatusMock = jest.fn(() => true);
+  const wrapper = mount(<Calendar
+    renderDate={moment()}
+    changeShowCalendarStatus={changeShowCalendarStatusMock}
+    changeRenderDate={changeRenderDateMock}
+  />);
 
-describe('Show Calendar', () => {
-  beforeAll(async () => {
-    browser = await puppeteer.launch({
-      headless: false,
-      slowMo: 200,
-    });
-    page = await browser.newPage();
-    await page.goto('http://localhost:3000');
-    await page.screenshot({ path: './test/test_img/reservation_image.jpg', type: 'jpeg' });
+  test('should have two buttons', () => {
+    expect(wrapper.find('.calendar-left-button')).toHaveLength(1);
+    expect(wrapper.find('.calendar-right-button')).toHaveLength(1);
   });
 
-  afterAll(async () => {
-    page.close();
+  test('should render Days and Dates', () => {
+    expect(wrapper.contains(<CalendarDays />)).toBe(true);
+    expect(wrapper.find('.calendar-grid')).toHaveLength(1);
   });
 
-  // evaluate innital date text
-  test('should have date input field default to today\'s date', async () => {
-    const dateText = await page.$eval('.date-input-text', e => e.innerHTML);
-    expect(dateText).toBe(moment().format('ddd, MM/D'));
-  });
+  test('should change momentdate in state when toNextMonth or toPriorMonth function is invoked', () => {
+    const e = { preventDefault: () => {} };
+    wrapper.instance().toNextMonth(e);
+    expect(wrapper.instance().state.momentDate.format('YYYY MM DD')).not.toBe(moment().add(1, 'month').format('YYYY MM DD'));
+    expect(wrapper.find('span').text()).toBe(moment().add(1, 'month').format('MMMM YYYY'));
 
-  // calendar should be shown when clicked into date text
-  test('calendar should be shown when clicked into date text', async () => {
-    await page.click('.date-input-text');
-    await page.screenshot({ path: './test/test_img/calendar_image.jpg', type: 'jpeg' });
-    const hasCalendar = await page.$eval('.outer-calendar-container', e => e.innerHTML);
-    expect(hasCalendar === null).toBe(false);
-    await page.click('html');
+    wrapper.instance().toNextMonth(e);
+    wrapper.instance().toPriorMonth(e);
+    expect(wrapper.instance().state.momentDate.format('YYYY MM DD')).not.toBe(moment().subtract(1, 'month').format('YYYY MM DD'));
+    expect(wrapper.find('span').text()).toBe(moment().add(1, 'month').format('MMMM YYYY'));
   });
+});
 
-  test('should render next month\'s calendar when clicking next calendar button', async () => {
-    await page.click('.date-input-text');
-    await page.click('.calendar-right-button');
-    const monthTitle = await page.$eval('.calendar-month', e => e.firstChild.innerHTML);
-    expect(monthTitle).toBe(moment().add(1, 'month').format('MMMM YYYY'));
-  });
-
-  test('should capture the date selected in the calendar picker', async () => {
-    await page.evaluate(() => {
-      const dates = document.getElementsByClassName('out-of-calendar');
-      const firstDateOnCaldendar = dates[0];
-      firstDateOnCaldendar.click();
-    });
-    await page.screenshot({ path: './test/test_img/select_new_date_image.jpg', type: 'jpeg' });
-    const dateText = await page.$eval('.date-input-text', e => e.innerHTML);
-    expect(dateText).toBe('Sun, 07/28');
+describe('<CalendarButton />', () => {
+  const switchMonthMock = jest.fn(e => e);
+  const wrapper = shallow(<CalendarButton
+    switchMonth={switchMonthMock}
+    buttonClass="calendar-button calendar-right-button"
+  />);
+  test('should invoke onClick function', () => {
+    wrapper.find('svg').simulate('click');
+    expect(switchMonthMock.mock.calls).toHaveLength(1);
   });
 });
