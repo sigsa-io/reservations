@@ -51,7 +51,7 @@ const BookingStat = ({ bookingCount, availableTargetTimeSlots, inLuckView }) => 
 BookingStat.propTypes = {
   availableTargetTimeSlots: propTypes.array.isRequired,
   bookingCount: propTypes.number.isRequired,
-  inLuckView: propTypes.boolean.isRequired,
+  inLuckView: propTypes.bool.isRequired,
 };
 
 export default BookingStat;

@@ -4,9 +4,9 @@ import moment from 'moment';
 import SVG from '../img/Cheers';
 
 const SuccessfulBooking = ({ renderDate, restaurantName, bookedTimeSlot }) => (
-  <span className="sucessful-booking-wrapper">
-    <div className="sucessful-booking">
-      <div className="sucessful-booking-text-wrap">
+  <span className="successful-booking-wrapper">
+    <div className="successful-booking">
+      <div className="successful-booking-text-wrap">
         <SVG
           className="successful-booking-icon"
           viewBox="0 0 400.264 400.264"

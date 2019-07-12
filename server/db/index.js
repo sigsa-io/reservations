@@ -1,9 +1,10 @@
 const mysql = require('mysql');
+const MYSQLCREDENTIAL = require('../../mySQL.config');
 
 const connection = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
-  password: 'password',
+  user: MYSQLCREDENTIAL.user,
+  password: MYSQLCREDENTIAL.password,
   database: 'sigsa_reservation',
 });
 

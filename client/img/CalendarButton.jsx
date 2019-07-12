@@ -2,35 +2,10 @@ import React from 'react';
 import moment from 'moment';
 import propTypes from 'prop-types';
 
-class SVG extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      viewBox: '0 0 5.24 8.07',
-    };
-
-    this.checkPastMonth = this.checkPastMonth.bind(this);
-    this.getFillAndClassName = this.getFillAndClassName.bind(this);
-  }
-
-  getFillAndClassName(input) {
-    const { toPriorMonth } = this.props;
-
-    if (toPriorMonth === undefined) {
-      return input;
-    }
-    if (this.checkPastMonth()) {
-      return input;
-    }
-    if (input === '#23333') {
-      return '#d8d9db';
-    }
-
-    return `${input} diable-switch-calendar`;
-  }
-
-  checkPastMonth() {
-    const { momentDate } = this.props;
+const SVG = ({
+  momentDate, buttonClass, switchMonth, viewBox,
+}) => {
+  const checkPastMonth = () => {
     const priorMonth = momentDate.clone().subtract(1, 'month');
     const curMonth = moment();
 
@@ -39,34 +14,42 @@ class SVG extends React.Component {
     }
 
     return false;
-  }
+  };
 
-  render() {
-    const { viewBox } = this.state;
-    const { className, toNextMonth, toPriorMonth } = this.props;
+  const getFill = (input) => {
+    if (input === buttonClass) {
+      if (buttonClass.includes('calendar-left-button') && !checkPastMonth()) {
+        return `${input} diable-switch-calendar`;
+      }
+      return input;
+    }
+    if (buttonClass.includes('calendar-left-button') && !checkPastMonth()) {
+      return '#d8d9db';
+    }
+    return input;
+  };
 
-    return (
-      <svg
-        className={this.getFillAndClassName(className)}
-        viewBox={viewBox}
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
-        onClick={toNextMonth ? e => toNextMonth(e) : e => toPriorMonth(e)}
-      >
-        <path
-          fill={this.getFillAndClassName('#23333')}
-          d="M5.09 3.68L4.39 3 1.56.15a.5.5 0 0 0-.71 0l-.7.7a.5.5 0 0 0 0 .71L2.62 4 .15 6.51a.5.5 0 0 0 0 .71l.71.71a.5.5 0 0 0 .71 0L4.39 5.1l.71-.71a.5.5 0 0 0-.01-.71z"
-        />
-      </svg>
-    );
-  }
-}
+  return (
+    <svg
+      className={getFill(buttonClass)}
+      viewBox={viewBox}
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      onClick={e => switchMonth(e)}
+    >
+      <path
+        fill={getFill()}
+        d="M5.09 3.68L4.39 3 1.56.15a.5.5 0 0 0-.71 0l-.7.7a.5.5 0 0 0 0 .71L2.62 4 .15 6.51a.5.5 0 0 0 0 .71l.71.71a.5.5 0 0 0 .71 0L4.39 5.1l.71-.71a.5.5 0 0 0-.01-.71z"
+      />
+    </svg>
+  );
+};
 
 SVG.propTypes = {
-  className: propTypes.string.isRequired,
-  toPriorMonth: propTypes.func.isRequired,
-  toNextMonth: propTypes.func.isRequired,
+  buttonClass: propTypes.string.isRequired,
+  switchMonth: propTypes.func.isRequired,
   momentDate: propTypes.instanceOf(moment).isRequired,
+  viewBox: propTypes.string.isRequired,
 };
 
 export default SVG;

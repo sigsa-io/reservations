@@ -20,15 +20,15 @@ module.exports = (req, res) => {
     + 'AND start_time >= ? '
     + 'AND end_time <= ?';
   const queryArgReservations = [restaurantId, timeLowerBound, timeUpperBound];
-  return db.query(queryStrReservations, queryArgReservations, (err, data) => {
-    if (err) {
+  return db.query(queryStrReservations, queryArgReservations, (reservationErr, reservationData) => {
+    if (reservationErr) {
       res.status(500).json(err);
     } else {
       // test if data is empty
       let queryStrRestaurant;
       let queryArgRestaurant;
 
-      if (data.length === 0) {
+      if (reservationData.length === 0) {
         // we then provide the count of time slots from restaurant table
         queryStrRestaurant = 'SELECT * FROM restaurants WHERE restaurantId = ? '
         + 'AND (timeSlot BETWEEN ? AND ?) ORDER BY timeSlot';
@@ -44,10 +44,10 @@ module.exports = (req, res) => {
       } else {
         // we first get the reservation start_time in 'AMPM' format but in number
         const startTimeInReservation = {};
-        for (let i = 0; i < data.length; i++) {
-          const timeSlotStr = moment.unix(data[i].start_time).format('HH:mm');
+        for (let i = 0; i < reservationData.length; i++) {
+          const timeSlotStr = moment.unix(reservationData[i].start_time).format('HH:mm');
           const timeSlotNum = Number(timeSlotStr.split(':')[0]) + Number(timeSlotStr.split(':')[1]) / 60;
-          startTimeInReservation[timeSlotNum] = startTimeInReservation[timeSlotNum] + data[i].partySize || data[i].partySize;
+          startTimeInReservation[timeSlotNum] = startTimeInReservation[timeSlotNum] + reservationData[i].partySize || reservationData[i].partySize;
         }
         // find within bound time slot from restaurant table
         queryStrRestaurant = 'SELECT * FROM restaurants WHERE restaurantId = ?'

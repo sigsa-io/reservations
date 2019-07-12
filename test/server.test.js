@@ -1,55 +1,63 @@
 const request = require('supertest');
+const moment = require('moment');
 const db = require('../server/db/index');
 const app = require('../server/index');
 
 describe('Get and Post API', () => {
   // create a mock entry in db before each test
   beforeEach(async () => {
-    const queryStr = 'INSERT INTO reservations_tables (restaurant_id, restaurant_name, reservationTimeStamp, availableSeats) VALUES ?';
+    const queryStr = 'INSERT INTO restaurants (restaurantId, restaurantName, timeSlot, availableSeats) VALUES ?';
     const queryArg = [
-      ['0001', 'Jest Mock', 1562707800, 20], // 7/9/19 9:30pm
-      ['0001', 'Jest Mock', 1562704200, 3], // 7/9/19 8:30pm
-      ['0001', 'Jest Mock', 1562700600, 10], // 7/9/19 7:30pm
-      ['0001', 'Jest Mock', 1562698800, 15], // 7/9/19 7:00pm
-      ['0001', 'Jest Mock', 1562794200, 9], // 7/10/19 9:30pm
-      ['0001', 'Jest Mock', 1562774400, 18], // 7/10/19 4:00pm
+      ['0001', 'Jest Mock', 9, 15],
+      ['0001', 'Jest Mock', 10, 15],
+      ['0001', 'Jest Mock', 17.5, 15],
+      ['0001', 'Jest Mock', 18, 15],
+      ['0001', 'Jest Mock', 19, 15],
     ];
     await db.query(queryStr, [queryArg]);
   });
 
   // delete the mock entry after each test
   afterEach(async () => {
-    const queryStr = 'DELETE FROM reservations_tables WHERE restaurant_name = \'Jest Mock\'';
-    await db.query(queryStr);
+    await db.query('DELETE FROM restaurants WHERE restaurantName = \'Jest Mock\'');
+    await db.query('DELETE FROM reservations WHERE restaurantId = 0001');
   });
 
-  // test GET API
-  // TO FIX in db refactor branch
-  test('Get timeslots for 2.5hr range before and after for a restaurant', async () => {
-    const response = await request(app).get('/0001',
-      {
-        partySize: 5,
-        targetTimeStamp: 1562700600,
-      });
-    expect(response.body[0].timeSlots).toHaveLength(2);
-    expect(response.statusCode).toBe(200);
+  test('Get the max party size for a restaurant', async () => {
+    const response = await request(app).get('/seatingSize/0001');
+    expect(response.body[0].availableSeats).toBe(15);
   });
 
-  // test POST API
-  // TO FIX in db refactor branch
-  test('Reserving a table should descrease the available seating in restaurant', async () => {
-    const response = await request(app).post('/0001/2019/7/5/8/30').send({ party_size: 10 });
-    expect(response.statusCode).toBe(201);
+  test('Get the name of a restaurant', async () => {
+    const response = await request(app).get('/restaurantName/0001');
+    expect(response.body[0].restaurantName).toBe('Jest Mock');
+  });
 
-    const RestaurantReservation = await request(app).get('/0001');
-    expect(RestaurantReservation.body[0].available_seats).toEqual(70);
-    expect(RestaurantReservation.statusCode).toBe(200);
+  test('Get all timeslots for 2.5hr range before and after for a restaurant when there is no reservation created', async () => {
+    let targetTimeUnix = moment('2019 08 04 6:30 PM', 'YYYY MM DD h:mm A').format('X');
+    let userPartySize = 10;
+    let response = await request(app).get('/targettimeslots/0001').query({ targetTimeUnix, userPartySize });
+    expect(response.body).toHaveLength(3);
 
-    const userReservation = await db.ReservationsUser.findOne({ where: { restaurant_name: 'Jest Mock' } });
-    expect(userReservation.dataValues.party_size).toBe(10);
-    expect(userReservation.dataValues.reservation_month).toBe(7);
-    expect(userReservation.dataValues.reservation_hour).toBe(8);
+    targetTimeUnix = moment('2019 08 04 5:30 AM', 'YYYY MM DD h:mm A').format('X');
+    userPartySize = 10;
+    response = await request(app).get('/targettimeslots/0001').query({ targetTimeUnix, userPartySize });
+    expect(response.body).toHaveLength(0);
+  });
 
-    await db.ReservationsUser.destroy({ where: { restaurant_name: 'Jest Mock' } });
+  test('Get all timeslots for 2.5hr range before and after for a restaurant some reservations are created', async () => {
+    const targetStartTimeUnix = moment('2019 08 04 6:00 PM', 'YYYY MM DD h:mm A').format('X');
+    const partySize = 15;
+    await request(app).post('/reservations/0001').send({ targetStartTimeUnix, partySize });
+
+    let targetTimeUnix = moment('2019 08 04 6:30 PM', 'YYYY MM DD h:mm A').format('X');
+    let userPartySize = 10;
+    let response = await request(app).get('/targettimeslots/0001').query({ targetTimeUnix, userPartySize });
+    expect(response.body).toHaveLength(2);
+
+    targetTimeUnix = moment('2019 08 05 6:30 PM', 'YYYY MM DD h:mm A').format('X');
+    userPartySize = 10;
+    response = await request(app).get('/targettimeslots/0001').query({ targetTimeUnix, userPartySize });
+    expect(response.body).toHaveLength(3);
   });
 });

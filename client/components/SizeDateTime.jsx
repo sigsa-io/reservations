@@ -49,7 +49,7 @@ SizeDateTime.propTypes = {
   changeRenderDate: propTypes.func.isRequired,
   userTargetTime: propTypes.string.isRequired,
   timeSelectionChange: propTypes.func.isRequired,
-  userPartySize: propTypes.string.isRequired,
+  userPartySize: propTypes.number.isRequired,
   partySizeSelectionChange: propTypes.func.isRequired,
 };
 
