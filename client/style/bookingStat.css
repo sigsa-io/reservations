@@ -1,0 +1,29 @@
+.book_stat {
+  text-align: center;
+  margin: 1rem 0 0;
+}
+
+.book_stat_wrapper {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-overflow: ellipsis;
+  text-decoration: inherit;
+}
+
+.book_times_icon,
+.act_fast_icon {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 24px;
+  width: 24px;
+  background-color: #fff;
+}
+
+.restaurant_booking_stat_text {
+  align-self: center;
+  margin: 0 0 0 .25rem;
+}

@@ -1,0 +1,13 @@
+.calendar_days {
+  display: table-row;
+  border-bottom: 1px solid #d8d9db;
+}
+
+.week_day {
+  display: table-cell;
+  padding: .5rem 0;
+  font-size: .875rem;
+  text-align: center;
+  color: #2d333f;
+  text-transform: capitalize;
+}

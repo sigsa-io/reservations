@@ -4,6 +4,7 @@ import propTypes from 'prop-types';
 import CalendarButton from '../img/CalendarButton';
 import CalendarDays from './CalendarDays';
 import CalendarDates from './CalendarDates';
+import style from '../style/calendar.css';
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -46,24 +47,24 @@ class Calendar extends React.Component {
     const { changeRenderDate, changeShowCalendarStatus } = this.props;
 
     return (
-      <div className="calendar-container">
-        <div className="calendar-inner-wrapper">
-          <div className="calendar-button-wrapper">
+      <div className={style.calendar_container}>
+        <div className={style.calendar_inner_wrapper}>
+          <div className={style.calendar_button_wrapper}>
             <CalendarButton
               viewBox="0 0 5.24 8.07"
-              buttonClass="calendar-button calendar-left-button"
+              buttonClass="calendar_left_button"
               momentDate={momentDate}
               switchMonth={this.toPriorMonth}
             />
             <CalendarButton
               viewBox="0 0 5.24 8.07"
-              buttonClass="calendar-button calendar-right-button"
+              buttonClass="calendar_right_button"
               switchMonth={this.toNextMonth}
               momentDate={momentDate}
             />
           </div>
-          <div className="calendar-detail-wrapper">
-            <div className="calendar-month">
+          <div className={style.calendar_detail_wrapper}>
+            <div className={style.calendar_month}>
               <span>{momentDate.format('MMMM YYYY')}</span>
             </div>
             <CalendarDays />

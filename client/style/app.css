@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+
+.reservation_frame {
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 0px;
+  padding: 0px;
+  box-shadow: 0 2px 8px rgba(153,153,153,.4);
+  -webkit-box-shadow: 0 2px 8px rgba(153,153,153,.4);
+}
+
+.reservation_title_wrapper {
+  height: 48px;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  background-color: #fff;
+  text-align: center;
+  margin: 0px;
+  padding: 0 1rem;
+  position: relative;
+}
+
+.reservation_title {
+  margin: 0px;
+  font-size: 21px;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border-bottom: 1px solid #d8d9db;
+  margin-left: .5rem;
+  padding: 0px;
+}
+
+.reservation_detail_wrapper {
+  padding: .5rem 1rem 1rem;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  background-color: #fff;
+  margin-bottom: 1rem;
+}
+
+.find_a_table_wrapper {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 1rem auto 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.find_a_table_button {
+  cursor: pointer;
+  padding: .75rem 1rem;
+  text-decoration: none;
+  background-color: #da3743;
+  color: #fff;
+  border: none;
+  font-size: 1rem;
+  line-height: 1.5;
+  width: 18rem;
+  font-weight: 500;
+  border-radius: 2px;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.find_a_table_button:hover,
+.find_a_table_button:focus {
+  background-color: #e15b64;
+}
+

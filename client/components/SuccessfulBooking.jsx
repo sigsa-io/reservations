@@ -2,13 +2,15 @@ import React from 'react';
 import propTypes from 'prop-types';
 import moment from 'moment';
 import SVG from '../img/Cheers';
+import style from '../style/message.css';
+import iconStyle from '../style/selectionIcon.css';
 
 const SuccessfulBooking = ({ renderDate, restaurantName, bookedTimeSlot }) => (
-  <span className="successful-booking-wrapper">
-    <div className="successful-booking">
-      <div className="successful-booking-text-wrap">
+  <span className={style.successful_booking_wrapper}>
+    <div className={style.successful_booking}>
+      <div className={style.successful_booking_text_wrap}>
         <SVG
-          className="successful-booking-icon"
+          className={iconStyle.successful_booking_icon}
           viewBox="0 0 400.264 400.264"
           fill="333333"
         />

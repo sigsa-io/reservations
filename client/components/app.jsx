@@ -8,6 +8,7 @@ import MaxPartySize from './MaxPartySize';
 import SuccessfulBooking from './SuccessfulBooking';
 import getRequests from '../helperFunc/getRequests';
 import postRequests from '../helperFunc/postRequests';
+import style from '../style/app.css';
 
 class App extends React.Component {
   constructor() {
@@ -138,9 +139,9 @@ class App extends React.Component {
 
     if (displayView === 'find-a-table') {
       return (
-        <div className="find-a-table-wrapper">
+        <div className={style.find_a_table_wrapper}>
           <button
-            className="find-a-table-button"
+            className={style.find_a_table_button}
             type="submit"
             onClick={this.getTimeSlot}
           >
@@ -199,13 +200,13 @@ class App extends React.Component {
     } = this.state;
 
     return (
-      <div className="reservation-frame">
-        <div className="reservation-title-wrapper">
-          <h3 className="reservation-title">
+      <div className={style.reservation_frame}>
+        <div className={style.reservation_title_wrapper}>
+          <h3 className={style.reservation_title}>
             <span>Make a reservation</span>
           </h3>
         </div>
-        <div className="reservation-detail-wrapper">
+        <div className={style.reservation_detail_wrapper}>
           <SizeDateTime
             renderDate={renderDate}
             userTargetTime={userTargetTime}

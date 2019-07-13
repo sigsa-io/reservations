@@ -2,18 +2,19 @@ import React from 'react';
 import propTypes from 'prop-types';
 import BookedTimes from '../img/BookTimes';
 import ActFast from '../img/ActFast';
+import style from '../style/bookingStat.css';
 
 const BookingStat = ({ bookingCount, availableTargetTimeSlots, inLuckView }) => {
   const renderInLuckMsg = () => {
     if (inLuckView) {
       return (
-        <div className="book-stat-wrapper">
+        <div className={style.book_stat_wrapper}>
           <ActFast
-            className="act-fast-icon"
+            className={style.act_fast_icon}
             viewBox="0 0 24 24"
             fill="#333333"
           />
-          <div className="restaurant-booking-stat-text">
+          <div className={style.restaurant_booking_stat_text}>
             {'You\'re in luck! We still have'}
             {' '}
             {availableTargetTimeSlots.length}
@@ -28,14 +29,14 @@ const BookingStat = ({ bookingCount, availableTargetTimeSlots, inLuckView }) => 
   };
 
   return (
-    <div className="book-stat">
-      <div className="book-stat-wrapper">
+    <div className={style.book_stat}>
+      <div className={style.book_stat_wrapper}>
         <BookedTimes
-          className="book-times-icon"
+          className={style.book_times_icon}
           viewBox="0 0 24 24"
           fill="#333333"
         />
-        <div className="restaurant-booking-stat-text">
+        <div className={style.restaurant_booking_stat_text}>
               Booked
           {' '}
           {bookingCount}

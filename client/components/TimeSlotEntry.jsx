@@ -1,11 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import style from '../style/timeSlot.css';
 
 const TimeSlotEntry = ({ slot, bookTimeSlot }) => (
-  <div className="time-slot-entry">
+  <div className={style.time_slot_entry}>
     <div
       role="button"
-      className="time-slot-entry-inner"
+      className={style.time_slot_entry_inner}
       onClick={e => bookTimeSlot(e, slot)}
       onKeyDown={e => bookTimeSlot(e, slot)}
       value={slot}
