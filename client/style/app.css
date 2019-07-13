@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
 
 .reservation_frame {
+  max-width: 400px;
   font-family: 'Source Sans Pro', sans-serif;
   margin: 0px;
   padding: 0px;
