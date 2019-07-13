@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import SVG from '../img/SelectionIcon';
 import style from '../style/selection.css';
-import iconStyle from '../style/SelectionIcon.css';
+import iconStyle from '../style/selectionIcon.css';
 
 const PartySize = (
   {
@@ -13,7 +13,7 @@ const PartySize = (
   const generatePartySize = () => {
     const sizeEntry = [];
 
-    for (let i = 2; i < 21; i++) {
+    for (let i = 2; i < 21; i += 1) {
       sizeEntry.push(
         <option
           key={`size-${i}`}

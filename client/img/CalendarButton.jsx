@@ -26,7 +26,7 @@ const SVG = ({
       if (buttonClass.includes('calendar_left_button')) {
         return `${style.calendar_button} ${style.calendar_left_button}`;
       }
-      
+
       return `${style.calendar_button} ${style.calendar_right_button}`;
     }
     if (buttonClass.includes('calendar_left_button') && !checkPastMonth()) {

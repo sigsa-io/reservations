@@ -95,7 +95,7 @@ class CalendarDates extends React.Component {
       );
 
       classname = `${style.date_cell}`;
-      
+
       // generate next month's date
       if (i === datesArr.length - 1 && row.length < 7) {
         while (row.length < 7) {

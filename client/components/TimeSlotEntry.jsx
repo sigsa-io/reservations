@@ -6,6 +6,7 @@ const TimeSlotEntry = ({ slot, bookTimeSlot }) => (
   <div className={style.time_slot_entry}>
     <div
       role="button"
+      tabIndex="0"
       className={style.time_slot_entry_inner}
       onClick={e => bookTimeSlot(e, slot)}
       onKeyDown={e => bookTimeSlot(e, slot)}

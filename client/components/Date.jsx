@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import moment from 'moment';
 import SVG from '../img/SelectionIcon';
 import Calendar from './Calendar';
-import iconStyle from '../style/SelectionIcon.css';
+import iconStyle from '../style/selectionIcon.css';
 import style from '../style/dates.css';
 
 const Date = ({ renderDate, changeRenderDate }) => {

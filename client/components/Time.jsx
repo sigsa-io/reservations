@@ -28,7 +28,7 @@ const Time = (
       );
 
       time.add(30, 'minute');
-      hourCount--;
+      hourCount -= 1;
     }
     return timeEntry;
   };
