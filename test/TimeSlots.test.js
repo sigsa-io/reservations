@@ -7,7 +7,7 @@ describe('<TimeSlotEntry />', () => {
   const wrapper = shallow(<TimeSlotEntry slot="6:30" bookTimeSlot={timeSlotOnClickFn} />);
 
   test('should invoke onclick function', () => {
-    wrapper.find('.time-slot-entry-inner').simulate('click');
+    wrapper.find('.time_slot_entry_inner').simulate('click');
     expect(timeSlotOnClickFn.mock.calls).toHaveLength(1);
   });
 });
