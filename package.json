@@ -39,6 +39,7 @@
     "jest": "^24.8.0",
     "jest-puppeteer": "^4.2.0",
     "puppeteer": "^1.18.1",
+    "sinon": "^7.3.2",
     "style-loader": "^0.23.1",
     "supertest": "^4.0.2",
     "webpack": "^4.35.2",

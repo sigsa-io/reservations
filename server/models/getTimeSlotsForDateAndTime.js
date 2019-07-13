@@ -5,6 +5,10 @@ module.exports = (req, res) => {
   const { restaurantId } = req.params;
   const { targetTimeUnix, userPartySize } = req.query;
 
+  if (!targetTimeUnix || !userPartySize) {
+    res.sendStatus(401);
+  }
+
   const timeLowerBound = Number(targetTimeUnix) - 60 * 60 * 2.5;
   const timeUpperBound = Number(targetTimeUnix) + 60 * 60 * 2.5;
 
