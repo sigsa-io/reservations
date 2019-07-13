@@ -1,0 +1,19 @@
+.selection_icon {
+  position: absolute;
+  top: 0;
+  right: 9px;
+  height: 100%;
+  width: .5rem;
+  fill: #6f737b;
+  pointer-events: none;
+}
+
+.no_time_slot_warning, 
+.successful_booking_icon {
+  position: relative;
+  height: 24px;
+  width: 24px;
+  pointer-events: none;
+  left: 0px;
+  margin: 0px 10px 0px 0px;
+}

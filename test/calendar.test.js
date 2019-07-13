@@ -15,13 +15,13 @@ describe('<Calendar />', () => {
   />);
 
   test('should have two buttons', () => {
-    expect(wrapper.find('.calendar-left-button')).toHaveLength(1);
-    expect(wrapper.find('.calendar-right-button')).toHaveLength(1);
+    expect(wrapper.find('.calendar_left_button')).toHaveLength(1);
+    expect(wrapper.find('.calendar_right_button')).toHaveLength(1);
   });
 
   test('should render Days and Dates', () => {
     expect(wrapper.contains(<CalendarDays />)).toBe(true);
-    expect(wrapper.find('.calendar-grid')).toHaveLength(1);
+    expect(wrapper.find('.calendar_grid')).toHaveLength(1);
   });
 
   test('should change momentdate in state when toNextMonth or toPriorMonth function is invoked', () => {
@@ -41,7 +41,7 @@ describe('<CalendarButton />', () => {
   const switchMonthMock = jest.fn(e => e);
   const wrapper = shallow(<CalendarButton
     switchMonth={switchMonthMock}
-    buttonClass="calendar-button calendar-right-button"
+    buttonClass="calendar_button calendar_right_button"
   />);
   test('should invoke onClick function', () => {
     wrapper.find('svg').simulate('click');

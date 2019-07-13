@@ -10,7 +10,7 @@ describe('<Date />', () => {
   useStateSpy.mockImplementation(init => [init, setState]);
 
   test('calendar should show when click date text field', () => {
-    wrapper.find('.date-input-text').simulate('click');
-    expect(wrapper.find('.outer-calendar-container')).toHaveLength(1);
+    wrapper.find('.date_input_text').simulate('click');
+    expect(wrapper.find('.outer_calendar_container')).toHaveLength(1);
   });
 });

@@ -22,7 +22,7 @@ module.exports = (req, res) => {
   const queryArgReservations = [restaurantId, timeLowerBound, timeUpperBound];
   return db.query(queryStrReservations, queryArgReservations, (reservationErr, reservationData) => {
     if (reservationErr) {
-      res.status(500).json(err);
+      res.status(500).json(reservationErr);
     } else {
       // test if data is empty
       let queryStrRestaurant;
@@ -44,7 +44,7 @@ module.exports = (req, res) => {
       } else {
         // we first get the reservation start_time in 'AMPM' format but in number
         const startTimeInReservation = {};
-        for (let i = 0; i < reservationData.length; i++) {
+        for (let i = 0; i < reservationData.length; i += 1) {
           const timeSlotStr = moment.unix(reservationData[i].start_time).format('HH:mm');
           const timeSlotNum = Number(timeSlotStr.split(':')[0]) + Number(timeSlotStr.split(':')[1]) / 60;
           startTimeInReservation[timeSlotNum] = startTimeInReservation[timeSlotNum] + reservationData[i].partySize || reservationData[i].partySize;
@@ -60,7 +60,7 @@ module.exports = (req, res) => {
           } else {
             // evaluate if the time slot is full for reservation such party size
             const availableTimeSlot = [];
-            for (let j = 0; j < data.length; j++) {
+            for (let j = 0; j < data.length; j += 1) {
               if (startTimeInReservation[data[j].timeSlot]) {
                 if (data[j].availableSeats - startTimeInReservation[data[j].timeSlot] > partySize) {
                   availableTimeSlot.push(data[j]);

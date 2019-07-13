@@ -1,13 +1,15 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import SVG from '../img/Warning';
+import style from '../style/message.css';
+import iconStyle from '../style/selectionIcon.css';
 
 const NoTimeSlot = ({ userTargetTime }) => (
-  <span className="no-time-slot-wrapper">
-    <div className="no-time-slot">
-      <div className="no-time-slot-text-wrap">
+  <span className={style.no_time_slot_wrapper}>
+    <div className={style.no_time_slot}>
+      <div className={style.no_time_slot_text_wrap}>
         <SVG
-          className="no-time-slot-warning"
+          className={iconStyle.no_time_slot_warning}
           viewBox="0 0 1000 1000"
           fill="333333"
         />

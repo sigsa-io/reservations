@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import propTypes from 'prop-types';
+import style from '../style/calendar.css';
 
 const SVG = ({
   momentDate, buttonClass, switchMonth, viewBox,
@@ -18,15 +19,20 @@ const SVG = ({
 
   const getFill = (input) => {
     if (input === buttonClass) {
-      if (buttonClass.includes('calendar-left-button') && !checkPastMonth()) {
-        return `${input} diable-switch-calendar`;
+      if (buttonClass.includes('calendar_left_button') && !checkPastMonth()) {
+        return `${style.calendar_button} ${style.calendar_left_button} ${style.diable_switch_calendar}`;
       }
-      return input;
+
+      if (buttonClass.includes('calendar_left_button')) {
+        return `${style.calendar_button} ${style.calendar_left_button}`;
+      }
+
+      return `${style.calendar_button} ${style.calendar_right_button}`;
     }
-    if (buttonClass.includes('calendar-left-button') && !checkPastMonth()) {
+    if (buttonClass.includes('calendar_left_button') && !checkPastMonth()) {
       return '#d8d9db';
     }
-    return input;
+    return '#23333';
   };
 
   return (

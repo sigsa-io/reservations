@@ -1,0 +1,87 @@
+.calendar_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-font-smoothing: antialiased;
+  border: 1px solid #d8d9db;
+  background-color: #f1f2f4;
+  width: 300px;
+  cursor: default;
+}
+
+.calendar_inner_wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  padding: 1rem 0;
+  margin: 0 auto;
+}
+
+.calendar_button_wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 0 .5rem;
+  top: 1rem;
+}
+
+.calendar_button {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 6px 8px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #d8d9db;
+  border-radius: 50%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.calendar_left_button {
+  left: 1rem;
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+.calendar_right_button {
+  right: 1rem;
+}
+
+.diable_switch_calendar {
+  pointer-events: none !important;
+  cursor: default;
+}
+
+.calendar_detail_wrapper {
+  display: table;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 0 1rem;
+  width: 256px;
+}
+
+.calendar_month {
+  display: table-caption;
+  height: 34px;
+  text-align: center;
+  font-weight: 700;
+  width: 100%;
+}

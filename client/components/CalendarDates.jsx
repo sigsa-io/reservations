@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import propTypes from 'prop-types';
+import style from '../style/calendarDates.css';
 
 class CalendarDates extends React.Component {
   constructor(props) {
@@ -52,8 +53,8 @@ class CalendarDates extends React.Component {
     // create row element with <td>
     let isOutOfCalendar = false;
     let isPastDate = false;
+    let classname = `${style.date_cell}`;
     let keyIndex;
-    let classname = 'date-cell';
     let i = 0;
     let row = [];
 
@@ -74,10 +75,10 @@ class CalendarDates extends React.Component {
       }
 
       if (isOutOfCalendar) {
-        classname += ' out-of-calendar';
+        classname = `${style.date_cell} ${style.out_of_calendar}`;
       }
       if (isPastDate) {
-        classname += ' past-month-date';
+        classname = `${style.date_cell} ${style.past_month_date}`;
       }
 
       row.push(
@@ -93,7 +94,7 @@ class CalendarDates extends React.Component {
         </div>,
       );
 
-      classname = 'date-cell';
+      classname = `${style.date_cell}`;
 
       // generate next month's date
       if (i === datesArr.length - 1 && row.length < 7) {
@@ -103,7 +104,7 @@ class CalendarDates extends React.Component {
           row.push(
             <div
               key={`${keyIndex.format('M')}-${keyIndex.format('D')}`}
-              className="date-cell out-of-calendar"
+              className={`${style.date_cell} ${style.out_of_calendar}`}
               onClick={this.clickEvent.bind(this, keyIndex)}
               onKeyDown={this.clickEvent.bind(this, keyIndex)}
               role="button"
@@ -132,7 +133,7 @@ class CalendarDates extends React.Component {
       row.push(
         <div
           key={`${keyIndex.format('M')}-${keyIndex.format('D')}`}
-          className="date-cell out-of-calendar"
+          className={`${style.date_cell} ${style.out_of_calendar}`}
           onClick={this.clickEvent.bind(this, keyIndex)}
           onKeyDown={this.clickEvent.bind(this, keyIndex)}
           role="button"
@@ -149,7 +150,7 @@ class CalendarDates extends React.Component {
     return render.map((r, j) => (
       <div
         key={`${momentDate.format('M')}-${j}`}
-        className="calendar-row"
+        className={style.calendar_row}
       >
         {r}
       </div>
@@ -158,7 +159,7 @@ class CalendarDates extends React.Component {
 
   render() {
     return (
-      <div className="calendar-grid">
+      <div className={style.calendar_grid}>
         {this.renderDates()}
       </div>
     );

@@ -17,23 +17,23 @@ describe('App Component', () => {
   });
 
   test('when booking table button is clicked, displayView state change', async () => {
-    await wrapper.find('.find-a-table-button').simulate('click');
+    await wrapper.find('.find_a_table_button').simulate('click');
     expect(wrapper.state.displayView).not.toBe('find-a-table');
   });
 
   test('shows success message when displayView is \'successful-book-time\'', async () => {
     await wrapper.setState({ displayView: 'successful-book-time' });
-    expect(wrapper.exists('.successful-booking-text-wrap')).toBe(true);
+    expect(wrapper.exists('.successful_booking_text_wrap')).toBe(true);
   });
 
   test('shows success message when displayView is \'has-time-slots\'', async () => {
     await wrapper.setState({ displayView: 'has-time-slots' });
-    expect(wrapper.exists('.time-slot-wrapper')).toBe(true);
+    expect(wrapper.exists('.time_slot_wrapper')).toBe(true);
   });
 
   test('shows success message when displayView is \'no-time-slots\'', async () => {
     await wrapper.setState({ displayView: 'no-time-slots' });
-    expect(wrapper.exists('.no-time-slot-text-wrap')).toBe(true);
+    expect(wrapper.exists('.no_time_slot_text_wrap')).toBe(true);
   });
 
   test('should switch displayView if user attempts to book above the max party size of a restaurant', async () => {
@@ -51,7 +51,7 @@ describe('App Component', () => {
 
   test('shows success message when displayView is \'max-party-size\'', async () => {
     await wrapper.setState({ displayView: 'max-party-size' });
-    expect(wrapper.exists('.no-time-slot-text-wrap')).toBe(true);
+    expect(wrapper.exists('.no_time_slot_text_wrap')).toBe(true);
   });
 
   test('should switch to successful booking view when reservation is confirmed', async () => {
