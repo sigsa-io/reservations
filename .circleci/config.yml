@@ -37,7 +37,7 @@ jobs:
           name: Create database
           command:
             sudo apt-get install mysql-client
-            mysql -h 127.0.0.1 -u user -ppassword < ./server/db/Schema.sql
+            mysql -h 127.0.0.1 -u root -ppassword < ./server/db/Schema.sql
 
       - save_cache:
           paths:
