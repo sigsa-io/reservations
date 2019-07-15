@@ -1,5 +1,5 @@
 # reservations
-Reservation component on the Open Table restaurant page. 
+Reservation component on Sigsa.io restaurant page. 
 
 
 ### Initial Database Seeding
