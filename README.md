@@ -12,3 +12,12 @@ Reservation component on the Open Table restaurant page.
 
 3. Exist MySQL terminal, and run the following script after turning on the server in a separate terminal. This script will create `reservations_table` and will also generate 100 random restaurant data in this table.
     `npm run seed`
+
+
+### Runing the App
+
+1. Run the following script in the terminal to build webpack bundle:
+    `npm run build`
+
+2. Run the following script in the terminal to build server connection to connect to database: 
+    `npm run start`
