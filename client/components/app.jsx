@@ -9,6 +9,7 @@ import SuccessfulBooking from './SuccessfulBooking';
 import getRequests from '../helperFunc/getRequests';
 import postRequests from '../helperFunc/postRequests';
 import style from '../style/app.css';
+import titleStyle from '../style/title.css';
 
 class App extends React.Component {
   constructor() {
@@ -197,30 +198,34 @@ class App extends React.Component {
       availableTargetTimeSlots,
       bookingCount,
       inLuckView,
+      restaurantName,
     } = this.state;
 
     return (
-      <div className={style.reservation_frame}>
-        <div className={style.reservation_title_wrapper}>
-          <h3 className={style.reservation_title}>
-            <span>Make a reservation</span>
-          </h3>
-        </div>
-        <div className={style.reservation_detail_wrapper}>
-          <SizeDateTime
-            renderDate={renderDate}
-            userTargetTime={userTargetTime}
-            userPartySize={userPartySize}
-            timeSelectionChange={this.timeSelectionChange}
-            changeRenderDate={this.changeRenderDate}
-            partySizeSelectionChange={this.partySizeSelectionChange}
-          />
-          { this.renderView() }
-          <BookingStat
-            bookingCount={bookingCount}
-            availableTargetTimeSlots={availableTargetTimeSlots}
-            inLuckView={inLuckView}
-          />
+      <div>
+        <h2 id={titleStyle.restaurant_title}>{restaurantName}</h2>
+        <div className={style.reservation_frame}>
+          <div className={style.reservation_title_wrapper}>
+            <h3 className={style.reservation_title}>
+              <span>Make a reservation</span>
+            </h3>
+          </div>
+          <div className={style.reservation_detail_wrapper}>
+            <SizeDateTime
+              renderDate={renderDate}
+              userTargetTime={userTargetTime}
+              userPartySize={userPartySize}
+              timeSelectionChange={this.timeSelectionChange}
+              changeRenderDate={this.changeRenderDate}
+              partySizeSelectionChange={this.partySizeSelectionChange}
+            />
+            { this.renderView() }
+            <BookingStat
+              bookingCount={bookingCount}
+              availableTargetTimeSlots={availableTargetTimeSlots}
+              inLuckView={inLuckView}
+            />
+          </div>
         </div>
       </div>
     );
