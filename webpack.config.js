@@ -1,9 +1,12 @@
 const path = require('path');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'client', 'index.jsx'),
+  entry: {
+    title: path.resolve(__dirname, 'client', 'Title.jsx'),
+    reservation: path.resolve(__dirname, 'client', 'index.jsx'),
+  },
   output: {
-    filename: 'main.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'public'),
   },
   module: {
