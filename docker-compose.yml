@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - '3306:3306'
+    networks:
+      - reservation-net
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+
+  reservation:
+    build: .
+    networks:
+      - reservation-net
+    depends_on:
+      - 'db'
+    environment:
+      WAIT_HOSTS: 'db:3306'
+    ports: 
+      - '3003:3003'
+networks:
+  reservation-net:

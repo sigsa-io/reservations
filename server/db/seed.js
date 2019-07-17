@@ -62,20 +62,16 @@ const insertToReservationTable = () => {
   db.query(queryStrRestaurants, [seedRestaurants], (err, data) => {
     if (err) {
       console.log(err);
-      return;
     }
-    return;
   });
 
   const queryStrBookingCount = 'INSERT INTO bookingCount (restaurantId) VALUES ?';
   db.query(queryStrBookingCount, [seedBookingCount], (err, data) => {
     if (err) {
       console.log(err);
-      return;
     }
-    return;
   });
-
+  process.exit();
 };
 
 insertToReservationTable();
