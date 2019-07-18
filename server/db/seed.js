@@ -70,8 +70,8 @@ const insertToReservationTable = () => {
     if (err) {
       console.log(err);
     }
+    process.exit();
   });
-  process.exit();
 };
 
 insertToReservationTable();

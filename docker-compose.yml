@@ -11,7 +11,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
 
   reservation:
-    build: .
+    image: littlejennie/sigsa_reservation
     networks:
       - reservation-net
     depends_on:
