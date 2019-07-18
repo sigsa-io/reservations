@@ -1,4 +1,5 @@
 const path = require('path');
+const cors = require('cors');
 const express = require('express');
 const morgan = require('morgan');
 const router = require('./Route.js');
@@ -6,6 +7,7 @@ const router = require('./Route.js');
 const app = express();
 
 app.use(morgan('dev'));
+app.use(cors());
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use('/:restaurantId/reservations', express.static(path.resolve(__dirname, '..', 'public')));
