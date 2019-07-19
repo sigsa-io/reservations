@@ -12,6 +12,7 @@ services:
 
   reservation:
     image: littlejennie/sigsa_reservation
+    # build: .
     networks:
       - reservation-net
     depends_on:
